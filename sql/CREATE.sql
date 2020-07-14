@@ -181,6 +181,7 @@ CREATE TABLE ydm_ingrediente_esencia
     cas_ingrediente_esencia numeric NOT NULL UNIQUE,
     nombre_ingrediente_esencia varchar(30) NOT NULL UNIQUE,
     proceso_ingrediente_esencia varchar(15) NOT NULL,
+    id_proveedor_ingrediente_esencia numeric NOT NULL,
     desc_proceso_ingrediente_esencia varchar,
     vigencia_ingrediente_esencia date,
     flashpoint_ingrediente_esencia numeric,
@@ -209,6 +210,7 @@ CREATE TABLE ydm_escala
     fecha_creacion_escala date NOT NULL DEFAULT CURRENT_DATE,
     min_escala numeric NOT NULL,
     max_escala numeric NOT NULL,
+    id_productor_escala numeric NOT NULL,
     fecha_expiracion_escala date,
     CONSTRAINT pk_fecha_creacion_escala PRIMARY KEY (fecha_creacion_escala)
 );
@@ -235,8 +237,8 @@ CREATE TABLE ydm_eval_crit
 CREATE TABLE ydm_monolitico 
 (
     id_perfume_monolitico numeric NOT NULL,
-    id_aceite_monolitico numeric NOT NULL,
-    CONSTRAINT pk_monolitico PRIMARY KEY (id_perfume_monolitico, id_aceite_monolitico)
+    id_esencia_perfume_monolitico numeric NOT NULL,
+    CONSTRAINT pk_monolitico PRIMARY KEY (id_perfume_monolitico, id_esencia_perfume_monolitico)
 );
 
 CREATE TABLE ydm_otro_comp
@@ -246,7 +248,7 @@ CREATE TABLE ydm_otro_comp
    CONSTRAINT pk_otro_comp PRIMARY KEY (id_perfume_otro_comp,id_ingrediente_general_otro_comp)
 );
 
-CREATE SEQUENCE ydm_pres_perp 
+CREATE SEQUENCE ydm_secuencia_pres_perp 
     start with 1
     increment 1
     minvalue 1
@@ -255,15 +257,16 @@ CREATE SEQUENCE ydm_pres_perp
 
 CREATE TABLE ydm_pres_perp(
     id_pres_perp numeric NOT NULL DEFAULT nextval
-    ('ydm_pres_perp' ::regclass),
+    ('ydm_secuencia_pres_perp' ::regclass),
     id_intensidad_pres_perp numeric NOT NULL,
-    CONSTRAINT pk_pres_perp PRIMARY kEY (id_pres_perp,id_intensidad_presp_perp)
+    id_perfume_intensidad_pres_perp numeric NOT NULL,
+    CONSTRAINT pk_pres_perp PRIMARY KEY (id_pres_perp,id_intensidad_pres_perp, id_perfume_intensidad_pres_perp)
 );
  
  CREATE TABLE ydm_pfm_pfmt(
      id_perfume_pfm_pfmt numeric NOT NULL,
      id_perfumista_pfm_pfmt numeric NOT NULL,
-     CONSTRAINT pk_pfm_pfmt PRIMARY kEY (id_perfume_pfm_pfmt,id_perfumista_pfm_pfmt)
+     CONSTRAINT pk_pfm_pfmt PRIMARY KEY (id_perfume_pfm_pfmt,id_perfumista_pfm_pfmt)
  );
 
 
@@ -286,31 +289,31 @@ CREATE TABLE ydm_nota
     id_nota numeric NOT NULL DEFAULT nextval
     ('ydm_nota' ::regclass),
     id_perfume_nota numeric NOT NULL,
-    id_aceite_nota numeric NOT NULL,
+    id_esencia_perfume_nota numeric NOT NULL,
     tipo_nota varchar(8),
-    CONSTRAINT pk_nota PRIMARY KEY (id_nota,id_perfume_nota,id_aceite_nota),
+    CONSTRAINT pk_nota PRIMARY KEY (id_nota,id_perfume_nota,id_esencia_perfume_nota),
     CONSTRAINT chk_tipo_nota CHECK (tipo_nota in ('salida','corazon','fondo'))
 );
 
 CREATE TABLE ydm_ep_fo
 (
-    id_aceite_ep_fo numeric NOT NULL,
+    id_esencia_perfume_ep_fo numeric NOT NULL,
     id_familia_olfativa_ep_fo numeric NULL,
-    CONSTRAINT pk_ep_fo PRIMARY KEY (id_aceite_ep_fo,id_familia_olfativa_ep_fo)
+    CONSTRAINT pk_ep_fo PRIMARY KEY (id_esencia_perfume_ep_fo,id_familia_olfativa_ep_fo)
 );
 
 CREATE TABLE ydm_ie_fo
 (
     id_familia_olfativa_ie_fo numeric NOT NULL,
     id_ingrediente_esencia_ie_fo numeric NOT NULL,
-    CONSTRAINT pk_ie_fo PRIMARY kEY (id_familia_olfativa_ie_fo,id_ingrediente_esencia_ie_fo)
+    CONSTRAINT pk_ie_fo PRIMARY KEY (id_familia_olfativa_ie_fo,id_ingrediente_esencia_ie_fo)
 );
 
 CREATE TABLE ydm_ep_ig
 (
-    id_aceite_ep_ig numeric NOT NULL,
+    id_esencia_perfume_ep_ig numeric NOT NULL,
     id_ingrediente_general_ep_ig numeric NOT NULL,
-    CONSTRAINT pk_ep_ig PRIMARY KEY (id_aceite_ep_ig,id_ingrediente_general_ep_ig)
+    CONSTRAINT pk_ep_ig PRIMARY KEY (id_esencia_perfume_ep_ig,id_ingrediente_general_ep_ig)
 );
 
 CREATE TABLE ydm_otro
@@ -332,6 +335,20 @@ CREATE TABLE ydm_g_pc
     id_ingrediente_general_g_pc numeric NOT NULL,
     id_palabra_clave_g_pc numeric NOT NULL,
     CONSTRAINT pk_g_pc PRIMARY KEY (id_ingrediente_general_g_pc,id_palabra_clave_g_pc)
+);
+
+CREATE SEQUENCE ydm_secuencia_pais
+start with 1
+    increment 1
+    minvalue 1
+    maxvalue 200
+;
+
+CREATE TABLE ydm_pais
+(
+    id_pais numeric NOT NULL,
+    nombre_pais varchar(60) NOT NULL,
+    CONSTRAINT pk_id_pais PRIMARY KEY (id_pais)
 );
 
 CREATE TABLE ydm_pc_ep
@@ -484,9 +501,9 @@ CREATE TABLE ydm_alt_envio
 (
     id_alt_envio numeric NOT NULL DEFAULT nextval
     ('ydm_secuencia_alt_envio'::regclass),
-    id_proveedoralt_envio numeric NOT NULL,
-    id_contratoalt_envio numeric NOT NULL,
-    id_paisalt_envio numeric NOT NULL,
+    id_proveedor_alt_envio numeric NOT NULL,
+    id_contrato_alt_envio numeric NOT NULL,
+    id_pais_alt_envio numeric NOT NULL,
     transporte_alt_envio varchar NOT NULL,
     costo_alt_envio numeric NOT NULL,
     tiempo_estimado_alt_envio date,
@@ -525,8 +542,8 @@ CREATE TABLE ydm_miembro_ifra
     nivel_miembro_ifra varchar(20) NOT NULL,
     tipo_miembro_ifra varchar(10) NOT NULL,
     fecha_exclusion_miembro_ifra date,
-    id_proveedor numeric,
-    id_productor numeric,
+    id_proveedor_miembro_ifra numeric,
+    id_productor_miembro_ifra numeric,
     CONSTRAINT pk_id_miembro_ifra PRIMARY KEY (id_miembro_ifra),
     CONSTRAINT chk_nivel_miembro_ifra CHECK(nivel_miembro_ifra in ('asociacion nacional', 'principal', 'secundario')),
     CONSTRAINT chk_tipo_miembro_ifra CHECK(tipo_miembro_ifra in ('proveedor', 'productor'))
@@ -545,8 +562,12 @@ CREATE TABLE ydm_cond_env_pago
     id_contrato_cond_env_pago numeric NOT NULL,
     descripcion_cond_env_pago varchar NOT NULL,
     id_condicion_pago_cond_env_pago numeric,
+    id_proveedor_condicion_pago_cond_env_pago numeric,
     id_alt_envio_cond_env_pago numeric,
-    CONSTRAINT pk_id_cond_env_pago PRIMARY KEY (id_cond_env_pago)
+    id_proveedor_alt_envio_cond_env_pago numeric,
+    id_contrato_alt_envio_cond_env_pago numeric,
+    id_pais_alt_envio_cond_env_pago numeric,
+    CONSTRAINT pk_id_cond_env_pago PRIMARY KEY (id_cond_env_pago, id_contrato_cond_env_pago)
 );
 
 CREATE TABLE ydm_evaluacion
@@ -556,8 +577,8 @@ CREATE TABLE ydm_evaluacion
     id_productor_evaluacion numeric NOT NULL,
     nota_evaluacion numeric NOT NULL,
     tipo_evaluacion varchar(10) NOT NULL,
-    CONSTRAINT pk_fecha_evaluacion PRIMARY KEY (fecha_evaluacion, id_proveedor, id_productor),
-    CONSTRAINT chk_tipo_evaluacion CHECK(tipo_evaluacion in ('inicial', 'evaluacion') 
+    CONSTRAINT pk_fecha_evaluacion PRIMARY KEY (fecha_evaluacion, id_proveedor_evaluacion, id_productor_evaluacion),
+    CONSTRAINT chk_tipo_evaluacion CHECK(tipo_evaluacion in ('inicial', 'evaluacion')) 
 );
 
 CREATE SEQUENCE ydm_secuencia_clausula_prod
@@ -573,7 +594,7 @@ CREATE TABLE ydm_clausula_prod
     id_contrato_clausula_prod numeric NOT NULL,
     id_ingr_esencia_clausula_prod numeric NOT NULL,
     id_ingr_general_clausula_prod numeric NOT NULL,
-    CONSTRAINT pk_id_clausula_prod PRIMARY KEY (id_clausula_prod, id_contrato)
+    CONSTRAINT pk_id_clausula_prod PRIMARY KEY (id_clausula_prod, id_contrato_clausula_prod)
 );
 
 CREATE SEQUENCE ydm_secuencia_presentacion
@@ -588,11 +609,11 @@ CREATE TABLE ydm_presentacion
     id_presentacion numeric NOT NULL DEFAULT nextval('ydm_secuencia_presentacion'::regclass),
     precio_presentacion numeric NOT NULL,
     volumen_presentacion numeric NOT NULL,
-    id_ingr_esencia numeric NOT NULL,
-    id_ingr_general numeric NOT NULL,
+    id_ingr_esencia_presentacion numeric NOT NULL,
+    id_ingr_general_presentacion numeric NOT NULL,
     id_proveedor_presentacion numeric,
     id_productor_presentacion numeric, 
-    CONSTRAINT pk_id_clausula_prod PRIMARY KEY (id_clausula_prod, id_contrato)
+    CONSTRAINT pk_id_presentacion PRIMARY KEY (id_presentacion)
 );
 
 CREATE SEQUENCE ydm_secuencia_pedido
@@ -610,8 +631,10 @@ CREATE TABLE ydm_pedido
     estatus_pedido varchar NOT NULL,
     id_proveedor_pedido numeric NOT NULL,
     id_productor_pedido numeric NOT NULL,
-    id_cond_env_pedido numeric,
-    id_cond_pago_pedido numeric,
+    id_cond_env_pago_pedido numeric,
+    id_contrato_cond_env_pago_pedido numeric,
+    id_condicion_pago_pedido numeric,
+    id_proveedor_condicion_pago_pedido numeric,
     fecha_confirmacion_pedido date,
     num_factura_pedido numeric,
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
