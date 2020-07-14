@@ -636,6 +636,7 @@ CREATE TABLE ydm_pedido
 
 ALTER TABLE ydm_perfumista
     ADD CONSTRAINT fk_id_pais_perfumista FOREIGN KEY (id_pais_perfumista) REFERENCES ydm_pais(id_pais)
+;
 
 ALTER TABLE ydm_condicion_pago 
     ADD CONSTRAINT fk_id_proveedor_condicion_pago FOREIGN KEY (id_proveedor_condicion_pago) REFERENCES ydm_proveedor(id_proveedor)

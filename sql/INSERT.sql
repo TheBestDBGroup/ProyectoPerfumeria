@@ -309,11 +309,10 @@ INSERT INTO ydm_nota VALUES
 INSERT INTO ydm_perfumista VALUES
   (DEFAULT, 'Donna', 'Ramanauskas', 60, 'dramanauskas@robertetusa.com', DEFAULT, DEFAULT),
   (DEFAULT, 'Mathieu', 'Nardin', 66, 'mnardin@mane.com', DEFAULT, DEFAULT),
-  (DEAFULT, 'Jean', 'Mignon', 66, 'jcmignon@robertetfr.com', 'Charles', DEFAULT);
+  (DEFAULT, 'Jean', 'Mignon', 66, 'jcmignon@robertetfr.com', 'Charles', DEFAULT);
 
 INSERT INTO ydm_pfm_pfmt VALUES
   (1,1),
   (2,2),
   (3,3);
 
-  
