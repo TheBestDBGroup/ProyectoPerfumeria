@@ -640,3 +640,110 @@ CREATE TABLE ydm_pedido
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
     CONSTRAINT chk_estatus_pedido CHECK(estatus_pedido in ('por confirmar', 'confirmado', 'cancelado por productor', 'cancelado por proveedor'))
 );
+
+ALTER TABLE ydm_monoliticos add
+    CONSTRAINT FK_monolitico_perfume FOREIGN kEY (id_perfume) REFERENCES ydm_perfume(id_perfume),
+    CONSTRAINT FK_monolitico_aceite FOREIGN KEY (id_aceite) REFERENCES ydm_aceite(id_aceite)
+;
+
+
+ALTER TABLE ydm_otro_comp add
+    CONSTRAINT FK_otro_comp_perfume FOREIGN kEY (id_perfume) REFERENCES ydm_perfume(id_perfume),
+    CONSTRAINT FK_otro_comp_ingrediente_general FOREIGN KEY (id_ingrediente_general) REFERENCES ydm_ingrediente_general(id_ingrediente_general)
+;
+
+ALTER TABLE ydm_pres_perp add 
+    CONSTRAINT FK_pres_perp_intensidad FOREIGN KEY (id_intensidad) references ydm_intensidad(id_intensidad)
+;
+
+ALTER TABLE ydm_pfm_pfmt
+    CONSTRAINT FK_pfm_pfmt_perfume FOREIGN kEY (id_perfume) REFERENCES ydm_perfume(id_perfume),
+    CONSTRAINT FK_pfm_pfmt_perfimista FOREIGN KEY (id_perfumista) REFERENCES ydm_pefumista(id_perfumista)
+;
+
+ALTER TABLE ydm_principal add 
+    CONSTRAINT FK_principal_perfume FOREIGN KEY (id_perfume) REFERENCES ydm_perfume(id_perfume),
+    CONSTRAINT FK_principal_familia_olfativa FOREIGN KEY (id_perfume) REFERENCES ydm_perfumeria(id_perfume)
+;
+
+ALTER TABLE ydm_nota add 
+    CONSTRAINT FK_nota_perfume FOREIGN KEY (id_perfume) REFERENCES ydm_perfume(id_perfume),
+    CONSTRAINT FK_nota_aceite FOREIGN KEY (id_aceite) REFERENCES ydm_aceite(id_aceite)
+;
+
+ALTER TABLE ydm_ep_fo add 
+    CONSTRAINT FK_ep_fo_aceite FOREIGN KEY (id_aceite) REFERENCES ydm_aceite(id_aceite),
+    CONSTRAINT FK_ep_fo_familia_olfativa FOREIGN KEY (id_familia_olfativa) REFERENCES ydm_familia_olfativa(id_familia_olfativa)
+;
+
+ALTER TABLE ydm_ie_fo add 
+    CONSTRAINT FK_ie_fo_familia_olfativa FOREIGN KEY (id_familia_olfativa) REFERENCES ydm_familia_olfativa(id_familia_olfativa),
+    CONSTRAINT FK_ie_fo_ingrediente_esencia FOREIGN KEY (id_ingrediente_esencia) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia)
+;
+
+ALTER TABLE ydm_ep_ig add 
+    CONSTRAINT FK_ep_ig_aceite FOREIGN KEY (id_aceite) REFERENCES ydm_aceite(id_aceite),
+    CONSTRAINT FK_ep_ig_ingrediente_general FOREIGN KEY (id_ingrediente_general) REFERENCES ydm_ingrediente_general(id_ingrediente_general)
+;
+
+ALTER TABLE ydm_otro add 
+    CONSTRAINT FK_otro_ingrediente_esencia FOREIGN KEY (id_ingrediente_esencia) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
+    CONSTRAINT FK_otro_ingrediente_general FOREIGN KEY (id_ingrediente_general) REFERENCES ydm_ingrediente_general(id_ingrediente_general)
+;
+
+ALTER TABLE ydm_fo_pc add 
+    CONSTRAINT FK_fo_pc_familia_olfativa FOREIGN KEY (id_familia_olfativa) REFERENCES ydm_familia_olfativa(id_familia_olfativa),
+    CONSTRAINT FK_fo_ppc_palabra_clave FOREIGN KEY (id_palabra_clave) REFERENCES ydm_palabra_clave(id_palabra_clave)
+;  
+
+ALTER TABLE ydm_g_pc add 
+    CONSTRAINT FK_g_pc_ingrediente_general FOREIGN KEY (id_ingrediente_general) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
+    CONSTRAINT FK_g_pc_palabra_clave FOREIGN KEY (id_palabra_clave) REFERENCES ydm_palabra_clave(id_palabra_clave)
+;  
+
+ALTER TABLE ydm_pc_ep add 
+    CONSTRAINT FK_pc_ep_palabra_clave FOREIGN KEY (id_palabra_clave) REFERENCES ydm_palabra_clave(id_palabra_clave),
+    CONSTRAINT FK_pc_ep_aceite FOREIGN KEY (id_aceite) REFERENCES ydm_aceite(id_aceite)
+;
+
+ALTER TABLE ydm_pi_pdt_env add 
+    CONSTRAINT FK_pi_pdt_env_productor FOREIGN KEY (id_productor) REFERENCES ydm_productor(id_productor),
+    CONSTRAINT FK_pi_pdt_env_pais FOREIGN KEY (id_pais) REFERENCES ydm_pais(id_pais)
+; 
+
+ALTER TABLE ydm_origen add 
+    CONSTRAINT FK_origen_ingrediente_esencia FOREIGN KEY (id_ingrediente_esencia) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
+    CONSTRAINT FK_origen_pais FOREIGN KEY (id_pais) REFERENCES ydm_pais(id_pais)
+;
+
+ALTER TABLE ydm_detalle_pedido add 
+    CONSTRAINT FK_detalle_pedido_presentacion FOREIGN KEY (id_presentacion) REFERENCES ydm_presentacion(id_presentacion),
+    CONSTRAINT FK_detalle_pedido_pedido FOREIGN KEY (id_pedido) REFERENCES ydm_pedido(id_pedido)
+;
+
+ALTER TABLE ydm_productor add 
+    CONSTRAINT FK_productor_asociacion_nacional FOREIGN KEY (id_asociacion_nacional) REFERENCES ydm_asociacion_nacional(id_asociacion_nacional)
+;
+
+ALTER TABLE ydm_asociacion_nacional add 
+    CONSTRAINT FK_asociacion_nacional_pais FOREIGN KEY (id_pais) REFERENCES ydm_pais(id_pais)
+;
+
+ALTER TABLE ydm_proveedor add 
+    CONSTRAINT FK_proveedor_asociacion_nacional FOREIGN KEY (id_asociacion_nacional) REFERENCES ydm_asociacion_nacional(id_asociacion_nacional),
+    CONSTRAINT FK_proveedor_pais FOREIGN KEY (id_pais) REFERENCES ydm_pais(id_pais)
+;
+
+ALTER TABLE ydm_contrato add 
+    CONSTRAINT FK_contrato_productor FOREIGN KEY (id_productor) REFERENCES ydm_productor(id_productor),
+    CONSTRAINT FK_contrato_proveedor FOREIGN KEY (id_proveedor) REFERENCES ydm_proveedor(id_proveedor)
+;
+
+ALTER TABLE ydm_renueva add 
+    CONSTRAINT FK_renueva_contrato FOREIGN KEY (id_contrato) REFERENCES ydm_contrato(id_contrato)
+;
+
+ALTER TABLE ydm_alt_envio add 
+    CONSTRAINT FK_alt_envio_proveedor FOREIGN KEY (id_productor) REFERENCES ydm_productor(id_productor),
+    CONSTRAINT FK_alt_envio_contrato FOREIGN KEY (id_contrato) REFERENCES ydm_contrato(id_contrato),
+    CONSTRAINT FK_alt_envio_pais FOREIGN KEY (id_pais) REFERENCES ydm_pais(id_pais)
