@@ -641,6 +641,40 @@ CREATE TABLE ydm_pedido
     CONSTRAINT chk_estatus_pedido CHECK(estatus_pedido in ('por confirmar', 'confirmado', 'cancelado por productor', 'cancelado por proveedor'))
 );
 
+ALTER TABLE ydm_condicion_pago 
+    ADD CONSTRAINT fk_id_proveedor_condicion_pago FOREIGN KEY (id_proveedor_condicion_pago) REFERENCES ydm_proveedor(id_proveedor)
+;
+
+ALTER TABLE ydm_esencia_perfume 
+    ADD CONSTRAINT fk_id_proceso_esencia_perfume FOREIGN KEY (id_proceso_esencia_perfume) REFERENCES ydm_proceso(id_proceso)
+;
+
+ALTER TABLE ydm_ingrediente_general 
+    ADD CONSTRAINT fk_id_proveedor_ingrediente_general FOREIGN KEY (id_proveedor_ingrediente_general) REFERENCES ydm_proveedor(id_proveedor)
+;
+
+ALTER TABLE ydm_ingrediente_esencia 
+    ADD CONSTRAINT fk_id_proveedor_ingrediente_esencia FOREIGN KEY (id_proveedor_ingrediente_esencia) REFERENCES ydm_proveedor(id_proveedor)
+;
+
+ALTER TABLE ydm_intensidad 
+    ADD CONSTRAINT fk_id_perfume_intensidad FOREIGN KEY (id_perfume_intensidad) REFERENCES ydm_perfume(id_perfume)
+;
+
+ALTER TABLE ydm_escala 
+    ADD CONSTRAINT fk_id_productor_escala FOREIGN KEY (id_productor_escala) REFERENCES ydm_productor(id_productor)
+;
+
+ALTER TABLE ydm_eval_crit 
+    ADD CONSTRAINT fk_id_productor_eval_crit FOREIGN KEY (id_productor_eval_crit) REFERENCES ydm_productor(id_productor),
+    ADD CONSTRAINT fk_id_criterio_eval_eval_crit FOREIGN KEY (id_criterio_eval_eval_crit) REFERENCES ydm_criterio_eval(id_criterio_eval)
+;
+
+ALTER TABLE ydm_tlf
+    ADD CONSTRAINT fk_id_productor_tlf FOREIGN KEY (id_productor_tlf) REFERENCES ydm_productor(id_productor),
+    ADD CONSTRAINT fk_id_proveedor_tlf FOREIGN KEY (id_proveedor_tlf) REFERENCES ydm_proveedor(id_proveedor)
+;
+
 ALTER TABLE ydm_monolitico 
     ADD CONSTRAINT fk_monolitico_perfume FOREIGN KEY (id_perfume_monolitico) REFERENCES ydm_perfume(id_perfume),
     ADD CONSTRAINT fk_monolitico_esencia_perfume FOREIGN KEY (id_esencia_perfume_monolitico) REFERENCES ydm_esencia_perfume(id_esencia_perfume)
@@ -746,4 +780,40 @@ ALTER TABLE ydm_alt_envio
     ADD CONSTRAINT fk_alt_envio_proveedor FOREIGN KEY (id_proveedor_alt_envio) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_alt_envio_contrato FOREIGN KEY (id_contrato_alt_envio) REFERENCES ydm_contrato(id_contrato),
     ADD CONSTRAINT fk_alt_envio_pais FOREIGN KEY (id_pais_alt_envio) REFERENCES ydm_pais(id_pais)
+;
+
+ALTER TABLE ydm_miembro_ifra
+    ADD CONSTRAINT fk_id_productor_miembro_ifra FOREIGN KEY (id_productor_miembro_ifra) REFERENCES ydm_productor(id_productor),
+    ADD CONSTRAINT fk_id_proveedor_miembro_ifra FOREIGN KEY (id_proveedor_miembro_ifra) REFERENCES ydm_proveedor(id_proveedor)
+;
+
+ALTER TABLE ydm_cond_env_pago
+    ADD CONSTRAINT fk_id_contrato_cond_env_pago FOREIGN KEY (id_contrato_cond_env_pago) REFERENCES ydm_contrato(id_contrato),
+    ADD CONSTRAINT fk_id_condicion_pago_cond_env_pago FOREIGN KEY (id_condicion_pago_cond_env_pago, id_proveedor_condicion_pago_cond_env_pago) REFERENCES ydm_condicion_pago(id_condicion_pago, id_proveedor_condicion_pago),
+    ADD CONSTRAINT fk_alt_envio_cond_env_pago FOREIGN KEY (id_alt_envio_cond_env_pago, id_proveedor_alt_envio_cond_env_pago, id_contrato_alt_envio_cond_env_pago, id_pais_alt_envio_cond_env_pago) REFERENCES ydm_alt_envio(id_alt_envio, id_proveedor_alt_envio, id_contrato_alt_envio, id_pais_alt_envio)
+;
+
+ALTER TABLE ydm_evaluacion
+    ADD CONSTRAINT fk_id_proveedor_evaluacion FOREIGN KEY (id_proveedor_evaluacion) REFERENCES ydm_proveedor(id_proveedor),
+    ADD CONSTRAINT fk_id_productor_evaluacion FOREIGN KEY (id_productor_evaluacion) REFERENCES ydm_productor(id_productor)
+;
+
+ALTER TABLE ydm_clausula_prod
+    ADD CONSTRAINT fk_id_contrato_clausula_prod FOREIGN KEY (id_contrato_clausula_prod) REFERENCES ydm_contrato(id_contrato),
+    ADD CONSTRAINT fk_id_ingr_esencia_clausula_prod FOREIGN KEY (id_ingr_esencia_clausula_prod) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
+    ADD CONSTRAINT fk_id_ingr_general_clausula_prod FOREIGN KEY (id_ingr_general_clausula_prod) REFERENCES ydm_ingrediente_general(id_ingrediente_general)
+;
+
+ALTER TABLE ydm_presentacion
+    ADD CONSTRAINT fk_id_ingr_esencia_presentacion FOREIGN KEY (id_ingr_esencia_presentacion) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
+    ADD CONSTRAINT fk_id_ingr_general_presentacion FOREIGN KEY (id_ingr_general_presentacion) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
+    ADD CONSTRAINT fk_id_proveedor_presentacion FOREIGN KEY (id_proveedor_presentacion) REFERENCES ydm_proveedor(id_proveedor),
+    ADD CONSTRAINT fk_id_productor_presentacion FOREIGN KEY (id_productor_presentacion) REFERENCES ydm_productor(id_productor)
+;
+
+ALTER TABLE ydm_pedido
+    ADD CONSTRAINT fk_id_proveedor_pedido FOREIGN KEY (id_proveedor_pedido) REFERENCES ydm_proveedor(id_proveedor),
+    ADD CONSTRAINT fk_id_productor_pedido FOREIGN KEY (id_productor_pedido) REFERENCES ydm_productor(id_productor),
+    ADD CONSTRAINT fk_id_cond_env_pedido FOREIGN KEY (id_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
+    ADD CONSTRAINT fk_cond_pago_pedido FOREIGN KEY (id_condicion_pago_pedido, id_proveedor_condicion_pago_pedido) REFERENCES ydm_condicion_pago(id_condicion_pago, id_proveedor_condicion_pago)
 ;
