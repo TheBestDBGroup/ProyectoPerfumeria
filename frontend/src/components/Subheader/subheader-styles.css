@@ -1,0 +1,9 @@
+.subheader-nav{
+	background-color: white !important;
+	max-width: 100vw;
+	padding-left:20px;
+}
+
+.subheader-nav-item {
+	margin-left:10px;
+}

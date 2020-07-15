@@ -1,0 +1,17 @@
+.header-logo {
+	max-height:50px;
+}
+
+.header-nav {
+	background-color: white;
+	min-height:90px;
+	max-width:100%;
+	width:100%;
+	justify-content:space-between;
+}
+
+.header-links-wrapper{
+	background-color: white;
+	display:flex;
+	border-bottom:0px !important;
+}
