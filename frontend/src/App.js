@@ -3,58 +3,49 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom'
 import "tabler-react/dist/Tabler.css";
 import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
-import Proveedores from './pages/Proveedores/Proveedores'
-import AgregarProveedores from './pages/AgregarProveedores/AgregarProveedores'
+import Perfumes from './pages/Perfumes/Perfumes'
+import AgregarPerfumes from './pages/AgregarPerfumes/AgregarPerfumes'
 
 
 
 const subheaderLinks = {
   root:  [
-  
-    {
-      linkName: "Proveedores",
-      linkRef: "/proveedores",
-    },
-    {
-      linkName: "Clientes",
-      linkRef: "/proveedores",
-    },
     {
       linkName: "Perfumes",
-      linkRef: "/proveedores",
+      linkRef: "/perfumes",
     },
     {
-      linkName: "Ingredientes",
-      linkRef: "/proveedores",
-    },
+      linkName: "Agregar Perfume",
+      linkRef: "/perfumes/agregar",
+    }
   ],
 
   evaluacion:[
     {
       linkName: "Evaluaciones",
-      linkRef: "/proveedores",
+      linkRef: "/",
     },
     {
       linkName: "Fórmulas",
-      linkRef: "/proveedores",
+      linkRef: "/",
     },
     {
       linkName: "Criterios de Evaluación",
-      linkRef: "/proveedores",
+      linkRef: "/s",
     },
   ],
 
   compras:[
     {
       linkName: "Contratos",
-      linkRef: "/proveedores",
+      linkRef: "/",
     },
   ],
 
   recomendador:[
     {
       linkName: "Filtros",
-      linkRef: "/proveedores",
+      linkRef: "/",
     },
   ],
 
@@ -62,22 +53,10 @@ const subheaderLinks = {
 
 
 const sidebarLinks = {
-  proveedores:[
+  perfumes:[
     {
-      linkName: "Consultar Proveedor",
-      linkRef: "/proveedores/consultar",
-    },
-    {
-      linkName: "Agregar Proveedor",
-      linkRef: "/proveedores/agregar",
-    },
-    {
-      linkName: "Eliminar Proveedor",
-      linkRef: "/proveedores/eliminar",
-    },
-    {
-      linkName: "Actualizar Proveedor",
-      linkRef: "/proveedores/actualizar",
+      linkName: "Agregar Perfume",
+      linkRef: "/perfumes/agregar",
     },
   ],
 };
@@ -89,12 +68,12 @@ const routes = [
       render: (props) => <Main {...props} subheaderLinks={subheaderLinks.root}/>
     },
     {
-      path: '/proveedores',
-      render: (props) => <Proveedores {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.proveedores}/>
+      path: '/perfumes',
+      render: (props) => <Perfumes {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.perfumes}/>
     },
     {
-      path: '/proveedores/agregar',
-      render: (props) => <AgregarProveedores {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.proveedores}/>
+      path: '/perfumes/agregar',
+      render: (props) => <AgregarPerfumes {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.perfumes}/>
     },
     {
       path: '/evaluacion',
