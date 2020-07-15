@@ -1,28 +1,26 @@
 import React from 'react';
 import {List} from "tabler-react";
 import './sidebar-styles.css';
+import { Link as DomLink } from 'react-router-dom'
 
 
-const Sidebar = () => {
+const Sidebar = ({sidebarLinks}) => {
 	return (
 		<div className="sidebar-wrapper">
 		<List className="sidebar-nav">
 			<List.Group className="sidebar-nav-listgroup">
-				<List.GroupItem action icon="globe">
-				   Listar Proveedores
-				 </List.GroupItem>
-				  <List.GroupItem action icon="globe">
-				    Agregar proveedor
-				  </List.GroupItem>
-				  <List.GroupItem action icon="globe">
-				    Eliminar Proveedor
-				  </List.GroupItem>
-				  <List.GroupItem action icon="globe">
-				    Consultar Proveedor
-				  </List.GroupItem>
-				  <List.GroupItem action icon="globe">
-				    Actualizar Datos de Proveedor
-				  </List.GroupItem>
+				{sidebarLinks.map(({linkName, linkRef}) => (
+					<DomLink
+			          to={linkRef}
+			          style={{
+			            textDecoration: 'none',
+			            color:'#9aa0ac'
+			          }}>
+					<List.GroupItem action icon="globe">
+				   		{linkName}
+				 	</List.GroupItem>
+				 	</DomLink>
+				))}				
 			</List.Group>
 		</List>
 		</div>

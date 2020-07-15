@@ -1,16 +1,12 @@
 import React from 'react';
 import './main-styles.css';
-import Header from '../../components/Header/Header'
 import Subheader from '../../components/Subheader/Subheader'
-import Sidebar from '../../components/Sidebar/Sidebar'
 
-const Main = () => (
+const Main = ({subheaderLinks}) => (
 	<>
-	<Header/>
-	<Subheader/>
-	<div className="main-content-wrapper">
-		<Sidebar/>
-	</div>
+		<div className="main-content-wrapper">
+		          <Subheader subheaderLinks={subheaderLinks}/>
+		</div>
 	</>
 )
 

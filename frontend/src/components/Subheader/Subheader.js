@@ -1,35 +1,24 @@
 import React from 'react';
 import './subheader-styles.css'
 import {Nav} from "tabler-react";
+import { Link as DomLink } from 'react-router-dom'
 
 
-
-const DummyHeaders = [
-	{
-		linkName: "Proveedores",
-		linkRef: "/proveedores",
-	},
-	{
-		linkName: "Clientes",
-		linkRef: "/proveedores",
-	},
-	{
-		linkName: "Perfumes",
-		linkRef: "/proveedores",
-	},
-	{
-		linkName: "Ingredientes",
-		linkRef: "/proveedores",
-	},
-]
-
-const Subheader = ({subheaderLinks = DummyHeaders}) => (
+const Subheader = ({subheaderLinks}) => (
 	
 	<Nav className="subheader-nav" style={ {backgroundColor:'white'}}>	
 		{subheaderLinks.map( ({linkName,linkRef}) => (
+
+			<DomLink
+	          to={linkRef}
+	          style={{
+	            textDecoration: 'none',
+	            color:'#9aa0ac'
+	          }}>
 			<Nav.Item className="subheader-nav-item">
 			{linkName}
 			</Nav.Item>
+			</DomLink> 
 			)
 		)}
 	</Nav>
