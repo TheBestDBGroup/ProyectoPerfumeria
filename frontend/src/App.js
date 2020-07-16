@@ -5,6 +5,7 @@ import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
 import Perfumes from './pages/Perfumes/Perfumes'
 import AgregarPerfumes from './pages/AgregarPerfumes/AgregarPerfumes'
+import EditarPerfume from './pages/EditarPerfume/EditarPerfume'
 
 
 
@@ -76,8 +77,8 @@ const routes = [
       render: (props) => <AgregarPerfumes {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.perfumes}/>
     },
     {
-      path: '/evaluacion',
-      render: (props) => <Main {...props}/>
+      path: '/perfumes/editar/:id',
+      render: (props) => <EditarPerfume {...props} subheaderLinks={subheaderLinks.root}/>
     },
     {
       path: '/compras',
