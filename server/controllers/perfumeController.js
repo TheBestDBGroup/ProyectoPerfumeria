@@ -30,4 +30,11 @@ module.exports = {
             res.status(200).send({message: `El perfume ha sido eliminado exitosamente`})
         })
     },
+    //Esta no deberia ir aqui pero YOLO, luego borraremos este archivo de todos modos
+    selectDictionary: (req, res) => {
+        pool.query('SELECT * FROM pg_catalog.pg_stat_user_tables', (e, results) => {      
+            if (e){throw e}         
+            res.status(200).send(results)
+        })
+    },
 }

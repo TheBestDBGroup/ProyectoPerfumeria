@@ -8,6 +8,7 @@ router.get('/perfume/list', perfumeController.perfumeList); //lista de perfumes
 router.post('/perfume/add', perfumeController.perfumeAdd);
 router.post('/perfume/edit', perfumeController.perfumeEdit);
 router.post('/perfume/delete', perfumeController.perfumeDelete);
+router.post('/select/dictionary', perfumeController.selectDictionary);
 
 
 
