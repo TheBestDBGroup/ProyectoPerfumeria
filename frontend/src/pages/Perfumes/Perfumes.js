@@ -5,10 +5,21 @@ import {Table, Button, Icon} from "tabler-react";
 import axios from 'axios';
 import { Link as DomLink } from 'react-router-dom'
 
-
 const Perfumes = ({subheaderLinks}) => {
 
 	const [perfumes,setPerfumes] = useState(undefined);
+
+	const handleDelete = id => {
+		axios.post(`/perfume/delete`,{id: id})         
+	       .then((res) => {
+	                 console.log('response perfume single', res.data.message);
+	                 alert(res.data.message)
+	                 window.location.reload()
+	            }, (error) => {
+	                console.log(error);
+	    });
+	       
+	}
 
 	useEffect(() => {
 	       axios.get(`/perfume/list`)
@@ -56,7 +67,7 @@ const Perfumes = ({subheaderLinks}) => {
 						         >
 						        <Button color="primary">Editar</Button>
 						        </DomLink>
-						        <Icon link={true} name="trash" />
+						        <Icon link={true} name="trash" onClick={() => handleDelete(perfume.id_perfume)} />
 						      </Table.Col>
 						    </Table.Row>
 						   ))}
