@@ -165,8 +165,7 @@ CREATE TABLE ydm_criterio_eval
     descripcion_criterio_eval varchar NOT NULL,
     peso_criterio_eval numeric NOT NULL, 
     CONSTRAINT pk_id_criterio_eval PRIMARY KEY (id_criterio_eval),
-    CONSTRAINT chk_tipo_criterio_eval CHECK(tipo_criterio_eval in ('Ubicación geográfica', 'Costo', 'Alternativa
-de envío', 'Condición de pago', 'Cumplimiento'))
+    CONSTRAINT chk_tipo_criterio_eval CHECK(tipo_criterio_eval in ('Ubicación geográfica', 'Costo', 'Alternativa de envío', 'Condición de pago', 'Cumplimiento'))
 );
 
 CREATE SEQUENCE ydm_secuencia_ingrediente_esencia
@@ -602,10 +601,11 @@ CREATE TABLE ydm_presentacion
     id_presentacion numeric NOT NULL DEFAULT nextval('ydm_secuencia_presentacion'::regclass),
     precio_presentacion numeric NOT NULL,
     volumen_presentacion numeric NOT NULL,
-    id_ingr_esencia_presentacion numeric NOT NULL,
-    id_ingr_general_presentacion numeric NOT NULL,
+    id_ingr_esencia_presentacion numeric,
+    id_ingr_general_presentacion numeric,
     id_proveedor_presentacion numeric,
-    id_productor_presentacion numeric, 
+    id_productor_presentacion numeric,
+    id_pres_perf_presentacion numeric, 
     CONSTRAINT pk_id_presentacion PRIMARY KEY (id_presentacion)
 );
 
@@ -804,6 +804,7 @@ ALTER TABLE ydm_clausula_prod
 ALTER TABLE ydm_presentacion
     ADD CONSTRAINT fk_id_ingr_esencia_presentacion FOREIGN KEY (id_ingr_esencia_presentacion) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
     ADD CONSTRAINT fk_id_ingr_general_presentacion FOREIGN KEY (id_ingr_general_presentacion) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
+    ADD CONSTRAINT fk_id_pres_perf_presentacion FOREIGN KEY (id_pres_perf_presentacion) REFERENCES ydm_pres_perf(id_pres_perf),
     ADD CONSTRAINT fk_id_proveedor_presentacion FOREIGN KEY (id_proveedor_presentacion) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_presentacion FOREIGN KEY (id_productor_presentacion) REFERENCES ydm_productor(id_productor)
 ;
