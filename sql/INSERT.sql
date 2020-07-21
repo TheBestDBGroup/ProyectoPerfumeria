@@ -1,8 +1,3 @@
-INSERT INTO ydm_perfume VALUES 
-  (DEFAULT, 'Ardent Rose', 'Por fases', 'Mujer', 'Adulto'),
-  (DEFAULT, 'A l’Eau de Rosée', 'Por fases', 'Unisex', 'Atemporal'),
-  (DEFAULT, '1770', 'Por fases', 'Hombre', 'Adulto');
-
 INSERT INTO ydm_criterio_eval VALUES
 (DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana|', 1),
 (DEFAULT, 'Costo', 'Bajos costos', 2),
@@ -244,6 +239,11 @@ INSERT INTO ydm_productor VALUES
   (DEFAULT, 'CLP Aromas', 'www.cplaromas.com', 'global.sales@cplaromas.com', 16),
   (DEFAULT, 'DROM Fragance', 'www.drom.com', 'dromfragance@dromfragance.com', 22);
 
+INSERT INTO ydm_perfume VALUES 
+  (DEFAULT, 'Ardent Rose', 'Por fases', 'Mujer', 'Adulto', 1),
+  (DEFAULT, 'A l’Eau de Rosée', 'Por fases', 'Unisex', 'Atemporal', 1),
+  (DEFAULT, '1770', 'Por fases', 'Hombre', 'Adulto', 1);
+
 INSERT INTO ydm_pi_pdt_env VALUES
   (DEFAULT, 1, 66, 'Envios Productor'),
   (DEFAULT, 1, 171, 'Envios Productor'),
@@ -389,6 +389,55 @@ INSERT INTO ydm_intensidad VALUES
   (DEFAULT, 1, 'Eau de perfume', '15%'),
   (DEFAULT, 2, 'Eau de cologne', '5%'),
   (DEFAULT, 3, 'Eau de toilette', '8%');
+
+INSERT INTO ydm_pres_perf VALUES 
+  (DEFAULT, 1, 1, 500),
+  (DEFAULT, 2, 2, 100),
+  (DEFAULT, 3, 3, 50);
+
+INSERT INTO ydm_ingrediente_esencia VALUES  
+  (DEFAULT, '101-86-0', 'Hexil Cinamaldehido', 'Maceración', 1,  'Este aldehído encuentra un uso considerable en las formulaciones de perfumes por su rico aporte floral y agradable de olor a tabaco aceitoso a bases de jazmín, gardenia, tuberosa, magnolia, etc. y en general como parte de un tema floral en otros tipos de fragancias.', '2021/12/12', 235 , 'Aceite de parafina'),
+  (DEFAULT, '3391-83-1', 'Almizcle R1', 'Destilación', 1,  'Musk R1 es un almizcle macrocíclico sensual, sofisticado, cremoso y pulverulento. Da un efecto exaltador cuando se usa en combinación con otros almizcles macrocíclicos.', '2024/06/24', 212 , 'Alcohol'),
+  (DEFAULT, '8046-22-8', 'Haba Tonka Absoluta', 'Maceración', 1 , 'El Haba Tonka aporta nuevas entonaciones de cacao en polvo seco a la creación de fragancias, además de generar ingresos adicionales para las comunidades locales mediante la incorporación de este producto a su catálogo.', '2022/01/01', 212 , 'Alcohol');
+
+INSERT INTO ydm_ingrediente_general VALUES  
+  (DEFAULT, '7732-18-5', 'Agua', 'Natural', 'Con su alto grado de transmitancia UV, bajo recuento de partículas, baja acidez y alcalinidad y bajo nivel de residuos de evaporación, ideales para separaciones reproducibles.', 1),
+  (DEFAULT, '64-17-5', 'Alcohol etílico', 'Sintético', 'Con su alto grado de transmitancia UV, bajo recuento de partículas, baja acidez y alcalinidad y bajo nivel de residuos de evaporación, ideales para separaciones reproducibles.', 1 ),
+  (DEFAULT, '8046-22-8', 'Queroseno', 'Sintético', 'Líquido transparente, incoloro a ámbar claro con olor a petróleo. Punto de inflamación 100 ° F. Menos denso que el agua e insoluble en agua. Los vapores son más pesados ​​que el aire.', 1);
+
+INSERT INTO ydm_presentacion VALUES  
+   (DEFAULT, 1000, 10, 1, NULL, 1, NULL),
+   (DEFAULT, 5000, 50, 1, NULL, 1, NULL),
+   (DEFAULT, 25000, 250, 1, NULL, 1, NULL),
+   (DEFAULT, 15, 20, 2, NULL, 1, NULL),
+   (DEFAULT, 30, 40, 2, NULL, 1, NULL),
+   (DEFAULT, 80, 95, 2, NULL, 1, NULL),
+   (DEFAULT, 15, 60, 3, NULL, 1, NULL),
+   (DEFAULT, 60, 200, 3, NULL, 1, NULL),
+   (DEFAULT, 200, 600, 3, NULL, 1, NULL),
+   (DEFAULT, 1000, 10, NULL, 1, 1, NULL),
+   (DEFAULT, 2000, 20, NULL, 1, 1, NULL),
+   (DEFAULT, 5000, 50, NULL, 1, 1, NULL),
+   (DEFAULT, 1000, 15, NULL, 2, 1, NULL),
+   (DEFAULT, 2000, 30, NULL, 2, 1, NULL),
+   (DEFAULT, 5000, 45, NULL, 2, 1, NULL),
+   (DEFAULT, 1000, 20, NULL, 3, 1, NULL),
+   (DEFAULT, 2000, 40, NULL, 3, 1, NULL),
+   (DEFAULT, 5000, 50, NULL, 3, 1, NULL);
+
+INSERT INTO ydm_detalle_pedido VALUES  
+  (DEFAULT, 2, 1, 60),
+  (DEFAULT, 6, 1, 40),
+  (DEFAULT, 7, 1, 80),
+  (DEFAULT, 10, 1, 100),
+  (DEFAULT, 15, 1, 10),
+  (DEFAULT, 17, 1, 20),
+  (DEFAULT, 1, 2, 30),
+  (DEFAULT, 5, 2, 50),
+  (DEFAULT, 9, 2, 70),
+  (DEFAULT, 12, 2, 40),
+  (DEFAULT, 14, 2, 20),
+  (DEFAULT, 16, 2, 10);
 
 INSERT INTO ydm_familia_olfativa VALUES
   (DEFAULT, 'Verde'),

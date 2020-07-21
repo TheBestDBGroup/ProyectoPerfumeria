@@ -12,6 +12,7 @@ CREATE TABLE ydm_perfume
      tipo_perfume varchar(10) NOT NULL,
      genero_perfume varchar(6) NOT NULL,
      edad_perfume varchar(9) NOT NULL,
+     id_productor_perfume numeric,
      CONSTRAINT pk_id_perfume PRIMARY KEY (id_perfume),
      CONSTRAINT chk_tipo_perfume CHECK(tipo_perfume in ('Monolítico', 'Por fases')),
      CONSTRAINT chk_genero_perfume CHECK(genero_perfume in ('Hombre', 'Mujer', 'Unisex')),
@@ -187,7 +188,7 @@ CREATE TABLE ydm_ingrediente_esencia
     flashpoint_ingrediente_esencia numeric,
     solubilidad_ingrediente_esencia varchar,
     CONSTRAINT pk_id_ingrediente_esencia PRIMARY KEY (id_ingrediente_esencia)
-);
+);      
 
 CREATE SEQUENCE ydm_secuencia_intensidad
      start with 1
@@ -260,6 +261,7 @@ CREATE TABLE ydm_pres_perf(
     id_pres_perf numeric NOT NULL DEFAULT nextval ('ydm_secuencia_pres_perf' ::regclass),
     id_intensidad_pres_perf numeric NOT NULL,
     id_perfume_intensidad_pres_perf numeric NOT NULL,
+    volumen_pres_perf numeric NOT NULL,
     CONSTRAINT pk_pres_perf PRIMARY KEY (id_pres_perf,id_intensidad_pres_perf, id_perfume_intensidad_pres_perf)
 );
  
@@ -622,11 +624,8 @@ CREATE TABLE ydm_presentacion
     id_presentacion numeric NOT NULL DEFAULT nextval('ydm_secuencia_presentacion'::regclass),
     precio_presentacion numeric NOT NULL,
     volumen_presentacion numeric NOT NULL,
-    id_ingr_esencia_presentacion numeric NOT NULL,
-    id_ingr_general_presentacion numeric NOT NULL,
-    id_pres_perf_presentacion numeric NOT NULL,
-    id_intensidad_pres_perdf_presentacion numeric NOT NULL,
-    id_perfume_intensidad_pres_perdf_presentacion numeric NOT NULL,
+    id_ingr_esencia_presentacion numeric,
+    id_ingr_general_presentacion numeric,
     id_proveedor_presentacion numeric,
     id_productor_presentacion numeric, 
     CONSTRAINT pk_id_presentacion PRIMARY KEY (id_presentacion)
@@ -794,6 +793,11 @@ ALTER TABLE ydm_productor
     ADD CONSTRAINT fk_productor_asociacion_nacional FOREIGN KEY (id_asociacion_nacional_productor) REFERENCES ydm_asociacion_nacional(id_asociacion_nacional)
 ;
 
+ALTER TABLE ydm_perfume 
+ ADD CONSTRAINT fk_perfume_productor FOREIGN KEY (id_productor_perfume) REFERENCES ydm_productor(id_productor)
+;
+
+
 ALTER TABLE ydm_asociacion_nacional  
     ADD CONSTRAINT fk_asociacion_nacional_pais FOREIGN KEY (id_pais_asociacion_nacional) REFERENCES ydm_pais(id_pais)
 ;
@@ -847,7 +851,6 @@ ALTER TABLE ydm_clausula_prod
 ALTER TABLE ydm_presentacion
     ADD CONSTRAINT fk_id_ingr_esencia_presentacion FOREIGN KEY (id_ingr_esencia_presentacion) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
     ADD CONSTRAINT fk_id_ingr_general_presentacion FOREIGN KEY (id_ingr_general_presentacion) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
-    ADD CONSTRAINT fk_id_pres_perf_presentacion FOREIGN KEY (id_pres_perf_presentacion, id_intensidad_pres_perdf_presentacion, id_perfume_intensidad_pres_perdf_presentacion) REFERENCES ydm_pres_perf(id_pres_perf, id_intensidad_pres_perf,id_perfume_intensidad_pres_perf),
     ADD CONSTRAINT fk_id_proveedor_presentacion FOREIGN KEY (id_proveedor_presentacion) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_presentacion FOREIGN KEY (id_productor_presentacion) REFERENCES ydm_productor(id_productor)
 ;
