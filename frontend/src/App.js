@@ -3,6 +3,8 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom'
 import "tabler-react/dist/Tabler.css";
 import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
+import Evaluacion from './pages/Evaluacion/Evaluacion/Evaluacion.js'
+import FiltroProductor from './components/FiltroProductor/FiltroProductor.js'
 
 
 
@@ -48,6 +50,14 @@ const routes = [
     {
       path: '/',
       render: (props) => <Main {...props} />
+    },
+    {
+      path: '/evaluacion',
+      render: (props) => <Evaluacion {...props} />
+    },
+    {
+      path: '/elegirProd/:redirectDir',
+      render: (props) => <FiltroProductor {...props} />
     },
     {
       path: '/compras',
