@@ -3,22 +3,12 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom'
 import "tabler-react/dist/Tabler.css";
 import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
-import Perfumes from './pages/Perfumes/Perfumes'
-import AgregarPerfumes from './pages/AgregarPerfumes/AgregarPerfumes'
-import EditarPerfume from './pages/EditarPerfume/EditarPerfume'
+
 
 
 
 const subheaderLinks = {
   root:  [
-    {
-      linkName: "Perfumes",
-      linkRef: "/perfumes",
-    },
-    {
-      linkName: "Agregar Perfume",
-      linkRef: "/perfumes/agregar",
-    }
   ],
 
   evaluacion:[
@@ -53,32 +43,11 @@ const subheaderLinks = {
 }
 
 
-const sidebarLinks = {
-  perfumes:[
-    {
-      linkName: "Agregar Perfume",
-      linkRef: "/perfumes/agregar",
-    },
-  ],
-};
-
 
 const routes = [
     {
       path: '/',
-      render: (props) => <Main {...props} subheaderLinks={subheaderLinks.root}/>
-    },
-    {
-      path: '/perfumes',
-      render: (props) => <Perfumes {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.perfumes}/>
-    },
-    {
-      path: '/perfumes/agregar',
-      render: (props) => <AgregarPerfumes {...props} subheaderLinks={subheaderLinks.root} sidebarLinks={sidebarLinks.perfumes}/>
-    },
-    {
-      path: '/perfumes/editar/:id',
-      render: (props) => <EditarPerfume {...props} subheaderLinks={subheaderLinks.root}/>
+      render: (props) => <Main {...props} />
     },
     {
       path: '/compras',

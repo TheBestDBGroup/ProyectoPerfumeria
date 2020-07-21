@@ -2,10 +2,10 @@ import React from 'react';
 import './main-styles.css';
 import Subheader from '../../components/Subheader/Subheader'
 
-const Main = ({subheaderLinks}) => (
+const Main = () => (
 	<>
 		<div className="main-content-wrapper">
-		          <Subheader subheaderLinks={subheaderLinks}/>
+		          
 		</div>
 	</>
 )
