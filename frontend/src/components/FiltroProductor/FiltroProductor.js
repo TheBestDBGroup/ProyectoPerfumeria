@@ -55,7 +55,7 @@ const FiltroProductor = (props) => {
 
 return (
 	<>
-		<h1 className="filtro-productor-titulo"> Seleccione que el productor que desea gestionar </h1>
+		<h1 className="filtro-productor-titulo"> Seleccione el productor que desea gestionar </h1>
 
 		<Table>
 
