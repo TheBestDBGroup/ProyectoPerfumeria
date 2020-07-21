@@ -28,12 +28,12 @@ CREATE SEQUENCE ydm_secuencia_perfumista
 CREATE TABLE ydm_perfumista
 (
      id_perfumista numeric NOT NULL DEFAULT nextval('ydm_secuencia_perfumista'::regclass),
-     nombre_perfumista varchar(20) NOT NULL,
-     apellido_perfumista varchar(20) NOT NULL,
+     nombre_perfumista varchar(30) NOT NULL,
+     apellido_perfumista varchar(30) NOT NULL,
      id_pais_perfumista numeric NOT NULL,
      email_perfumista varchar(50) UNIQUE DEFAULT NULL,
-     sdo_nombre_perfumista varchar(20) DEFAULT '',
-     sdo_apellido_perfumista varchar(20) DEFAULT '',
+     sdo_nombre_perfumista varchar(30) DEFAULT '',
+     sdo_apellido_perfumista varchar(30) DEFAULT '',
      CONSTRAINT pk_id_perfumista PRIMARY KEY (id_perfumista)
 );
 
@@ -47,7 +47,7 @@ CREATE SEQUENCE ydm_secuencia_familia_olfativa
 CREATE TABLE ydm_familia_olfativa
 (
      id_familia_olfativa numeric NOT NULL DEFAULT nextval('ydm_secuencia_familia_olfativa'::regclass),
-     nombre_familia_olfativa varchar(20) NOT NULL UNIQUE,
+     nombre_familia_olfativa varchar(30) NOT NULL UNIQUE,
      CONSTRAINT pk_id_familia_olfativa PRIMARY KEY (id_familia_olfativa)
 );
 
@@ -76,7 +76,7 @@ CREATE SEQUENCE ydm_secuencia_palabra_clave
 CREATE TABLE ydm_palabra_clave
 (
      id_palabra_clave numeric NOT NULL DEFAULT nextval('ydm_secuencia_palabra_clave'::regclass),
-     nombre_palabra_clave varchar(20) NOT NULL UNIQUE,
+     nombre_palabra_clave varchar(30) NOT NULL UNIQUE,
      CONSTRAINT pk_id_palabra_clave PRIMARY KEY (id_palabra_clave)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE ydm_condicion_pago
     mesescantidad_condicion_pago numeric,
     CONSTRAINT pk_id_condicion_pago PRIMARY KEY (id_condicion_pago, id_proveedor_condicion_pago),
     CONSTRAINT chk_tipo_condicion_pago CHECK(tipo_condicion_pago in ('Crédito', 'Contado'))
-);
+);  
 
 CREATE SEQUENCE ydm_secuencia_esencia_perfume
      start with 1
@@ -161,7 +161,7 @@ CREATE SEQUENCE ydm_secuencia_criterio_eval
 CREATE TABLE ydm_criterio_eval
 (
     id_criterio_eval numeric NOT NULL DEFAULT nextval('ydm_secuencia_criterio_eval'::regclass),
-    tipo_criterio_eval varchar(10) NOT NULL,
+    tipo_criterio_eval varchar(30) NOT NULL,
     descripcion_criterio_eval varchar NOT NULL,
     peso_criterio_eval numeric NOT NULL, 
     CONSTRAINT pk_id_criterio_eval PRIMARY KEY (id_criterio_eval),
@@ -200,7 +200,7 @@ CREATE TABLE ydm_intensidad
 (
     id_intensidad numeric NOT NULL DEFAULT nextval('ydm_secuencia_intensidad'::regclass),
     id_perfume_intensidad numeric NOT NULL,
-    tipo_intensidad varchar(20) NOT NULL,
+    tipo_intensidad varchar(30) NOT NULL,
     descripcion_intensidad varchar NOT NULL,
     CONSTRAINT pk_id_intensidad PRIMARY KEY (id_intensidad, id_perfume_intensidad),
     CONSTRAINT chk_tipo_intensidad CHECK (tipo_intensidad in ('Perfume', 'Eau de perfume', 'Eau de toilette','Eau de cologne', 'Splash perfume'))
@@ -372,7 +372,7 @@ CREATE TABLE ydm_pi_pdt_env
     id_pi_pdt_env numeric NOT NULL DEFAULT nextval ('ydm_secuencia_pi_pdt_env' ::regclass),
     id_productor_pi_pdt_env numeric NOT NULL,
     id_pais_pi_pdt_env numeric NOT NULL,
-    nombre_pi_pdt_env varchar(30) NOT NULL,
+    nombre_pi_pdt_env varchar(30) NOT NULL, 
     CONSTRAINT pk_pi_pdt_env PRIMARY KEY (id_pi_pdt_env,id_productor_pi_pdt_env,id_pais_pi_pdt_env)
 );
 
@@ -442,13 +442,32 @@ start with 1
 CREATE TABLE ydm_proveedor
 (
     id_proveedor numeric NOT NULL DEFAULT nextval ('ydm_secuencia_proveedor'::regclass),
-    nombre_proveedor numeric NOT NULL,
+    nombre_proveedor varchar(60) NOT NULL,
     web_proveedor varchar(60) NOT NULL,
     email_proveedor varchar(60) NOT NULL,
     id_asociacion_nacional_proveedor numeric NOT NULL,
     id_pais_proveedor numeric NOT NULL, 
     CONSTRAINT pk_proveedor PRIMARY KEY (id_proveedor)
 );
+
+CREATE SEQUENCE ydm_secuencia_datos_pago
+start with 1
+    increment 1
+    minvalue 1
+    maxvalue 40
+;
+
+CREATE TABLE ydm_datos_pago
+(
+    id_datos_pago numeric NOT NULL DEFAULT nextval ('ydm_secuencia_datos_pago'::regclass),
+    nombre_datos_pago varchar NOT NULL,
+    cuenta_datos_pago varchar NOT NULL,
+    tipo_datos_pago varchar NOT NULL,
+    id_proveedor_datos_pago numeric NOT NULL,
+    CONSTRAINT pk_datos_pago PRIMARY KEY (id_datos_pago),
+    CONSTRAINT chk_tipo_datos_pago CHECK(tipo_datos_pago in ('Tarjeta de Debito', 'Tarjeta de Credito', 'Transferencia', 'Paypal'))
+);
+
 
 CREATE SEQUENCE ydm_secuencia_contrato
 start with 1
@@ -468,6 +487,8 @@ CREATE TABLE ydm_contrato
     id_proveedor_contrato numeric NOT NULL,
     CONSTRAINT pk_contrato PRIMARY KEY (id_contrato) 
 );
+
+
 
 CREATE SEQUENCE ydm_secuencia_renueva
 start with 1
@@ -497,7 +518,7 @@ CREATE TABLE ydm_alt_envio
     id_proveedor_alt_envio numeric NOT NULL,
     id_contrato_alt_envio numeric NOT NULL,
     id_pais_alt_envio numeric NOT NULL,
-    transporte_alt_envio varchar NOT NULL UNIQUE,
+    transporte_alt_envio varchar NOT NULL,
     costo_alt_envio numeric NOT NULL,
     tiempo_estimado_alt_envio date,
     CONSTRAINT pk_alt_envio PRIMARY KEY (id_alt_envio,id_proveedor_alt_envio,id_contrato_alt_envio,id_pais_alt_envio)
@@ -531,7 +552,7 @@ CREATE TABLE ydm_miembro_ifra
 (
     id_miembro_ifra numeric NOT NULL DEFAULT nextval('ydm_secuencia_miembro_ifra'::regclass),
     fecha_ingreso_miembro_ifra date NOT NULL,
-    nivel_miembro_ifra varchar(20) NOT NULL,
+    nivel_miembro_ifra varchar(30) NOT NULL,
     tipo_miembro_ifra varchar(10) NOT NULL,
     fecha_exclusion_miembro_ifra date,
     id_proveedor_miembro_ifra numeric,
@@ -560,7 +581,7 @@ CREATE TABLE ydm_cond_env_pago
     id_contrato_alt_envio_cond_env_pago numeric,
     id_pais_alt_envio_cond_env_pago numeric,
     CONSTRAINT pk_id_cond_env_pago PRIMARY KEY (id_cond_env_pago, id_contrato_cond_env_pago)
-);
+);                          
 
 CREATE TABLE ydm_evaluacion
 (
@@ -601,11 +622,13 @@ CREATE TABLE ydm_presentacion
     id_presentacion numeric NOT NULL DEFAULT nextval('ydm_secuencia_presentacion'::regclass),
     precio_presentacion numeric NOT NULL,
     volumen_presentacion numeric NOT NULL,
-    id_ingr_esencia_presentacion numeric,
-    id_ingr_general_presentacion numeric,
+    id_ingr_esencia_presentacion numeric NOT NULL,
+    id_ingr_general_presentacion numeric NOT NULL,
+    id_pres_perf_presentacion numeric NOT NULL,
+    id_intensidad_pres_perdf_presentacion numeric NOT NULL,
+    id_perfume_intensidad_pres_perdf_presentacion numeric NOT NULL,
     id_proveedor_presentacion numeric,
-    id_productor_presentacion numeric,
-    id_pres_perf_presentacion numeric, 
+    id_productor_presentacion numeric, 
     CONSTRAINT pk_id_presentacion PRIMARY KEY (id_presentacion)
 );
 
@@ -632,6 +655,22 @@ CREATE TABLE ydm_pedido
     num_factura_pedido numeric,
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
     CONSTRAINT chk_estatus_pedido CHECK(estatus_pedido in ('Por confirmar', 'Confirmado', 'Cancelado por productor', 'Cancelado por proveedor'))
+);
+
+CREATE SEQUENCE ydm_secuencia_pago 
+     start with 1
+     increment 1
+     minvalue 1
+     maxvalue 100
+;
+
+CREATE TABLE ydm_pago
+(
+    id_pago numeric NOT NULL DEFAULT nextval('ydm_secuencia_pago'::regclass),
+    id_pedido_pago numeric NOT NULL,
+    fecha_pago date NOT NULL,
+    monto_pago numeric NOT NULL,
+    CONSTRAINT pk_id_pago PRIMARY KEY (id_pago,id_pedido_pago)
 );
 
 ALTER TABLE ydm_perfumista
@@ -764,6 +803,10 @@ ALTER TABLE ydm_proveedor
     ADD CONSTRAINT fk_proveedor_pais FOREIGN KEY (id_pais_proveedor) REFERENCES ydm_pais(id_pais)
 ;
 
+ALTER TABLE ydm_datos_pago
+    ADD CONSTRAINT fk_id_proveedor_datos_pago FOREIGN KEY (id_proveedor_datos_pago) REFERENCES ydm_proveedor(id_proveedor)
+;  
+
 ALTER TABLE ydm_contrato  
     ADD CONSTRAINT fk_contrato_productor FOREIGN KEY (id_productor_contrato) REFERENCES ydm_productor(id_productor),
     ADD CONSTRAINT fk_contrato_proveedor FOREIGN KEY (id_proveedor_contrato) REFERENCES ydm_proveedor(id_proveedor)
@@ -804,14 +847,19 @@ ALTER TABLE ydm_clausula_prod
 ALTER TABLE ydm_presentacion
     ADD CONSTRAINT fk_id_ingr_esencia_presentacion FOREIGN KEY (id_ingr_esencia_presentacion) REFERENCES ydm_ingrediente_esencia(id_ingrediente_esencia),
     ADD CONSTRAINT fk_id_ingr_general_presentacion FOREIGN KEY (id_ingr_general_presentacion) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
-    ADD CONSTRAINT fk_id_pres_perf_presentacion FOREIGN KEY (id_pres_perf_presentacion) REFERENCES ydm_pres_perf(id_pres_perf),
+    ADD CONSTRAINT fk_id_pres_perf_presentacion FOREIGN KEY (id_pres_perf_presentacion, id_intensidad_pres_perdf_presentacion, id_perfume_intensidad_pres_perdf_presentacion) REFERENCES ydm_pres_perf(id_pres_perf, id_intensidad_pres_perf,id_perfume_intensidad_pres_perf),
     ADD CONSTRAINT fk_id_proveedor_presentacion FOREIGN KEY (id_proveedor_presentacion) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_presentacion FOREIGN KEY (id_productor_presentacion) REFERENCES ydm_productor(id_productor)
 ;
+
 
 ALTER TABLE ydm_pedido
     ADD CONSTRAINT fk_id_proveedor_pedido FOREIGN KEY (id_proveedor_pedido) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_pedido FOREIGN KEY (id_productor_pedido) REFERENCES ydm_productor(id_productor),
     ADD CONSTRAINT fk_id_cond_env_pedido FOREIGN KEY (id_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
     ADD CONSTRAINT fk_cond_pago_pedido FOREIGN KEY (id_condicion_pago_pedido, id_proveedor_condicion_pago_pedido) REFERENCES ydm_condicion_pago(id_condicion_pago, id_proveedor_condicion_pago)
+;
+
+ALTER TABLE ydm_pago
+    ADD CONSTRAINT fk_id_pedido_pago FOREIGN KEY (id_pedido_pago) REFERENCES ydm_pedido(id_pedido)
 ;

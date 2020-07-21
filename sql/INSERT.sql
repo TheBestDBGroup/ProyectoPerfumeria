@@ -3,6 +3,18 @@ INSERT INTO ydm_perfume VALUES
   (DEFAULT, 'A l’Eau de Rosée', 'Por fases', 'Unisex', 'Atemporal'),
   (DEFAULT, '1770', 'Por fases', 'Hombre', 'Adulto');
 
+INSERT INTO ydm_criterio_eval VALUES
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana|', 1),
+(DEFAULT, 'Costo', 'Bajos costos', 2),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio', 4),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago', 1),
+(DEFAULT, 'Cumplimiento', 'cumple lineamientos de contrato', 2),
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana|', 9),
+(DEFAULT, 'Costo', 'Bajos costos', 6),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio', 4),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago', 1);
+
+
 INSERT INTO ydm_pais VALUES
   (DEFAULT, 'Afganistán'),
   (DEFAULT, 'Albania'),
@@ -225,8 +237,154 @@ INSERT INTO ydm_asociacion_nacional VALUES
   (DEFAULT, 'Fragrance Creators Association - Canada', 'Norteamérica', 35);
 
 INSERT INTO ydm_productor VALUES
-  (DEFAULT, 'Robertet Group', 'www.robertet.com', 'rgpd@robertet.com', 8);
+  (DEFAULT, 'Robertet Group', 'www.robertet.com', 'vioryl@vioryl.gr', 8),
+  (DEFAULT, 'vioryl S.A', 'www.vioryl.gr', 'rgpd@robertet.com', 8),
+  (DEFAULT, 'Comimpar', 'www.comimpar.com.ar', 'ventas@comimpar.com.ar', 17),
+  (DEFAULT, 'Issey Miyake', 'www.isseymiyakeparfums.com', 'isseymiyakeparfums@isseymiyake.com', 5),
+  (DEFAULT, 'CLP Aromas', 'www.cplaromas.com', 'global.sales@cplaromas.com', 16),
+  (DEFAULT, 'DROM Fragance', 'www.drom.com', 'dromfragance@dromfragance.com', 22);
 
+INSERT INTO ydm_pi_pdt_env VALUES
+  (DEFAULT, 1, 66, 'Envios Productor'),
+  (DEFAULT, 1, 171, 'Envios Productor'),
+  (DEFAULT, 2, 72, 'Envios Productor'),
+  (DEFAULT, 2, 81, 'Envios Productor'),
+  (DEFAULT, 3, 9, 'Envios Productor'),
+  (DEFAULT, 3, 3, 'Envios Productor'),
+  (DEFAULT, 4, 92, 'Envios Productor'),
+  (DEFAULT, 5, 143, 'Envios Productor'),
+  (DEFAULT, 6, 60, 'Envios Productor');
+
+
+INSERT INTO ydm_proveedor VALUES
+  (DEFAULT, 'Givaudan', 'www.givaudan.com', 'givaudan@givaudan.com', 8, 171),
+  (DEFAULT, 'Imperial Fragrances &amp; Flavors Pvt Ltd', 'www.imperialfragrances.com', 'imperial@imperialfragrances.com', 8, 81),
+  (DEFAULT, 'Kurt Kitzing', 'www.cosmetic-business.com', 'kurtkitzing@gkurtkitzing.com', 9, 3);
+
+INSERT INTO ydm_datos_pago  VALUES
+  (DEFAULT, 'Bank of America', '0189-84987523-4843-7875', 'Transferencia', 1),
+  (DEFAULT, 'ID', 'Franquito_Banquito', 'Paypal', 1),
+  (DEFAULT, 'Bank of America', '0189-84987523-4843-7875', 'Tarjeta de Credito', 1),
+  (DEFAULT, 'Bank of America', '0189-84987523-4843-7875', 'Tarjeta de Debito', 1),
+  (DEFAULT, 'BBVA Provincial', '0246-78856877-3214-4896', 'Transferencia', 2),
+  (DEFAULT, 'ID', 'Gorge_michael', 'Paypal', 2),
+  (DEFAULT, 'BBVA Provincial', '0246-78856877-3214-4896', 'Tarjeta de Credito', 2),
+  (DEFAULT, 'BBVA Provincial', '0246-78856877-3214-4896', 'Tarjeta de Debito', 2),
+  (DEFAULT, 'BBVA Provincial', '0246-89785699-7569-8771', 'Transferencia', 3);
+
+ INSERT INTO ydm_miembro_ifra VALUES 
+  (DEFAULT, '2015/02/12', 'Principal', 'Proveedor', NULL, 1, NULL),
+  (DEFAULT, '2014/05/20', 'Secundario', 'Proveedor', NULL, 2, NULL),
+  (DEFAULT, '2015/09/15', 'Principal', 'Productor', NULL, NULL, 1),
+  (DEFAULT, '2017/01/29', 'Secundario', 'Productor', NULL, NULL, 1),
+  (DEFAULT, '2010/09/21', 'Asociación nacional', 'Proveedor', NULL, 3, NULL),
+  (DEFAULT, '2011/11/09', 'Asociación nacional', 'Productor', NULL, NULL, 3),
+  (DEFAULT, '2012/10/27', 'Asociación nacional', 'Productor', NULL, NULL, 4),
+  (DEFAULT, '2013/02/19', 'Asociación nacional', 'Productor', NULL, NULL, 5),
+  (DEFAULT, '2010/03/03', 'Asociación nacional', 'Productor', NULL, NULL, 6);
+
+ INSERT INTO ydm_tlf VALUES 
+  (DEFAULT, '+41', '8318498', NULL, 1),
+  (DEFAULT, '+91', '6475215', NULL, 2),
+  (DEFAULT, '+49', '7916538', NULL, 3),
+  (DEFAULT, '+33', '4683167', 1, NULL),
+  (DEFAULT, '+30', '6895491', 2, NULL),
+  (DEFAULT, '+54', '2376199', 3, NULL),
+  (DEFAULT, '+81', '9876435', 4, NULL),
+  (DEFAULT, '+44', '3562012', 5, NULL),
+  (DEFAULT, '+1', '0457616', 6, NULL);
+
+
+INSERT INTO ydm_escala VALUES
+  ('2018/10/15', 1, 10, 1, '2019/10/15'),
+  ('2020/07/05', 1, 20, 2, NULL),
+  ('2018/02/13', 1, 15, 3, '2019/02/13'),
+  ('2016/05/26', 1, 30, 4, '2017/05/26'),
+  ('2019/09/23', 1, 10, 5, NULL),
+  ('2017/01/28', 1, 20, 6, '2018/01/28'),
+  ('2020/02/18', 1, 15, 1, NULL),
+  ('2020/03/01', 1, 30, 2, NULL),
+  ('2016/07/05', 1, 10, 3, '2017/07/05');
+
+INSERT INTO ydm_eval_crit VALUES
+  (DEFAULT, 1, 1, 10, 'Inicial', '2019/10/15'),
+  (DEFAULT, 1, 2, 20, 'Inicial', '2019/10/15'),
+  (DEFAULT, 1, 3, 40, 'Inicial', '2019/10/15'),
+  (DEFAULT, 1, 4, 10, 'Inicial', '2019/10/15'),
+  (DEFAULT, 1, 5, 20, 'Inicial', '2019/10/15'),
+  (DEFAULT, 2, 6, 45, 'Inicial', '2019/10/15'),
+  (DEFAULT, 2, 7, 30, 'Inicial', '2019/10/15'),
+  (DEFAULT, 2, 8, 20, 'Inicial', '2019/10/15'),
+  (DEFAULT, 2, 9, 5, 'Inicial', '2019/10/15');
+
+INSERT INTO ydm_evaluacion VALUES
+  ('2018/10/15', 1, 1, 80, 'Inicial'),
+  ('2020/07/05', 2, 2, 75, 'Renovación'),
+  ('2018/02/13', 3, 3, 50, 'Renovación'),
+  ('2016/05/26', 1, 4, 40, 'Inicial'),
+  ('2019/09/23', 2, 5, 70, 'Inicial'),
+  ('2017/01/28', 3, 6, 80, 'Inicial'),
+  ('2020/02/18', 1, 5, 90, 'Inicial'),
+  ('2020/03/01', 2, 1, 60, 'Renovación'),
+  ('2016/07/05', 3, 4, 40, 'Renovación');
+
+INSERT INTO ydm_contrato VALUES
+  (DEFAULT, '2018/10/15', NULL, NULL, FALSE, 1, 1),
+  (DEFAULT, '2019/07/05', NULL, NULL, FALSE, 2, 2),
+  (DEFAULT, '2020/07/05', NULL, NULL, FALSE, 2, 2),
+  (DEFAULT, '2019/11/08', '2019/11/16', 'Por Tardanza', FALSE, 4, 3),
+  (DEFAULT, '2018/10/12', NULL, NULL, TRUE, 3, 3),
+  (DEFAULT, '2019/10/12', NULL, NULL, TRUE, 3, 3),
+  (DEFAULT, '2020/06/18', NULL, NULL, FALSE, 4, 1),
+  (DEFAULT, '2018/12/14', NULL, NULL, FALSE, 3, 2),
+  (DEFAULT, '2019/12/14', NULL, NULL, FALSE, 3, 2),
+  (DEFAULT, '2019/09/08', '2019/09/20', 'Cambio de Productos', FALSE, 1, 2),
+  (DEFAULT, '2020/09/15', NULL, NULL, TRUE, 5, 1),
+  (DEFAULT, '2020/07/19', NULL, NULL, TRUE, 6, 2);
+
+INSERT INTO ydm_renueva VALUES
+  (DEFAULT, 1, '2020/07/05'),
+  (DEFAULT, 5, '2019/10/12'),
+  (DEFAULT, 8, '2019/12/14');
+  
+INSERT INTO ydm_condicion_pago VALUES
+  (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
+  (DEFAULT, 2, 'Crédito', 2, 50, 6),
+  (DEFAULT, 3, 'Crédito', 4, 25, 3),
+  (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
+  (DEFAULT, 2, 'Crédito', 5, 20, 2),
+  (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
+
+INSERT INTO ydm_alt_envio VALUES
+  (DEFAULT, 1, 1, 66, 'Avion', 2000, NULL),
+  (DEFAULT, 1, 1, 66, 'Barco', 1000, NULL),
+  (DEFAULT, 2, 2, 171, 'Avion', 2500, NULL),
+  (DEFAULT, 2, 2, 171, 'Barco', 1500, NULL),
+  (DEFAULT, 3, 3, 72, 'Avion', 3000, NULL),
+  (DEFAULT, 3, 3, 72, 'Barco', 1800, NULL),
+  (DEFAULT, 1, 5, 81, 'Avion', 2000, NULL),
+  (DEFAULT, 2, 6, 9, 'Barco', 3000, NULL),
+  (DEFAULT, 3, 7, 3, 'Barco', 2000, NULL);
+
+INSERT INTO ydm_cond_env_pago VALUES
+  (DEFAULT, 1, 'Descripcion', 1, 1, 1, 1, 1, 66),
+  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 2, 171),
+  (DEFAULT, 3, 'Descripcion', 3, 3, 6, 3, 3, 72),
+  (DEFAULT, 4, 'Descripcion', 4, 1, 7, 1, 5, 81),
+  (DEFAULT, 5, 'Descripcion', 5, 2, 8, 2, 6, 9),
+  (DEFAULT, 6, 'Descripcion', 6, 3, 9, 3, 7, 3);
+
+INSERT INTO ydm_pedido VALUES
+  (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 1, 1, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 2, 2, 2, 2, 2, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Por confirmar', 3, 3, 3, 3, 3, 3, NULL, NULL);
+
+INSERT INTO ydm_pago VALUES
+  (DEFAULT, 1, '2018/10/29', 20000),
+  (DEFAULT, 2, '2019/08/10', 15000),
+  (DEFAULT, 2, '2020/02/20', 15000);
+  
+    
 INSERT INTO ydm_intensidad VALUES 
   (DEFAULT, 1, 'Eau de perfume', '15%'),
   (DEFAULT, 2, 'Eau de cologne', '5%'),
