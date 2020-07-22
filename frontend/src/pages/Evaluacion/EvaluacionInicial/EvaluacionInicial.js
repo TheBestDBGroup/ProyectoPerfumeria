@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './evaluacion-inicial-styles.css';
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import {Table, Button} from "tabler-react";
 import CustomDialog from '../../../components/CustomDialog/CustomDialog'
 import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
 
 
@@ -49,7 +50,7 @@ const EvaluacionInicial = () => {
 
 	const productorId = localStorage.getItem('id_productor');
 	 //convertir a estado
-	const [proveedores, setSelectedProveedores] = useState(undefined)
+	const [proveedores, setProveedores] = useState(undefined)
 	const history = useHistory();
 	const [selectedProveedor,setSelectedProveedor] = useState({id:0,nombre:''})
 	
@@ -103,13 +104,38 @@ const EvaluacionInicial = () => {
 
 	}
 
-	
+	useEffect(() => {
+	       /*axios.post (`/read/proveedores-potenciales`)
+	            .then((res) => {
+	                 console.log('response proveedores potenciales', res.data);
+	                 setProveedores(res.data);
+	            }, (error) => {
+	                console.log(error);
+	        });*/
+
+	        axios.post('/read/proveedores-potenciales', {
+			    id_productor: productorId,
+			  })
+			  .then((res) =>{
+			    console.log('response proveedores potenciales', res.data);
+	            setProveedores(filterCountry(res.data));
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+	     
+	}, []);
+
+	/**/
+
+	//RETORNOS
 
 	if(proveedores){
 
 	return (
 		<>
 		<InfoProdSubheader redirectDir={'evaluacion'}/>
+		{console.log('proveedores',proveedores)}
 		<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor sobre el que desea realizar evaluación inicial </h1>
 
 		<CustomDialog open={open} handleClose={handleClose} handleSubmit={handleSubmit} title={dialogTitle} content={dialogContent}/>
@@ -146,7 +172,11 @@ const EvaluacionInicial = () => {
 	);
 
 	} else {
-		return <p>Cargando... </p>
+		return (<>
+			{console.log('proveedores',proveedores)}
+			<p>Cargando... </p>
+			</>
+		)
 	}
 }
 
