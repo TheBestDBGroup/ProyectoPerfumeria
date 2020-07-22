@@ -342,7 +342,8 @@ INSERT INTO ydm_contrato VALUES
 INSERT INTO ydm_renueva VALUES
   (DEFAULT, 1, '2020/07/05'),
   (DEFAULT, 5, '2019/10/12'),
-  (DEFAULT, 8, '2019/12/14');
+  (DEFAULT, 8, '2019/12/14'),
+  (DEFAULT, 14,'2019/08/05');  
   
 INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
