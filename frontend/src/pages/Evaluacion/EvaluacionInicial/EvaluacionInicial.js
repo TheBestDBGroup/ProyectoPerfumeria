@@ -105,24 +105,16 @@ const EvaluacionInicial = () => {
 	}
 
 	useEffect(() => {
-	       /*axios.post (`/read/proveedores-potenciales`)
-	            .then((res) => {
-	                 console.log('response proveedores potenciales', res.data);
-	                 setProveedores(res.data);
-	            }, (error) => {
-	                console.log(error);
-	        });*/
-
-	        axios.post('/read/proveedores-potenciales', {
-			    id_productor: productorId,
-			  })
-			  .then((res) =>{
-			    console.log('response proveedores potenciales', res.data);
-	            setProveedores(filterCountry(res.data));
-			  })
-			  .catch(function (error) {
-			    console.log(error);
-			  });
+        axios.post('/read/proveedores-potenciales', {
+		    id_productor: productorId,
+		  })
+		  .then((res) =>{
+		    console.log('response proveedores potenciales', res.data);
+            setProveedores(filterCountry(res.data));
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
 	     
 	}, []);
 
