@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const proveedorController = require("./controllers/proveedorController");
-//const productorController = require("./controllers/productorController")
 const productorController = require("./controllers/productorController");
+const contratoController = require("./controllers/contratoController")
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
@@ -19,6 +19,12 @@ router.post(
   proveedorController.getProveedoresPorRenovar
 ); //OBTENER PROVEEDORES POR RENOVAR
 
-router.get("/read/productores", productorController.getProductores);//OBTENER TODOS LOS PRODUCTORES
+//OBTENER TODOS LOS PRODUCTORES
+router.get("/read/productores", productorController.getProductores);
+
+//OBTENER LAS OPCIONES DE CONTRATO DE UN PROVEEDOR
+router.post("/read/contrato/opciones-proveedor/pago",contratoController.getOpcionesPagoProveedor); 
+router.post("/read/contrato/opciones-proveedor/envio",contratoController.getOpcionesEnvioProveedor);
+
 
 module.exports = router;
