@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-
 const proveedorController = require("./controllers/proveedorController");
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
 }); //TEST
+
 
 router.get("/read/proveedores", proveedorController.getProveedores); //OBTENER TODOS LOS PROVEEDORES
 router.get(

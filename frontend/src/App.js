@@ -3,6 +3,11 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom'
 import "tabler-react/dist/Tabler.css";
 import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
+import Evaluacion from './pages/Evaluacion/Evaluacion/Evaluacion'
+import FiltroProductor from './components/FiltroProductor/FiltroProductor'
+import EvaluacionInicial from './pages/Evaluacion/EvaluacionInicial/EvaluacionInicial'
+import EvaluacionRenovacion from './pages/Evaluacion/EvaluacionRenovacion/EvaluacionRenovacion'
+import NuevoContrato from './pages/Evaluacion/NuevoContrato/NuevoContrato'
 
 
 
@@ -50,8 +55,24 @@ const routes = [
       render: (props) => <Main {...props} />
     },
     {
-      path: '/compras',
-      render: (props) => <Main {...props}/>
+      path: '/evaluacion',
+      render: (props) => <Evaluacion {...props} />
+    },
+    {
+      path: '/elegirProd/:redirectDir',
+      render: (props) => <FiltroProductor {...props} />
+    },
+    {
+      path: '/evaluacion/inicial',
+      render: (props) => <EvaluacionInicial{...props} />
+    },
+    {
+      path: '/contrato/generar/:idproveedor',
+      render: (props) => <NuevoContrato {...props} />
+    },
+    {
+      path: '/evaluacion/renovacion',
+      render: (props) => <EvaluacionRenovacion {...props}/>
     },
     {
       path: '/recomendador',
