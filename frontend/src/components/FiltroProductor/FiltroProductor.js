@@ -39,10 +39,9 @@ const FiltroProductor = (props) => {
 
 	const history = useHistory();
 
-	//esto se cambiara a estado cuando se conecte al server
-	const productores = DummyProductores
-
+	const productores = DummyProductores //estado cuando se conecte al server
 	const redirectDir = props.match.params.redirectDir
+
 	const handleSelect = (id) => {
 		localStorage.setItem('id_productor', id);
 		history.push(`/${redirectDir}`);

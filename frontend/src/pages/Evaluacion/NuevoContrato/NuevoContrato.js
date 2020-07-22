@@ -1,44 +1,129 @@
 import React,{useState} from 'react';
 import './nuevo-contrato-styles.css';
-import {Form,Button} from 'tabler-react';
-import axios from 'axios'
+import Ingrediente from './Ingrediente/Ingrediente'
+import {Button,IconButton} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const NuevoContrato = () => {
 
-//const [perfume,setPerfume] = useState({edad_perfume:'',genero_perfume:'',nombre_perfume:'',tipo_perfume:''});
+const DummyIngredientes = [	
+	{
+		id: 1,
+		cas: '12345',
+		nombre: 'Vainilla Sensual',
+		presentaciones:[ 
+			{precio:20, volumen:'20ml', id:1},
+			{precio:40, volumen:'40ml', id:2},
+			{precio:50, volumen:'30ml', id:3},
+		]
+	},
+	{
+		id: 2,
+		cas: '12345',
+		nombre: 'Chocolate',
+		presentaciones:[ 
+			{precio:20, volumen:'20ml',id:4},
+			{precio:40, volumen:'40ml',id:5},
+			{precio:50, volumen:'30ml',id:6},
+		]
+	},
+	{
+		id: 2,
+		cas: '12345',
+		nombre: 'Canela Pasion',
+		presentaciones:[ 
+			{precio:20, volumen:'20ml',id:7},
+			{precio:40, volumen:'40ml',id:8},
+			{precio:50, volumen:'30ml',id:9},
+		]
+	},
+];
 
-const handleChange = e => {
-    //setPerfume({ ...perfume, [e.target.name]: e.target.value })
+
+
+
+const NuevoContrato = (props) => {
+
+const productorId = localStorage.getItem('id_productor');
+const proveedorId = props.match.params.idproveedor
+
+const [opcionesIngredientes, setOpcionesIngredientes] = useState(DummyIngredientes) //volver estado
+
+
+const [ingredientes,setIngredientes] = useState([{nombre:'', id:'', cas:''}])
+const [presentaciones,setPresentaciones] = useState([{precio:'', volumen:'', id:''}])
+
+
+const handleChangeIngredientes = (indice, e) => {
+	//change ingrediente
+	let ingredientesCopy = [...ingredientes]
+	ingredientesCopy[indice] = opcionesIngredientes[e.target.value]
+	
+	//reset presentaciones
+	let presentacionesCopy = [...presentaciones]
+	presentacionesCopy[indice] = {precio:'', volumen:'', id:''}
+
+	setPresentaciones(presentacionesCopy)
+	setIngredientes(ingredientesCopy)
 }
 
-const handleSubmit = e => {
-	e.preventDefault()
-	 
+const handleChangePres = (indice, e) => {
+	let presentacionesCopy = [...presentaciones]
+	presentacionesCopy[indice] = ingredientes[indice].presentaciones[e.target.value]
+	setPresentaciones(presentacionesCopy)
+}
+
+const agregarIngrediente = () => {
+	
+	let ingredientesCopy = [...ingredientes]
+	let presentacionesCopy = [...presentaciones]
+
+	ingredientesCopy.push({nombre:'', id:'', cas:''})
+	presentacionesCopy.push({precio:'', volumen:'', id:''})
+
+	setIngredientes(ingredientesCopy)
+	setPresentaciones(presentacionesCopy)
+
+}
+
+const borrarIngrediente = (indice) => {
+	const ingredientesCopy = [...ingredientes]
+	const presentacionesCopy = [...presentaciones]
+    ingredientesCopy.splice(indice,1)
+    presentacionesCopy.splice(indice,1)
+    setIngredientes(ingredientesCopy)
+    setPresentaciones(presentacionesCopy)
 }
 
 
 return (
 		<>
-		Nuevo Contrato
-		{/*
-			<Form.FieldSet>
-			  <Form.Group label="Nombre" isRequired>
-			    <Form.Input name="nombre_perfume"  onChange={handleChange} value={perfume.nombre_perfume} />
-			  </Form.Group>
-			  <Form.Group label="Tipo" isRequired>
-			    <Form.Input name="tipo_perfume"  onChange={handleChange} value={perfume.tipo_perfume}  />
-			  </Form.Group>
-			  <Form.Group label="Género" isRequired>
-			    <Form.Input name="genero_perfume"  onChange={handleChange} value={perfume.genero_perfume}  />
-			  </Form.Group>
-			  <Form.Group label="Edad" className="mb-0">
-			    <Form.Input name="edad_perfume"  onChange={handleChange} value={perfume.edad_perfume}  />
-			  </Form.Group>
-			  <Button onClick={handleSubmit} color="primary"> Agregar </Button>
-			</Form.FieldSet>
-	*/}
-	</>
+		
+		<h1 className="nuevo-contrato-titulo"> Nuevo Contrato</h1>
+		<div className="nuevo-contrato-content">
+
+			<div className="nuevo-contrato-subtitle-wrapper">
+			<h3 className="nuevo-contrato-subtitle"> Ingredientes</h3>
+			<Button variant="outlined" size="small" onClick={agregarIngrediente}>
+			  + Nuevo
+			</Button>
+        	</div>
+
+			{console.log('ingredientes',ingredientes)}
+			{ingredientes.map((ingrediente,indice) => (
+				<Ingrediente 
+					key={indice} 
+					indice={indice} 
+					handleChangePres={handleChangePres}
+					handleChange={handleChangeIngredientes} 
+					ingredientes={ingredientes} 
+					presentaciones={presentaciones} 
+					opciones={opcionesIngredientes}
+					handleDelete={borrarIngrediente}
+				/>
+			))}
+		</div>
+		</>
 )}
 
 
