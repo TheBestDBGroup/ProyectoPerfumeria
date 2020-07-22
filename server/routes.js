@@ -1,16 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const perfumeController = require('./controllers/perfumeController')
+const proveedorController = require("./controllers/proveedorController");
 
-router.get('/ping', (req, res) => {return res.send('pong')}) //test
-router.get('/perfume/list', perfumeController.perfumeList); //lista de perfumes
-router.post('/perfume/add', perfumeController.perfumeAdd);
-router.post('/perfume/edit', perfumeController.perfumeEdit);
-router.post('/perfume/delete', perfumeController.perfumeDelete);
-router.post('/select/dictionary', perfumeController.selectDictionary);
-router.post('/perfume/read', perfumeController.perfumeRead);
+router.get("/ping", (req, res) => {
+  return res.send("pong");
+}); //TEST
 
-
-
+router.get("/read/proveedores", proveedorController.getProveedores); //OBTENER TODOS LOS PROVEEDORES
+router.get(
+  "/read/proveedores-potenciales",
+  proveedorController.getProveedoresPotenciales
+); //OBTENER TODOS LOS PROVEEDORES POTENCIALES
+router.get(
+  "/read/proveedores-por-renovar",
+  proveedorController.getProveedoresPorRenovar
+); //OBTENER PROVEEDORES POR RENOVAR
 module.exports = router;
