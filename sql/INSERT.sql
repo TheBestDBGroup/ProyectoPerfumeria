@@ -16,7 +16,6 @@ INSERT INTO ydm_pais VALUES
   (DEFAULT, 'Alemania'),
   (DEFAULT, 'Andorra'),
   (DEFAULT, 'Angola'),
-   (DEFAULT, 'Antigua y Barbuda'),
   (DEFAULT, 'Arabia Saudita'),
   (DEFAULT, 'Argelia'),
   (DEFAULT, 'Argentina'),
@@ -220,7 +219,7 @@ INSERT INTO ydm_asociacion_nacional VALUES
   (DEFAULT, 'NEA', 'Europa', 134),
   (DEFAULT, 'SAAFFI - South African Association of the Flavour & Fragrance Industry', 'Europa', 149),
   (DEFAULT, 'AEFAA - Asociación Española de Fragancias y Aromas Alimentarios', 'Europa', 59),
-  (DEFAULT, 'SFFIA - Swiss Flavour and Fragrance Industry Association', 'Europa', 171),
+  (DEFAULT, 'SFFIA - Swiss Flavour and Fragrance Industry Association', 'Europa', 170),
   (DEFAULT, 'AREP', 'Europa', 182),
   (DEFAULT, 'IFRA UK', 'Europa', 143),
   (DEFAULT, 'CAFEPA - Cámara Argentina de Fabricantes de Productos Aromaticos', 'Latinoamérica', 9),
@@ -246,7 +245,7 @@ INSERT INTO ydm_perfume VALUES
 
 INSERT INTO ydm_pi_pdt_env VALUES
   (DEFAULT, 1, 66, 'Envios Productor'),
-  (DEFAULT, 1, 171, 'Envios Productor'),
+  (DEFAULT, 1, 170, 'Envios Productor'),
   (DEFAULT, 2, 72, 'Envios Productor'),
   (DEFAULT, 2, 81, 'Envios Productor'),
   (DEFAULT, 3, 9, 'Envios Productor'),
@@ -257,7 +256,7 @@ INSERT INTO ydm_pi_pdt_env VALUES
 
 
 INSERT INTO ydm_proveedor VALUES
-  (DEFAULT, 'Givaudan', 'www.givaudan.com', 'givaudan@givaudan.com', 8, 171),
+  (DEFAULT, 'Givaudan', 'www.givaudan.com', 'givaudan@givaudan.com', 8, 170),
   (DEFAULT, 'Imperial Fragrances &amp; Flavors Pvt Ltd', 'www.imperialfragrances.com', 'imperial@imperialfragrances.com', 8, 81),
   (DEFAULT, 'Kurt Kitzing', 'www.cosmetic-business.com', 'kurtkitzing@gkurtkitzing.com', 9, 3);
 
@@ -356,10 +355,10 @@ INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
 
 INSERT INTO ydm_alt_envio VALUES
-
+  (DEFAULT, 1, 66, 'Avion', 2000, NULL),
   (DEFAULT, 1, 66, 'Barco', 1000, NULL),
-  (DEFAULT, 2, 171, 'Avion', 2500, NULL),
-  (DEFAULT, 2, 171, 'Barco', 1500, NULL),
+  (DEFAULT, 2, 170, 'Avion', 2500, NULL),
+  (DEFAULT, 2, 170, 'Barco', 1500, NULL),
   (DEFAULT, 3, 72, 'Avion', 3000, NULL),
   (DEFAULT, 3, 72, 'Barco', 1800, NULL),
   (DEFAULT, 1, 81, 'Avion', 2000, NULL),
@@ -368,7 +367,7 @@ INSERT INTO ydm_alt_envio VALUES
 
 INSERT INTO ydm_cond_env_pago VALUES
   (DEFAULT, 1, 'Descripcion', 1, 1, 1, 1, 66),
-  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 171),
+  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 170),
   (DEFAULT, 3, 'Descripcion', 3, 3, 6, 3, 72),
   (DEFAULT, 4, 'Descripcion', 4, 1, 7, 1, 81),
   (DEFAULT, 5, 'Descripcion', 5, 2, 8, 2, 9),
