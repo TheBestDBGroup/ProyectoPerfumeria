@@ -16,7 +16,7 @@ INSERT INTO ydm_pais VALUES
   (DEFAULT, 'Alemania'),
   (DEFAULT, 'Andorra'),
   (DEFAULT, 'Angola'),
-  (DEFAULT, 'Antigua y Barbuda'),
+   (DEFAULT, 'Antigua y Barbuda'),
   (DEFAULT, 'Arabia Saudita'),
   (DEFAULT, 'Argelia'),
   (DEFAULT, 'Argentina'),
@@ -356,23 +356,23 @@ INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
 
 INSERT INTO ydm_alt_envio VALUES
-  (DEFAULT, 1, 1, 66, 'Avion', 2000, NULL),
-  (DEFAULT, 1, 1, 66, 'Barco', 1000, NULL),
-  (DEFAULT, 2, 2, 171, 'Avion', 2500, NULL),
-  (DEFAULT, 2, 2, 171, 'Barco', 1500, NULL),
-  (DEFAULT, 3, 3, 72, 'Avion', 3000, NULL),
-  (DEFAULT, 3, 3, 72, 'Barco', 1800, NULL),
-  (DEFAULT, 1, 5, 81, 'Avion', 2000, NULL),
-  (DEFAULT, 2, 6, 9, 'Barco', 3000, NULL),
-  (DEFAULT, 3, 7, 3, 'Barco', 2000, NULL);
+
+  (DEFAULT, 1, 66, 'Barco', 1000, NULL),
+  (DEFAULT, 2, 171, 'Avion', 2500, NULL),
+  (DEFAULT, 2, 171, 'Barco', 1500, NULL),
+  (DEFAULT, 3, 72, 'Avion', 3000, NULL),
+  (DEFAULT, 3, 72, 'Barco', 1800, NULL),
+  (DEFAULT, 1, 81, 'Avion', 2000, NULL),
+  (DEFAULT, 2, 9, 'Barco', 3000, NULL),
+  (DEFAULT, 3, 3, 'Barco', 2000, NULL);
 
 INSERT INTO ydm_cond_env_pago VALUES
-  (DEFAULT, 1, 'Descripcion', 1, 1, 1, 1, 1, 66),
-  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 2, 171),
-  (DEFAULT, 3, 'Descripcion', 3, 3, 6, 3, 3, 72),
-  (DEFAULT, 4, 'Descripcion', 4, 1, 7, 1, 5, 81),
-  (DEFAULT, 5, 'Descripcion', 5, 2, 8, 2, 6, 9),
-  (DEFAULT, 6, 'Descripcion', 6, 3, 9, 3, 7, 3);
+  (DEFAULT, 1, 'Descripcion', 1, 1, 1, 1, 66),
+  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 171),
+  (DEFAULT, 3, 'Descripcion', 3, 3, 6, 3, 72),
+  (DEFAULT, 4, 'Descripcion', 4, 1, 7, 1, 81),
+  (DEFAULT, 5, 'Descripcion', 5, 2, 8, 2, 9),
+  (DEFAULT, 6, 'Descripcion', 6, 3, 9, 3, 3);
 
 INSERT INTO ydm_pedido VALUES
   (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 1, 1, '2018/10/28', 1),

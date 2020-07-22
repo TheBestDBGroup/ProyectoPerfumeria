@@ -518,12 +518,11 @@ CREATE TABLE ydm_alt_envio
 (
     id_alt_envio numeric NOT NULL DEFAULT nextval ('ydm_secuencia_alt_envio'::regclass),
     id_proveedor_alt_envio numeric NOT NULL,
-    id_contrato_alt_envio numeric NOT NULL,
     id_pais_alt_envio numeric NOT NULL,
     transporte_alt_envio varchar NOT NULL,
     costo_alt_envio numeric NOT NULL,
     tiempo_estimado_alt_envio date,
-    CONSTRAINT pk_alt_envio PRIMARY KEY (id_alt_envio,id_proveedor_alt_envio,id_contrato_alt_envio,id_pais_alt_envio)
+    CONSTRAINT pk_alt_envio PRIMARY KEY (id_alt_envio,id_proveedor_alt_envio,id_pais_alt_envio)
 );
 
 CREATE SEQUENCE ydm_secuencia_tlf
@@ -580,7 +579,6 @@ CREATE TABLE ydm_cond_env_pago
     id_proveedor_condicion_pago_cond_env_pago numeric,
     id_alt_envio_cond_env_pago numeric,
     id_proveedor_alt_envio_cond_env_pago numeric,
-    id_contrato_alt_envio_cond_env_pago numeric,
     id_pais_alt_envio_cond_env_pago numeric,
     CONSTRAINT pk_id_cond_env_pago PRIMARY KEY (id_cond_env_pago, id_contrato_cond_env_pago)
 );                          
@@ -822,7 +820,6 @@ ALTER TABLE ydm_renueva
 
 ALTER TABLE ydm_alt_envio  
     ADD CONSTRAINT fk_alt_envio_proveedor FOREIGN KEY (id_proveedor_alt_envio) REFERENCES ydm_proveedor(id_proveedor),
-    ADD CONSTRAINT fk_alt_envio_contrato FOREIGN KEY (id_contrato_alt_envio) REFERENCES ydm_contrato(id_contrato),
     ADD CONSTRAINT fk_alt_envio_pais FOREIGN KEY (id_pais_alt_envio) REFERENCES ydm_pais(id_pais)
 ;
 
@@ -834,7 +831,7 @@ ALTER TABLE ydm_miembro_ifra
 ALTER TABLE ydm_cond_env_pago
     ADD CONSTRAINT fk_id_contrato_cond_env_pago FOREIGN KEY (id_contrato_cond_env_pago) REFERENCES ydm_contrato(id_contrato),
     ADD CONSTRAINT fk_id_condicion_pago_cond_env_pago FOREIGN KEY (id_condicion_pago_cond_env_pago, id_proveedor_condicion_pago_cond_env_pago) REFERENCES ydm_condicion_pago(id_condicion_pago, id_proveedor_condicion_pago),
-    ADD CONSTRAINT fk_alt_envio_cond_env_pago FOREIGN KEY (id_alt_envio_cond_env_pago, id_proveedor_alt_envio_cond_env_pago, id_contrato_alt_envio_cond_env_pago, id_pais_alt_envio_cond_env_pago) REFERENCES ydm_alt_envio(id_alt_envio, id_proveedor_alt_envio, id_contrato_alt_envio, id_pais_alt_envio)
+    ADD CONSTRAINT fk_alt_envio_cond_env_pago FOREIGN KEY (id_alt_envio_cond_env_pago, id_proveedor_alt_envio_cond_env_pago, id_pais_alt_envio_cond_env_pago) REFERENCES ydm_alt_envio(id_alt_envio, id_proveedor_alt_envio, id_pais_alt_envio)
 ;
 
 ALTER TABLE ydm_evaluacion
