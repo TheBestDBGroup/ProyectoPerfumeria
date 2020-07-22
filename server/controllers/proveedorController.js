@@ -10,7 +10,7 @@ const getProveedores = (request, response) => {
 };
 
 const getProveedoresPotenciales = (request, response) => {
-  let values = [request.query.id_productor];
+  let values = [request.body.id_productor];
   const query =
     "SELECT DISTINCT id_proveedor, nombre_proveedor, web_proveedor, email_proveedor, nombre_pais\
   FROM ydm_pi_pdt_env, ydm_alt_envio, ydm_proveedor, ydm_pais, ydm_miembro_ifra\
@@ -29,7 +29,7 @@ const getProveedoresPotenciales = (request, response) => {
 };
 
 const getProveedoresPorRenovar = (request, response) => {
-  let values = [request.query.id_productor];
+  let values = [request.body.id_productor];
   const query =
     "SELECT id_proveedor, nombre_proveedor, web_proveedor, email_proveedor, fecha_emision_contrato, (\
 			SELECT fecha_renueva FROM ydm_renueva r\

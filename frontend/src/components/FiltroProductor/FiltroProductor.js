@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './filtro-productor-styles.css';
 import {Table, Button} from "tabler-react";
 import { useHistory } from "react-router-dom";
-
+import axios from 'axios';
 
 //Aqui se elige el productor con quien trabajar
 //sessionStorage.setItem('nombre', response.data.user.nombre);
@@ -39,7 +39,7 @@ const FiltroProductor = (props) => {
 
 	const history = useHistory();
 
-	const productores = DummyProductores //estado cuando se conecte al server
+	const [productores,setProductores] = useState(undefined) //estado cuando se conecte al server
 	const redirectDir = props.match.params.redirectDir
 
 	const handleSelect = (id) => {
@@ -47,8 +47,20 @@ const FiltroProductor = (props) => {
 		history.push(`/${redirectDir}`);
 	}
 
+	useEffect(() => {
+	       axios.get(`/read/productores`)
+	            .then((res) => {
+	                 console.log('response /read/productores', res.data);
+	                 setProductores(res.data);
+	            }, (error) => {
+	                console.log(error);
+	        });
+	     
+	}, []);
 
 
+
+if(productores){
 return (
 	<>
 		<h1 className="filtro-productor-titulo"> Seleccione el productor que desea gestionar </h1>
@@ -81,6 +93,10 @@ return (
 		</Table>
 	</>
 	)
+} else {
+		return <p> Cargando... </p>
+}
+
 }
 
 

@@ -17,22 +17,30 @@ const DummyProveedores = [
 		nombre_proveedor:'Proveedor El perfumista',
 		web_proveedor: 'www.proveedor.com',
 		email_proveedor: 'proveedor@gmail.com',
-		paises_envio_proveedor: ['Holanda', 'Canada','Francia']
+		nombre_pais: "Gabón"
 	},
 	{ 
 		id_proveedor: 2,
 		nombre_proveedor:'Proveedor El perfumista',
 		web_proveedor: 'www.proveedor.com',
 		email_proveedor: 'proveedor@gmail.com',
-		paises_envio_proveedor: ['Holanda', 'Canada','Francia', 'Francia','Francia','Francia','Francia','Francia','Francia','Francia']
+		nombre_pais:"Alemania"
 	},
 	{ 
-		id_proveedor: 3,
+		id_proveedor: 1,
 		nombre_proveedor:'Proveedor El perfumista',
 		web_proveedor: 'www.proveedor.com',
 		email_proveedor: 'proveedor@gmail.com',
-		paises_envio_proveedor: ['Holanda', 'Canada','Francia']
+		nombre_pais: "Holanda"
 	},
+	{ 
+		id_proveedor: 1,
+		nombre_proveedor:'Proveedor El perfumista',
+		web_proveedor: 'www.proveedor.com',
+		email_proveedor: 'proveedor@gmail.com',
+		nombre_pais: "Filipinas"
+	},
+	
 ]
 
 
@@ -40,7 +48,8 @@ const DummyProveedores = [
 const EvaluacionInicial = () => {
 
 	const productorId = localStorage.getItem('id_productor');
-	const proveedores = DummyProveedores //convertir a estado
+	 //convertir a estado
+	const [proveedores, setSelectedProveedores] = useState(undefined)
 	const history = useHistory();
 	const [selectedProveedor,setSelectedProveedor] = useState({id:0,nombre:''})
 	
@@ -68,6 +77,35 @@ const EvaluacionInicial = () => {
 		handleClickOpen()
 	}
 
+
+	const filterCountry=(arrayProv)=> {
+
+	let uniqueIDs = {};
+
+	if(arrayProv.length>0){
+	
+		arrayProv = arrayProv.filter(function(proveedor) {
+	    if (uniqueIDs.hasOwnProperty(proveedor.id_proveedor)) {
+	       	uniqueIDs[proveedor.id_proveedor].paises_envio_proveedor.push(proveedor.nombre_pais)
+	        return false;
+	    }
+
+		    uniqueIDs[proveedor.id_proveedor] = proveedor;
+		    uniqueIDs[proveedor.id_proveedor].paises_envio_proveedor = [];
+		    uniqueIDs[proveedor.id_proveedor].paises_envio_proveedor.push(proveedor.nombre_pais)
+		    return true;
+		});
+
+	}
+
+	return arrayProv
+
+
+	}
+
+	
+
+	if(proveedores){
 
 	return (
 		<>
@@ -106,6 +144,10 @@ const EvaluacionInicial = () => {
 		</>
 
 	);
+
+	} else {
+		return <p>Cargando... </p>
+	}
 }
 
 
