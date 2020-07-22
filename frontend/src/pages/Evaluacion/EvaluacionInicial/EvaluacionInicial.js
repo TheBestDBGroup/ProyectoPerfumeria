@@ -7,44 +7,6 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios'
 
 
-
-
-
-
-const DummyProveedores = [
-	
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Gabón"
-	},
-	{ 
-		id_proveedor: 2,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais:"Alemania"
-	},
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Holanda"
-	},
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Filipinas"
-	},
-	
-]
-
-
 //Mostrar lista de proveedores 
 const EvaluacionInicial = () => {
 
