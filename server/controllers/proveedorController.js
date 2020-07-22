@@ -31,18 +31,18 @@ const getProveedoresPotenciales = (request, response) => {
 const getProveedoresPorRenovar = (request, response) => {
   let values = [request.body.id_productor];
   const query =
-    "SELECT id_proveedor, nombre_proveedor, web_proveedor, email_proveedor, fecha_emision_contrato, (\
+    "SELECT id_proveedor, nombre_proveedor, web_proveedor, email_proveedor, id_contrato, fecha_emision_contrato, (\
 			SELECT fecha_renueva FROM ydm_renueva r\
-			WHERE fecha_renueva + 365 BETWEEN current_date - 30 AND current_date\
+			WHERE fecha_renueva + 365 BETWEEN current_date AND current_date + 30\
         AND id_contrato_renueva = cont.id_contrato ORDER BY fecha_renueva desc LIMIT 1 ), nombre_pais\
     FROM ydm_proveedor prov, ydm_contrato cont, ydm_productor, ydm_pais WHERE id_productor = $1\
     AND id_productor = id_productor_contrato AND id_proveedor = id_proveedor_contrato\
     AND id_pais = id_pais_proveedor AND fecha_cancela_contrato is null\
-    AND	(fecha_emision_contrato + 365 BETWEEN current_date - 30 AND current_date\
+    AND	(fecha_emision_contrato + 365 BETWEEN current_date AND current_date + 30\
       OR (SELECT fecha_renueva FROM ydm_renueva r\
-        WHERE fecha_renueva + 365 BETWEEN current_date - 30 AND current_date\
+        WHERE fecha_renueva + 365 BETWEEN current_date AND current_date + 30\
         AND id_contrato_renueva = cont.id_contrato ORDER BY fecha_renueva desc LIMIT 1 ) + 365\
-        BETWEEN current_date - 30 AND current_date)";
+        BETWEEN current_date AND current_date + 30)";
   pool.query(query, values, (error, results) => {
     if (error) {
       throw error;
