@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 const DummyProductores = [
 	{ 
 		id_productor: 1,
-		nombre_productor:'Proveedor El perfumista',
+		nombre_productor:'Productor El perfumista',
 		web_productor: 'www.proveedor.com',
 		email_productor: 'proveedor@gmail.com'
 	},
@@ -33,9 +33,6 @@ const DummyProductores = [
 		email_productor: 'proveedor@gmail.com'
 	},
 ]
-
-//esta es la direccion en donde se va a redirigir, pasar por props
-const DummyRedirectDir = '/evaluacion'
 
 
 const FiltroProductor = (props) => {

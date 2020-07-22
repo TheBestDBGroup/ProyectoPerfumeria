@@ -19,7 +19,7 @@ const InfoProdSubheader = ({redirectDir}) => {
 	return (
 	
 	<Nav className="subheader-nav" style={ {backgroundColor:'white'}}>	
-			<p className="subheader-info"> Productor de ID = {productorId} </p>
+			<p className="subheader-info"> Productor ID = {productorId} </p>
 			<Button onClick={handleChangeProd} 
 					color="primary" 
 					className="subheader-button"

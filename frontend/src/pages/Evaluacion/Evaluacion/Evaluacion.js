@@ -1,6 +1,5 @@
 import React from 'react';
 import './evaluacion-styles.css';
-import FiltroProductor from '../../../components/FiltroProductor/FiltroProductor.js'
 import ChooseEvalType from '../ChooseEvalType/ChooseEvalType.js'
 import { Redirect } from 'react-router-dom'
 
