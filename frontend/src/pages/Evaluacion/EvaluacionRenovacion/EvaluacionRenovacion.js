@@ -93,14 +93,23 @@ const EvaluacionRenovacion = () => {
 	};
   	
   	const handleSubmitRenovar = () => {
-  		//TODO: Renovar contrato en BD
-  		handleCloseRenovar()
-  		alert('Contrato Renovado')
-
+  		 
+  		 axios.post('/create/renovacion', {
+		    id_contrato: selectedProveedor.id_contrato,
+		  })
+		  .then((res) =>{
+		    console.log('response renovacion', res.data);
+		    handleCloseRenovar()
+		    alert('Contrato Renovado')
+            
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
   	}
   
-  	const handleSelectRenovar = (id,nombre) => {
-		setSelectedProveedor({id:id,nombre:nombre})
+  	const handleSelectRenovar = (id,nombre,idcont) => {
+		setSelectedProveedor({id:id,nombre:nombre, id_contrato:idcont})
 		handleClickOpenRenovar()
 	}
 
@@ -138,7 +147,7 @@ const EvaluacionRenovacion = () => {
 			     	<Table.Col>{proveedor.id_contrato} </Table.Col>
 			     	<Table.Col>{convertISODate(proveedor.fecha_emision_contrato)} </Table.Col>	
 			    	<Table.Col>
-			        	<Button onClick={() => handleSelectRenovar(proveedor.id_proveedor, proveedor.nombre_proveedor)} color="primary" className="eval-ren-buttons">Renovar</Button>
+			        	<Button onClick={() => handleSelectRenovar(proveedor.id_proveedor, proveedor.nombre_proveedor, proveedor.id_contrato)} color="primary" className="eval-ren-buttons">Renovar</Button>
 			        	<Button onClick={() => handleSelect(proveedor.id_proveedor, proveedor.nombre_proveedor)} color="primary" className="eval-ren-buttons">Crear Nuevo</Button>
 			      	</Table.Col>
 			    </Table.Row>
