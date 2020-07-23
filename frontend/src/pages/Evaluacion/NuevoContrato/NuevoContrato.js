@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
 import InfoContrato from './InfoContrato/InfoContrato';
 import Envio from './Envio/Envio';
+import Pago from './Pago/Pago';
 
 
 
@@ -141,6 +142,27 @@ const handleChangeEnvio = (indice,e) => {
 }
 
 
+//MANEJAR PAGOS
+
+const agregarPago = () => {
+	let pagosCopy = [...pagos]
+	pagosCopy.push({id:''})
+	setPagos(pagosCopy)
+}
+
+const borrarPago = (indice) => {
+	let pagosCopy = [...pagos]
+	pagosCopy.splice(indice,1)
+	setPagos(pagosCopy) 
+}
+
+const handleChangePago = (indice,e) => {
+	let pagosCopy = [...pagos]
+	pagosCopy[indice] = opcionesPago[e.target.value]
+	setPagos(pagosCopy)
+}
+
+
 //LLAMADAS INICIALES
 useEffect(() => {
 
@@ -257,6 +279,27 @@ return (
 					envios={envios} 
 					opciones={opcionesEnvio}
 					handleDelete={borrarEnvio}
+				/>
+			))}
+			</div>
+
+
+			<div className="nuevo-cont-divider">
+			<div className="nuevo-contrato-subtitle-wrapper">
+			<h3 className="nuevo-contrato-subtitle"> Opciones de Pago</h3>
+			
+			<Button variant="outlined" size="small" onClick={agregarPago}>
+			  + Nuevo
+			</Button>
+        	</div>
+			{pagos.map((pago,indice) => (
+				<Pago
+					key={indice} 
+					indice={indice} 
+					handleChange={handleChangePago} 
+					pagos={pagos} 
+					opciones={opcionesPago}
+					handleDelete={borrarPago}
 				/>
 			))}
 			</div>

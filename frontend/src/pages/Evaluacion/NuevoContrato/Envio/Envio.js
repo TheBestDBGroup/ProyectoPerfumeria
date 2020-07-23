@@ -41,7 +41,7 @@ const Envio = ({indice,handleChange,opciones,envios,handleDelete}) => {
         <InputLabel id={`envio-${indice}`}> Opcion Envio </InputLabel>
 	        <Select
 	          renderValue={() => renderValue()}
-	          value={'envios[indice].id_alt_envio'}
+	          value={envios[indice].id_alt_envio}
 	          onChange={value => handleChange(indice, value)}
 	        >
 
