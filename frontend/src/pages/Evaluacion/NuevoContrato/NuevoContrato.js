@@ -166,8 +166,29 @@ const handleChangePago = (indice,e) => {
 //LLAMADAS INICIALES
 useEffect(() => {
 
-	//TODO:INFO PROV
+	//INFO PROV
+	axios.post('/read/proveedor', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response info prov', res.data[0]);
+	    setInfoProveedor(res.data[0])
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
 	//TODO: INFO PROD
+	axios.post('/read/productor', {
+	    id_productor: productorId ,
+	  })
+	  .then((res) =>{
+	    console.log('response info prod', res.data[0]);
+	    setInfoProductor(res.data[0])
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
 
 	//OPCIONES ENVIO
     axios.post('/read/contrato/opciones-proveedor/envio', {
