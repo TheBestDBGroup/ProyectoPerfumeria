@@ -353,7 +353,7 @@ INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 2, 'Crédito', 2, 50, 6),
   (DEFAULT, 3, 'Crédito', 4, 25, 3),
-  (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
+  (DEFAULT, 1, 'Crédito', 2, 50, 2,
   (DEFAULT, 2, 'Crédito', 5, 20, 2),
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
 
