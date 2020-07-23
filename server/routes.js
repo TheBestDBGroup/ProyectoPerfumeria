@@ -40,4 +40,22 @@ router.post("/create/contrato", contratoController.postCrearContrato); //CREAR C
 router.post("/create/cond-env-pago", contratoController.postCrearCondEnvPago); //CREAR COND ENV PAGO
 router.post("/create/clausula-prod", contratoController.postCrearClausulaProd); //CREAR CLAUSULA PROD
 
+//OBTENER PRODUCTOR
+router.post("/read/productor", productorController.getProductor);
+//OBTENER PROVEEDOR
+router.post("/read/proveedor", proveedorController.getProveedor);
+
+//OPCIONES ING ESEN SIN EXC
+router.post("/read/opciones-proveedor/ing-esen-sin-exc", contratoController.postGetOpcionesIngredienteEsencia);
+
+//OPCIONES ING ESEN CON EXC
+router.post("/read/opciones-proveedor/ing-esen-con-exc", contratoController.postGetOpcionesIngredienteEsenciaExc);
+
+//OPCIONES ING GEN SIN EXC
+router.post("/read/opciones-proveedor/ing-gen-sin-exc", contratoController.postGetOpcionesIngredienteGeneral);
+
+//OPCIONES ING GEN CON EXC
+router.post("/read/opciones-proveedor/ing-gen-con-exc", contratoController.postGetOpcionesIngredienteGeneralExc);
+
+
 module.exports = router;

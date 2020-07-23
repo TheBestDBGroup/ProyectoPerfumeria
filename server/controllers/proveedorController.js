@@ -9,6 +9,16 @@ const getProveedores = (request, response) => {
   });
 };
 
+const getProveedor = (request, response) => {
+  let values = [request.body.id_proveedor]
+  pool.query("SELECT * FROM ydm_proveedor WHERE id_proveedor = $1",values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getProveedoresPotenciales = (request, response) => {
   let values = [request.body.id_productor];
   const query =
@@ -66,4 +76,5 @@ module.exports = {
   getProveedores,
   getProveedoresPotenciales,
   getProveedoresPorRenovar,
+  getProveedor
 };
