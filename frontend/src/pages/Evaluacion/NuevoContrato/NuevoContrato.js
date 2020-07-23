@@ -8,7 +8,7 @@ import axios from 'axios';
 import InfoContrato from './InfoContrato/InfoContrato';
 import Envio from './Envio/Envio';
 import Pago from './Pago/Pago';
-
+import { useHistory } from "react-router-dom";
 
 
 const DummyInfoProveedor = {
@@ -30,6 +30,7 @@ const NuevoContrato = (props) => {
 
 const productorId = localStorage.getItem('id_productor');
 const proveedorId = props.match.params.idproveedor
+const history = useHistory();
 
 //INFORMACION 
 const [infoProveedor,setInfoProveedor] = useState(DummyInfoProveedor);
@@ -206,6 +207,7 @@ const enviarDatosContrato = (id_contrato)  => {
 	 .then(function (res) {
 	    console.log('response promise all', res)
 	    alert('Contrato creado con exito')
+	    history.push(`/`);
 	  });	
 
 }
