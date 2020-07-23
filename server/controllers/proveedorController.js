@@ -10,13 +10,17 @@ const getProveedores = (request, response) => {
 };
 
 const getProveedor = (request, response) => {
-  let values = [request.body.id_proveedor]
-  pool.query("SELECT * FROM ydm_proveedor WHERE id_proveedor = $1",values, (error, results) => {
-    if (error) {
-      throw error;
+  let values = [request.body.id_proveedor];
+  pool.query(
+    "SELECT * FROM ydm_proveedor WHERE id_proveedor = $1",
+    values,
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
-  });
+  );
 };
 
 const getProveedoresPotenciales = (request, response) => {
@@ -61,7 +65,8 @@ SELECT id_proveedor, nombre_proveedor, web_proveedor, email_proveedor, nombre_pa
     WHERE id_productor = $1 AND id_productor = id_productor_contrato AND id_proveedor = id_proveedor_contrato AND id_pais = id_pais_proveedor\
       AND fecha_cancela_contrato is null AND\
         (SELECT fecha_renueva FROM ydm_renueva\
-          WHERE fecha_renueva BETWEEN current_date AND current_date + 30\
+          WHERE (fecha_renueva BETWEEN current_date AND current_date + 30\
+            OR fecha_renueva + 365 BETWEEN current_date AND current_date + 30)\
             AND id_contrato_renueva = cont.id_contrato\
           ORDER BY fecha_renueva desc LIMIT 1) + 365 BETWEEN current_date AND current_date + 30";
   pool.query(query, values, (error, results) => {
@@ -76,5 +81,5 @@ module.exports = {
   getProveedores,
   getProveedoresPotenciales,
   getProveedoresPorRenovar,
-  getProveedor
+  getProveedor,
 };
