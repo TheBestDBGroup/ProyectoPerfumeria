@@ -574,7 +574,7 @@ CREATE TABLE ydm_cond_env_pago
 (
     id_cond_env_pago numeric NOT NULL DEFAULT nextval('ydm_secuencia_cond_env_pago'::regclass),
     id_contrato_cond_env_pago numeric NOT NULL,
-    descripcion_cond_env_pago varchar NOT NULL,
+    descripcion_cond_env_pago varchar,
     id_condicion_pago_cond_env_pago numeric,
     id_proveedor_condicion_pago_cond_env_pago numeric,
     id_alt_envio_cond_env_pago numeric,
@@ -605,8 +605,8 @@ CREATE TABLE ydm_clausula_prod
 (
     id_clausula_prod numeric NOT NULL DEFAULT nextval('ydm_secuencia_clausula_prod'::regclass),
     id_contrato_clausula_prod numeric NOT NULL,
-    id_ingr_esencia_clausula_prod numeric NOT NULL,
-    id_ingr_general_clausula_prod numeric NOT NULL,
+    id_ingr_esencia_clausula_prod numeric,
+    id_ingr_general_clausula_prod numeric,
     CONSTRAINT pk_id_clausula_prod PRIMARY KEY (id_clausula_prod, id_contrato_clausula_prod)
 );
 

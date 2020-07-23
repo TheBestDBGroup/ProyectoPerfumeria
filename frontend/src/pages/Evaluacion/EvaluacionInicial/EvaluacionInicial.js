@@ -1,47 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './evaluacion-inicial-styles.css';
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import {Table, Button} from "tabler-react";
 import CustomDialog from '../../../components/CustomDialog/CustomDialog'
 import { useHistory } from "react-router-dom";
-
-
-
-
-
-
-const DummyProveedores = [
-	
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Gabón"
-	},
-	{ 
-		id_proveedor: 2,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais:"Alemania"
-	},
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Holanda"
-	},
-	{ 
-		id_proveedor: 1,
-		nombre_proveedor:'Proveedor El perfumista',
-		web_proveedor: 'www.proveedor.com',
-		email_proveedor: 'proveedor@gmail.com',
-		nombre_pais: "Filipinas"
-	},
-	
-]
+import axios from 'axios'
 
 
 //Mostrar lista de proveedores 
@@ -49,7 +12,7 @@ const EvaluacionInicial = () => {
 
 	const productorId = localStorage.getItem('id_productor');
 	 //convertir a estado
-	const [proveedores, setSelectedProveedores] = useState(undefined)
+	const [proveedores, setProveedores] = useState(undefined)
 	const history = useHistory();
 	const [selectedProveedor,setSelectedProveedor] = useState({id:0,nombre:''})
 	
@@ -103,13 +66,30 @@ const EvaluacionInicial = () => {
 
 	}
 
-	
+	useEffect(() => {
+        axios.post('/read/proveedores-potenciales', {
+		    id_productor: productorId,
+		  })
+		  .then((res) =>{
+		    console.log('response proveedores potenciales', res.data);
+            setProveedores(filterCountry(res.data));
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	     
+	}, []);
+
+	/**/
+
+	//RETORNOS
 
 	if(proveedores){
 
 	return (
 		<>
 		<InfoProdSubheader redirectDir={'evaluacion'}/>
+		{console.log('proveedores',proveedores)}
 		<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor sobre el que desea realizar evaluación inicial </h1>
 
 		<CustomDialog open={open} handleClose={handleClose} handleSubmit={handleSubmit} title={dialogTitle} content={dialogContent}/>
@@ -146,7 +126,11 @@ const EvaluacionInicial = () => {
 	);
 
 	} else {
-		return <p>Cargando... </p>
+		return (<>
+			{console.log('proveedores',proveedores)}
+			<p>Cargando... </p>
+			</>
+		)
 	}
 }
 
