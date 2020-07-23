@@ -19,7 +19,7 @@ const getOpcionesEnvioProveedor = (request, response) => {
   let values = [request.body.id_proveedor];
 
   const query =
-    "SELECT pais.nombre_pais, altenv.id_alt_envio, altenv.transporte_alt_envio,\
+    "SELECT pais.nombre_pais, pais.id_pais, altenv.id_alt_envio, altenv.transporte_alt_envio,\
      altenv.costo_alt_envio, altenv.tiempo_estimado_alt_envio FROM ydm_alt_envio altenv,\
      ydm_pais pais WHERE altenv.id_proveedor_alt_envio = $1 and altenv.id_pais_alt_envio = pais.id_pais;";
 

@@ -45,17 +45,17 @@ const DummyIngredientes = [
 
 
 const DummyInfoProveedor = {
-	id_proveedor: 1,
-	nombre_proveedor: 'Los Padrinos Magicos Prov',
-	web_proveedor: 'www.web.com',
-	email_proveedor: 'maria@gmail.com'
+	id_proveedor: '',
+	nombre_proveedor: '',
+	web_proveedor: '',
+	email_proveedor: ''
 }
 
 const DummyInfoProductor = {
-	id_productor: 1,
-	nombre_productor: 'Las Chicas Superpoderosas Prod',
-	web_productor: 'www.web.com',
-	email_productor: 'pedro@gmail.com'
+	id_productor: '',
+	nombre_productor: '',
+	web_productor: '',
+	email_productor: ''
 }
 
 
@@ -160,6 +160,73 @@ const handleChangePago = (indice,e) => {
 	let pagosCopy = [...pagos]
 	pagosCopy[indice] = opcionesPago[e.target.value]
 	setPagos(pagosCopy)
+}
+
+
+
+// ENVIAR INDICACIONES CONTRATO
+const enviarDatosContrato = (id_contrato)  => {
+	
+	let promesas = []
+
+	//envios
+	envios.forEach(envio => 
+		
+		promesas.push(
+			
+			axios.post('/create/cond-env-pago', {
+				id_contrato: id_contrato,
+		    	id_proveedor: proveedorId,
+		    	id_condicion_pago: null,
+		    	id_alt_envio: envio.id_alt_envio,
+		    	id_pais_alt_envio: envio.id_pais
+	  		})
+		)
+	);
+
+	//pagos
+	pagos.forEach(pago => 
+		
+		promesas.push(
+			
+			axios.post('/create/cond-env-pago', {
+				id_contrato: id_contrato,
+		    	id_proveedor: proveedorId,
+		    	id_condicion_pago: pago.id_condicion_pago,
+		    	id_alt_envio: null,
+		    	id_pais_alt_envio: null
+	  		})
+		)
+	);
+
+
+
+	Promise.all(promesas)
+	 .then(function (res) {
+	    console.log('response promise all', res)
+	    alert('Contrato creado con exito')
+	  });	
+
+}
+
+
+//CREAR CONTRATO EN BD
+const handleSubmit = () => {
+	
+	//CREAR CONTRATO
+	axios.post('/create/contrato', {
+	    id_proveedor: proveedorId,
+	    id_productor: productorId,
+	    exclusivo: exclusividad
+	  })
+	  .then((res) =>{
+	  	console.log('res crear contrato',res.data[0].id_contrato)
+	    enviarDatosContrato(res.data[0].id_contrato)
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
 }
 
 
@@ -326,7 +393,7 @@ return (
 			</div>
 
 
-			<Button variant="contained" className="nuevo-contrato-button">Crear Nuevo Contrato</Button>
+			<Button onClick={handleSubmit}variant="contained" className="nuevo-contrato-button">Crear Nuevo Contrato</Button>
 
 			</div>
 		</>
