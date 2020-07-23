@@ -328,27 +328,22 @@ INSERT INTO ydm_evaluacion VALUES
   ('2016/07/05', 3, 4, 40, 'Renovación');
 
 INSERT INTO ydm_contrato VALUES
-  (DEFAULT, '2018/10/15', NULL, NULL, FALSE, 1, 1),
+  (DEFAULT, '2018/10/15', NULL, NULL, TRUE, 1, 1),
   (DEFAULT, '2019/07/05', NULL, NULL, FALSE, 2, 2),
   (DEFAULT, '2020/07/05', NULL, NULL, FALSE, 2, 2),
   (DEFAULT, '2019/11/08', '2019/11/16', 'Por Tardanza', FALSE, 4, 3),
-  (DEFAULT, '2018/10/12', NULL, NULL, TRUE, 3, 3),
-  (DEFAULT, '2019/10/12', NULL, NULL, TRUE, 3, 3),
+  (DEFAULT, '2018/10/12', NULL, NULL, FALSE, 3, 3),
+  (DEFAULT, '2019/10/12', NULL, NULL, FALSE, 3, 3),
   (DEFAULT, '2020/06/18', NULL, NULL, FALSE, 4, 1),
   (DEFAULT, '2018/12/14', NULL, NULL, FALSE, 3, 2),
   (DEFAULT, '2019/12/14', NULL, NULL, FALSE, 3, 2),
-  (DEFAULT, '2019/09/08', '2019/09/20', 'Cambio de Productos', FALSE, 1, 2),
-  (DEFAULT, '2020/09/15', NULL, NULL, TRUE, 5, 1),
-  (DEFAULT, '2020/07/19', NULL, NULL, TRUE, 6, 2),
-  (DEFAULT, '2019/08/15', NULL, NULL, FALSE, 1, 3),
-  (DEFAULT, '2018/08/10', NULL, NULL, FALSE, 2, 2);
+  (DEFAULT, '2019/09/08', '2019/09/20', 'Cambio de Productos', FALSE, 1, 2);
 
 INSERT INTO ydm_renueva VALUES
   (DEFAULT, 1, '2020/07/05'),
   (DEFAULT, 5, '2019/10/12'),
-  (DEFAULT, 8, '2019/12/14'),
-  (DEFAULT, 14,'2019/08/05');  
-  
+  (DEFAULT, 8, '2019/12/14');
+
 INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 2, 'Crédito', 2, 50, 6),
@@ -407,6 +402,27 @@ INSERT INTO ydm_ingrediente_general VALUES
   (DEFAULT, '64-17-5', 'Alcohol etílico', 'Sintético', 'Con su alto grado de transmitancia UV, bajo recuento de partículas, baja acidez y alcalinidad y bajo nivel de residuos de evaporación, ideales para separaciones reproducibles.', 1 ),
   (DEFAULT, '8046-22-8', 'Queroseno', 'Sintético', 'Líquido transparente, incoloro a ámbar claro con olor a petróleo. Punto de inflamación 100 ° F. Menos denso que el agua e insoluble en agua. Los vapores son más pesados ​​que el aire.', 1);
 
+INSERT INTO ydm_clausula_prod  VALUES  
+  (DEFAULT, 1, 1, NULL),
+  (DEFAULT, 1, NULL, 1),
+  (DEFAULT, 2, 2, NULL),
+  (DEFAULT, 3, 2, NULL),
+  (DEFAULT, 4, 2, NULL),
+  (DEFAULT, 2, NULL, 2),
+  (DEFAULT, 3, NULL, 2),
+  (DEFAULT, 4, NULL, 2),
+  (DEFAULT, 2, 3, NULL),
+  (DEFAULT, 3, 3, NULL),
+  (DEFAULT, 4, 3, NULL),
+  (DEFAULT, 5, 2, NULL),
+  (DEFAULT, 6, 2, NULL),
+  (DEFAULT, 7, 2, NULL),
+  (DEFAULT, 8, 3, NULL),
+  (DEFAULT, 5, 2, NULL),
+  (DEFAULT, 6, 2, NULL),
+  (DEFAULT, 7, 2, NULL),
+  (DEFAULT, 8, 3, NULL);
+
 INSERT INTO ydm_presentacion VALUES  
    (DEFAULT, 1000, 10, 1, NULL, 1, NULL),
    (DEFAULT, 5000, 50, 1, NULL, 1, NULL),
@@ -434,10 +450,8 @@ INSERT INTO ydm_detalle_pedido VALUES
   (DEFAULT, 10, 1, 100),
   (DEFAULT, 15, 1, 10),
   (DEFAULT, 17, 1, 20),
-  (DEFAULT, 1, 2, 30),
   (DEFAULT, 5, 2, 50),
   (DEFAULT, 9, 2, 70),
-  (DEFAULT, 12, 2, 40),
   (DEFAULT, 14, 2, 20),
   (DEFAULT, 16, 2, 10);
 
@@ -524,4 +538,5 @@ INSERT INTO ydm_pfm_pfmt VALUES
   (1,1),
   (2,2),
   (3,3);
+
 

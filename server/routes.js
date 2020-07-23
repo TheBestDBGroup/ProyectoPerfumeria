@@ -22,6 +22,13 @@ router.post(
 
 router.get("/read/productores", productorController.getProductores); //OBTENER TODOS LOS PRODUCTORES
 
+//OBTENER TODOS LOS PRODUCTORES
+router.get("/read/productores", productorController.getProductores);
+
+//OBTENER LAS OPCIONES DE CONTRATO DE UN PROVEEDOR
+router.post("/read/contrato/opciones-proveedor/pago",contratoController.getOpcionesPagoProveedor); 
+router.post("/read/contrato/opciones-proveedor/envio",contratoController.getOpcionesEnvioProveedor);
+
 router.post("/create/renovacion", contratoController.postRenovarContrato); //RENOVAR CONTRATO
 
 module.exports = router;
