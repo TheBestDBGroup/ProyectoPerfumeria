@@ -337,12 +337,17 @@ INSERT INTO ydm_contrato VALUES
   (DEFAULT, '2020/06/18', NULL, NULL, FALSE, 4, 1),
   (DEFAULT, '2018/12/14', NULL, NULL, FALSE, 3, 2),
   (DEFAULT, '2019/12/14', NULL, NULL, FALSE, 3, 2),
-  (DEFAULT, '2019/09/08', '2019/09/20', 'Cambio de Productos', FALSE, 1, 2);
+  (DEFAULT, '2019/09/08', '2019/09/20', 'Cambio de Productos', FALSE, 1, 2),
+  (DEFAULT, '2020/09/15', NULL, NULL, TRUE, 5, 1),
+  (DEFAULT, '2020/07/19', NULL, NULL, TRUE, 6, 2),
+  (DEFAULT, '2019/08/15', NULL, NULL, FALSE, 1, 3),
+  (DEFAULT, '2018/08/10', NULL, NULL, FALSE, 2, 2);
 
 INSERT INTO ydm_renueva VALUES
   (DEFAULT, 1, '2020/07/05'),
   (DEFAULT, 5, '2019/10/12'),
-  (DEFAULT, 8, '2019/12/14');
+  (DEFAULT, 8, '2019/12/14'),
+  (DEFAULT, 14,'2019/08/05'); 
 
 INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
@@ -364,12 +369,12 @@ INSERT INTO ydm_alt_envio VALUES
   (DEFAULT, 3, 3, 'Barco', 2000, NULL);
 
 INSERT INTO ydm_cond_env_pago VALUES
-  (DEFAULT, 1, 'Descripcion', 1, 1, 1, 1, 66),
-  (DEFAULT, 2, 'Descripcion', 2, 2, 4, 2, 170),
-  (DEFAULT, 3, 'Descripcion', 3, 3, 6, 3, 72),
-  (DEFAULT, 4, 'Descripcion', 4, 1, 7, 1, 81),
-  (DEFAULT, 5, 'Descripcion', 5, 2, 8, 2, 9),
-  (DEFAULT, 6, 'Descripcion', 6, 3, 9, 3, 3);
+  (DEFAULT, 1, NULL, 1, 1, 1, 1, 66),
+  (DEFAULT, 2, NULL, 2, 2, 4, 2, 170),
+  (DEFAULT, 3, NULL, 3, 3, 6, 3, 72),
+  (DEFAULT, 4, NULL, 4, 1, 7, 1, 81),
+  (DEFAULT, 5, NULL, 5, 2, 8, 2, 9),
+  (DEFAULT, 6, NULL, 6, 3, 9, 3, 3);
 
 INSERT INTO ydm_pedido VALUES
   (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 1, 1, '2018/10/28', 1),
