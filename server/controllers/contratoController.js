@@ -101,6 +101,114 @@ const postCrearClausulaProd = (request, response) => {
   });
 };
 
+
+const postGetOpcionesIngredienteGeneralExc = (request, response) => {
+  console.log(request.body);
+
+  let text ="SELECT DISTINCT ydm_contrato.exclusivo_contrato, \
+     ydm_ingrediente_general.cas_ingrediente_general, \
+     ydm_ingrediente_general.nombre_ingrediente_general,\
+     ydm_ingrediente_general.id_ingrediente_general\
+     FROM ydm_contrato \
+     INNER JOIN  ydm_clausula_prod \
+     on ydm_contrato.id_contrato = ydm_clausula_prod.id_contrato_clausula_prod\
+     INNER JOIN ydm_ingrediente_general\
+     on ydm_clausula_prod.id_ingr_general_clausula_prod = ydm_ingrediente_general.id_ingrediente_general\
+     INNER JOIN ydm_proveedor\
+     on ydm_ingrediente_general.id_proveedor_ingrediente_general = ydm_proveedor.id_proveedor\
+     WHERE ydm_proveedor.id_proveedor = $1 AND ydm_contrato.exclusivo_contrato = false";
+
+
+
+  const values = [
+    request.body.id_proveedor
+  ];
+
+
+  pool.query(text, values, (error, results) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+};
+
+const postGetOpcionesIngredienteGeneral = (request, response) => {
+  console.log(request.body);
+
+  let text ="SELECT ig.id_ingrediente_general, ig.nombre_ingrediente_general,\
+  ig.cas_ingrediente_general\
+  from ydm_ingrediente_general ig\
+  WHERE ig.id_ingrediente_general NOT IN (SELECT DISTINCT cp.id_ingr_general_clausula_prod FROM ydm_clausula_prod cp)\
+  OR ig.id_ingrediente_general NOT IN (SELECT DISTINCT cp.id_ingr_general_clausula_prod FROM ydm_clausula_prod cp) IS UNKNOWN";
+
+
+  pool.query(text, (error, results) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+};
+
+const postGetOpcionesIngredienteEsencia = (request, response) => {
+  console.log(request.body);
+
+  let text ="SELECT * from ydm_ingrediente_esencia ig\
+  WHERE ig.id_ingrediente_esencia NOT IN \
+  (SELECT DISTINCT cp.id_ingr_esencia_clausula_prod FROM ydm_clausula_prod cp)\
+  OR ig.id_ingrediente_esencia NOT IN \
+  (SELECT DISTINCT cp.id_ingr_esencia_clausula_prod FROM ydm_clausula_prod cp)\
+  IS UNKNOWN";
+
+
+  pool.query(text, (error, results) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+}
+
+const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
+  console.log(request.body);
+
+  let text ="SELECT DISTINCT ydm_contrato.exclusivo_contrato,\
+  ydm_ingrediente_esencia.cas_ingrediente_esencia,\
+  ydm_ingrediente_esencia.nombre_ingrediente_esencia,\
+  ydm_ingrediente_esencia.id_ingrediente_esencia\
+  FROM ydm_contrato\
+  INNER JOIN  ydm_clausula_prod\
+  on ydm_contrato.id_contrato = ydm_clausula_prod.id_contrato_clausula_prod\
+  INNER JOIN ydm_ingrediente_esencia\
+  on ydm_clausula_prod.id_ingr_esencia_clausula_prod = ydm_ingrediente_esencia.id_ingrediente_esencia\
+  INNER JOIN ydm_proveedor\
+  on ydm_ingrediente_esencia.id_proveedor_ingrediente_esencia = ydm_proveedor.id_proveedor\
+  WHERE ydm_proveedor.id_proveedor = $1 AND ydm_contrato.exclusivo_contrato = false";
+
+
+
+  const values = [
+    request.body.id_proveedor
+  ];
+
+
+  pool.query(text, values, (error, results) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+};
+
+
+
+
+
 module.exports = {
   getOpcionesPagoProveedor,
   getOpcionesEnvioProveedor,
@@ -108,4 +216,9 @@ module.exports = {
   postCrearContrato,
   postCrearCondEnvPago,
   postCrearClausulaProd,
+  postGetOpcionesIngredienteEsenciaExc,
+  postGetOpcionesIngredienteEsencia,
+  postGetOpcionesIngredienteGeneral,
+  postGetOpcionesIngredienteGeneralExc,
+
 };

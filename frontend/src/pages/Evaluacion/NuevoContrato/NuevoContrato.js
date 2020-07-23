@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import './nuevo-contrato-styles.css';
-import Ingrediente from './Ingrediente/Ingrediente'
+import IngredienteGeneral from './IngredienteGeneral/IngredienteGeneral'
+import IngredienteEsencia from './IngredienteEsencia/IngredienteEsencia'
 import {Button,IconButton,Checkbox} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
@@ -8,40 +9,6 @@ import InfoContrato from './InfoContrato/InfoContrato';
 import Envio from './Envio/Envio';
 import Pago from './Pago/Pago';
 
-
-
-const DummyIngredientes = [	
-	{
-		id: 1,
-		cas: '12345',
-		nombre: 'Vainilla Sensual',
-		presentaciones:[ 
-			{precio:20, volumen:'20ml', id:1},
-			{precio:40, volumen:'40ml', id:2},
-			{precio:50, volumen:'30ml', id:3},
-		]
-	},
-	{
-		id: 2,
-		cas: '12345',
-		nombre: 'Chocolate',
-		presentaciones:[ 
-			{precio:20, volumen:'20ml',id:4},
-			{precio:40, volumen:'40ml',id:5},
-			{precio:50, volumen:'30ml',id:6},
-		]
-	},
-	{
-		id: 2,
-		cas: '12345',
-		nombre: 'Canela Pasion',
-		presentaciones:[ 
-			{precio:20, volumen:'20ml',id:7},
-			{precio:40, volumen:'40ml',id:8},
-			{precio:50, volumen:'30ml',id:9},
-		]
-	},
-];
 
 
 const DummyInfoProveedor = {
@@ -67,15 +34,17 @@ const proveedorId = props.match.params.idproveedor
 //INFORMACION 
 const [infoProveedor,setInfoProveedor] = useState(DummyInfoProveedor);
 const [infoProductor,setInfoProductor] = useState(DummyInfoProductor);
-
+///
 //OPCIONES
 const [opcionesEnvio,setOpcionesEnvio] = useState([])
-const [opcionesIngredientes, setOpcionesIngredientes] = useState(DummyIngredientes)
+const [opcionesIngredientes, setOpcionesIngredientes] = useState([])
 const [opcionesPago, setOpcionesPago]= useState([])
+const [opcionesIEsen, setOpcionesIEsen]= useState([])
+const [opcionesIGen, setOpcionesIGen]= useState([])
 
 //SELECCIONADOS
-const [ingredientes,setIngredientes] = useState([])
-const [presentaciones,setPresentaciones] = useState([])
+const [ingredientesGen,setIngredientesGen] = useState([])
+const [ingredientesEsen,setIngredientesEsen] = useState([])
 const [exclusividad, setExclusividad] = useState(false)
 const [pagos,setPagos]=useState([])
 const [envios,setEnvios]=useState([])
@@ -84,41 +53,6 @@ const [envios,setEnvios]=useState([])
 const handleChangeExclusividad = (event) => {
     setExclusividad(event.target.checked);
 };
-
-
-//CONTROLAR INGREDIENTES
-const handleChangeIngredientes = (indice, e) => {
-	let ingredientesCopy = [...ingredientes]
-	ingredientesCopy[indice] = opcionesIngredientes[e.target.value]
-	let presentacionesCopy = [...presentaciones]
-	presentacionesCopy[indice] = {precio:'', volumen:'', id:''}
-	setPresentaciones(presentacionesCopy)
-	setIngredientes(ingredientesCopy)
-}
-
-const handleChangePres = (indice, e) => {
-	let presentacionesCopy = [...presentaciones]
-	presentacionesCopy[indice] = ingredientes[indice].presentaciones[e.target.value]
-	setPresentaciones(presentacionesCopy)
-}
-
-const agregarIngrediente = () => {	
-	let ingredientesCopy = [...ingredientes]
-	let presentacionesCopy = [...presentaciones]
-	ingredientesCopy.push({nombre:'', id:'', cas:''})
-	presentacionesCopy.push({precio:'', volumen:'', id:''})
-	setIngredientes(ingredientesCopy)
-	setPresentaciones(presentacionesCopy)
-}
-
-const borrarIngrediente = (indice) => {
-	let ingredientesCopy = [...ingredientes]
-	let presentacionesCopy = [...presentaciones]
-    ingredientesCopy.splice(indice,1)
-    presentacionesCopy.splice(indice,1)
-    setIngredientes(ingredientesCopy)
-    setPresentaciones(presentacionesCopy)
-}
 
 
 //MANEJAR ENVIOS
@@ -162,6 +96,45 @@ const handleChangePago = (indice,e) => {
 	setPagos(pagosCopy)
 }
 
+
+//MANEJAR INGREDIENTES ESENCIALES
+
+const agregarIEsen = () => {
+	let ingredientesEsenCopy= [...ingredientesEsen]
+	ingredientesEsenCopy.push({id:''})
+	setIngredientesEsen(ingredientesEsenCopy)
+}
+
+const borrarIEsen= (indice) => {
+	let ingredientesEsenCopy= [...ingredientesEsen]
+	ingredientesEsenCopy.splice(indice,1)
+	setIngredientesEsen(ingredientesEsenCopy)
+}
+
+const handleChangeIEsen = (indice,e) => {
+	let ingredientesEsenCopy= [...ingredientesEsen]
+	ingredientesEsenCopy[indice] = opcionesIEsen[e.target.value]
+	setIngredientesEsen(ingredientesEsenCopy)
+}
+
+// MANEJAR INGREDIENTES GENERALES 
+const agregarIGen = () => {
+	let ingredientesGenCopy= [...ingredientesGen]
+	ingredientesGenCopy.push({id:''})
+	setIngredientesGen(ingredientesGenCopy)
+}
+
+const borrarIGen= (indice) => {
+	let ingredientesGenCopy= [...ingredientesGen]
+	ingredientesGenCopy.splice(indice,1)
+	setIngredientesGen(ingredientesGenCopy)
+}
+
+const handleChangeIGen = (indice,e) => {
+	let ingredientesGenCopy= [...ingredientesGen]
+	ingredientesGenCopy[indice] = opcionesIGen[e.target.value]
+	setIngredientesGen(ingredientesGenCopy)
+}
 
 
 // ENVIAR INDICACIONES CONTRATO
@@ -229,6 +202,11 @@ const handleSubmit = () => {
 
 }
 
+const parcearIngredienteGeneral = (ingrediente) => {
+	let ing = {nombre: ingrediente} 
+
+}
+
 
 //LLAMADAS INICIALES
 useEffect(() => {
@@ -281,9 +259,91 @@ useEffect(() => {
 	    console.log(error);
 	});
 
-	//TODO: INGREDIENTES
+
+	axios.post('/read/opciones-proveedor/ing-gen-sin-exc', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response ing general', res.data);
+	     setOpcionesIGen(res.data)
+	     setIngredientesGen([])
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+	  axios.post('/read/opciones-proveedor/ing-esen-sin-exc', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response ing esen con exc', res.data)
+	    setOpcionesIEsen(res.data)
+	    setIngredientesEsen([])
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+
      
 }, []);
+
+useEffect(() => {
+
+	if(exclusividad){
+		axios.post('/read/opciones-proveedor/ing-gen-con-exc', {
+		    id_proveedor: proveedorId,
+		  })
+		  .then((res) =>{
+		    console.log('response ing general', res.data);
+		    setOpcionesIGen(res.data)
+		    setIngredientesGen([])
+
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+
+		  axios.post('/read/opciones-proveedor/ing-esen-con-exc', {
+		    id_proveedor: proveedorId,
+		  })
+		  .then((res) =>{
+		    console.log('response ing esen con exc', res.data)
+		    setOpcionesIEsen(res.data)
+		    setIngredientesEsen([])
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	} else {
+
+	axios.post('/read/opciones-proveedor/ing-gen-sin-exc', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response ing general sin exc', res.data);
+
+	    setOpcionesIGen(res.data)
+	    setIngredientesGen([])
+
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+	  axios.post('/read/opciones-proveedor/ing-esen-sin-exc', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response ing esen sin exc', res.data)
+	    setOpcionesIEsen(res.data)
+	    setIngredientesEsen([])
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+	}
+}, [exclusividad]);
 
 
 return (
@@ -326,28 +386,48 @@ return (
 		        inputProps={{ 'aria-label': 'primary checkbox' }}
       		/>
       	</div>
+
+    
 			<div className="nuevo-cont-divider">
 			<div className="nuevo-contrato-subtitle-wrapper">
-			<h3 className="nuevo-contrato-subtitle"> Ingredientes</h3>
-			<Button variant="outlined" size="small" onClick={agregarIngrediente}>
+			<h3 className="nuevo-contrato-subtitle"> Ingredientes Generales</h3>
+			<Button variant="outlined" size="small" onClick={agregarIGen}>
 			  + Nuevo
 			</Button>
         	</div>
 
-			{console.log('ingredientes',ingredientes)}
-			{ingredientes.map((ingrediente,indice) => (
-				<Ingrediente 
+			{ingredientesGen.map((ingrediente,indice) => (
+				<IngredienteGeneral 
 					key={indice} 
-					indice={indice} 
-					handleChangePres={handleChangePres}
-					handleChange={handleChangeIngredientes} 
-					ingredientes={ingredientes} 
-					presentaciones={presentaciones} 
-					opciones={opcionesIngredientes}
-					handleDelete={borrarIngrediente}
+					indice={indice}
+					handleChange={handleChangeIGen} 
+					ingredientes={ingredientesGen} 
+					opciones={opcionesIGen}
+					handleDelete={borrarIGen}
 				/>
 			))}
 			</div>
+
+			<div className="nuevo-cont-divider">
+			<div className="nuevo-contrato-subtitle-wrapper">
+			<h3 className="nuevo-contrato-subtitle"> Ingredientes Esenciales</h3>
+			<Button variant="outlined" size="small" onClick={agregarIEsen}>
+			  + Nuevo
+			</Button>
+        	</div>
+
+			{ingredientesEsen.map((ingrediente,indice) => (
+				<IngredienteGeneral 
+					key={indice} 
+					indice={indice}
+					handleChange={handleChangeIEsen} 
+					ingredientes={ingredientesEsen} 
+					opciones={opcionesIEsen}
+					handleDelete={borrarIEsen}
+				/>
+			))}
+			</div>
+		
 
 
 
