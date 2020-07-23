@@ -1,8 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './nuevo-contrato-styles.css';
 import Ingrediente from './Ingrediente/Ingrediente'
-import {Button,IconButton} from '@material-ui/core';
+import {Button,IconButton,Checkbox} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import axios from 'axios';
+import InfoContrato from './InfoContrato/InfoContrato';
+import Envio from './Envio/Envio';
 
 
 
@@ -40,6 +43,19 @@ const DummyIngredientes = [
 ];
 
 
+const DummyInfoProveedor = {
+	id_proveedor: 1,
+	nombre_proveedor: 'Los Padrinos Magicos Prov',
+	web_proveedor: 'www.web.com',
+	email_proveedor: 'maria@gmail.com'
+}
+
+const DummyInfoProductor = {
+	id_productor: 1,
+	nombre_productor: 'Las Chicas Superpoderosas Prod',
+	web_productor: 'www.web.com',
+	email_productor: 'pedro@gmail.com'
+}
 
 
 const NuevoContrato = (props) => {
@@ -47,22 +63,34 @@ const NuevoContrato = (props) => {
 const productorId = localStorage.getItem('id_productor');
 const proveedorId = props.match.params.idproveedor
 
-const [opcionesIngredientes, setOpcionesIngredientes] = useState(DummyIngredientes) //volver estado
+//INFORMACION 
+const [infoProveedor,setInfoProveedor] = useState(DummyInfoProveedor);
+const [infoProductor,setInfoProductor] = useState(DummyInfoProductor);
+
+//OPCIONES
+const [opcionesEnvio,setOpcionesEnvio] = useState([])
+const [opcionesIngredientes, setOpcionesIngredientes] = useState(DummyIngredientes)
+const [opcionesPago, setOpcionesPago]= useState([])
+
+//SELECCIONADOS
+const [ingredientes,setIngredientes] = useState([])
+const [presentaciones,setPresentaciones] = useState([])
+const [exclusividad, setExclusividad] = useState(false)
+const [pagos,setPagos]=useState([])
+const [envios,setEnvios]=useState([])
+
+//CONTROLAR EXCLUSIVIDAD
+const handleChangeExclusividad = (event) => {
+    setExclusividad(event.target.checked);
+};
 
 
-const [ingredientes,setIngredientes] = useState([{nombre:'', id:'', cas:''}])
-const [presentaciones,setPresentaciones] = useState([{precio:'', volumen:'', id:''}])
-
-
+//CONTROLAR INGREDIENTES
 const handleChangeIngredientes = (indice, e) => {
-	//change ingrediente
 	let ingredientesCopy = [...ingredientes]
 	ingredientesCopy[indice] = opcionesIngredientes[e.target.value]
-	
-	//reset presentaciones
 	let presentacionesCopy = [...presentaciones]
 	presentacionesCopy[indice] = {precio:'', volumen:'', id:''}
-
 	setPresentaciones(presentacionesCopy)
 	setIngredientes(ingredientesCopy)
 }
@@ -73,22 +101,18 @@ const handleChangePres = (indice, e) => {
 	setPresentaciones(presentacionesCopy)
 }
 
-const agregarIngrediente = () => {
-	
+const agregarIngrediente = () => {	
 	let ingredientesCopy = [...ingredientes]
 	let presentacionesCopy = [...presentaciones]
-
 	ingredientesCopy.push({nombre:'', id:'', cas:''})
 	presentacionesCopy.push({precio:'', volumen:'', id:''})
-
 	setIngredientes(ingredientesCopy)
 	setPresentaciones(presentacionesCopy)
-
 }
 
 const borrarIngrediente = (indice) => {
-	const ingredientesCopy = [...ingredientes]
-	const presentacionesCopy = [...presentaciones]
+	let ingredientesCopy = [...ingredientes]
+	let presentacionesCopy = [...presentaciones]
     ingredientesCopy.splice(indice,1)
     presentacionesCopy.splice(indice,1)
     setIngredientes(ingredientesCopy)
@@ -96,12 +120,103 @@ const borrarIngrediente = (indice) => {
 }
 
 
+//MANEJAR ENVIOS
+
+const agregarEnvio = () => {
+	let enviosCopy = [...envios]
+	enviosCopy.push({id:''})
+	setEnvios(enviosCopy)
+}
+
+const borrarEnvio = (indice) => {
+	let enviosCopy = [...envios]
+	enviosCopy.splice(indice,1)
+	setEnvios(enviosCopy) 
+}
+
+const handleChangeEnvio = (indice,e) => {
+	let enviosCopy = [...envios]
+	enviosCopy[indice] = opcionesEnvio[e.target.value]
+	setEnvios(enviosCopy)
+}
+
+
+//LLAMADAS INICIALES
+useEffect(() => {
+
+	//TODO:INFO PROV
+	//TODO: INFO PROD
+
+	//OPCIONES ENVIO
+    axios.post('/read/contrato/opciones-proveedor/envio', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response opciones envio', res.data);
+	    setOpcionesEnvio(res.data)
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+	//OPCIONES PAGO
+	axios.post('/read/contrato/opciones-proveedor/pago', {
+	    id_proveedor: proveedorId,
+	  })
+	  .then((res) =>{
+	    console.log('response opciones de pago', res.data);
+	    setOpcionesPago(res.data)
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	});
+
+	//TODO: INGREDIENTES
+     
+}, []);
+
+
 return (
 		<>
 		
 		<h1 className="nuevo-contrato-titulo"> Nuevo Contrato</h1>
+
+
+		
 		<div className="nuevo-contrato-content">
 
+		<h3 className="nuevo-contrato-subtitle"> Informacion General </h3>
+
+		<div className="info-wrapper">
+			<div className="info-content">
+				<h6> Información Productor </h6>
+				<InfoContrato 
+					nombre={infoProductor.nombre_productor} 
+					web={infoProductor.web_productor}
+					email={infoProductor.email_productor}
+					id={infoProductor.id_productor}
+				/>
+			</div>
+			
+			<div className="info-content">
+				<h6> Información Proveedor</h6>
+				<InfoContrato 
+					nombre={infoProveedor.nombre_proveedor} 
+					web={infoProveedor.web_proveedor}
+					email={infoProveedor.email_proveedor}
+					id={infoProveedor.id_proveedor}
+				/>
+			</div>
+		</div>
+		<div className="nuevo-contrato-exc-wrapper">
+			<h5 className="nuevo-contrato-exc-title">¿De exclusividad? </h5>
+			<Checkbox
+		        checked={exclusividad}
+		        onChange={handleChangeExclusividad}
+		        inputProps={{ 'aria-label': 'primary checkbox' }}
+      		/>
+      	</div>
+			<div className="nuevo-cont-divider">
 			<div className="nuevo-contrato-subtitle-wrapper">
 			<h3 className="nuevo-contrato-subtitle"> Ingredientes</h3>
 			<Button variant="outlined" size="small" onClick={agregarIngrediente}>
@@ -122,7 +237,34 @@ return (
 					handleDelete={borrarIngrediente}
 				/>
 			))}
-		</div>
+			</div>
+
+
+
+			<div className="nuevo-cont-divider">
+			<div className="nuevo-contrato-subtitle-wrapper">
+			<h3 className="nuevo-contrato-subtitle"> Opciones de Envio</h3>
+			
+			<Button variant="outlined" size="small" onClick={agregarEnvio}>
+			  + Nuevo
+			</Button>
+        	</div>
+			{envios.map((envio,indice) => (
+				<Envio
+					key={indice} 
+					indice={indice} 
+					handleChange={handleChangeEnvio} 
+					envios={envios} 
+					opciones={opcionesEnvio}
+					handleDelete={borrarEnvio}
+				/>
+			))}
+			</div>
+
+
+			<Button variant="contained" className="nuevo-contrato-button">Crear Nuevo Contrato</Button>
+
+			</div>
 		</>
 )}
 

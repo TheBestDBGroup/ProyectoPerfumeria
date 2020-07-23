@@ -4,6 +4,12 @@
 	text-align: center;
 }
 
+.nuevo-contrato-titulo-menor {
+	margin:5px auto;
+	width:100%;
+	text-align: center;
+}
+
 .nuevo-contrato-content {
 	 margin: auto;
   	width: 70%;
@@ -22,4 +28,33 @@
 .nuevo-contrato-add-button {
 	max-height: 40px;
 	margin-left:30px;
+}
+
+.info-wrapper {
+	display:flex;
+}
+
+.info-content{
+	margin-right: 100px;
+}
+
+.nuevo-contrato-button {
+	margin:50px auto;
+	margin-top: 100px;
+	width:100%;
+	text-align: center;
+}
+
+.nuevo-cont-divider {
+	margin-top: 10px;
+	margin-bottom:10px;
+}
+
+.nuevo-contrato-exc-wrapper {
+	display: flex;
+}
+
+.nuevo-contrato-exc-title {
+	margin-right: 10px;
+	margin-top:15px;
 }
