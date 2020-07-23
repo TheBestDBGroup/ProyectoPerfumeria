@@ -172,6 +172,34 @@ const enviarDatosContrato = (id_contrato)  => {
 		)
 	);
 
+	//request.body.id_contrato,
+    ///request.body.id_ingr_esencia,
+    //request.body.id_ingr_general,
+
+    ingredientesGen.forEach(ingrediente => 
+		
+		promesas.push(
+			
+			axios.post('/create/clausula-prod', {
+				id_contrato: id_contrato,
+				id_ingr_general: ingrediente.id_ingrediente_general,
+				id_ingr_esencia: null
+	  		})
+		)
+	);
+
+	ingredientesEsen.forEach(ingrediente => 
+		
+		promesas.push(
+			
+			axios.post('/create/clausula-prod', {
+				id_contrato: id_contrato,
+				id_ingr_general: null,
+				id_ingr_esencia: ingrediente.id_ingrediente_esencia,
+	  		})
+		)
+	);
+
 
 
 	Promise.all(promesas)
