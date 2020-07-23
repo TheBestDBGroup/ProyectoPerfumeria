@@ -31,4 +31,10 @@ router.post("/read/contrato/opciones-proveedor/envio",contratoController.getOpci
 
 router.post("/create/renovacion", contratoController.postRenovarContrato); //RENOVAR CONTRATO
 
+//OBTENER PRODUCTOR
+router.post("/read/productor", productorController.getProductor);
+//OBTENER PROVEEDOR
+router.post("/read/proveedor", proveedorController.getProveedor);
+
+
 module.exports = router;

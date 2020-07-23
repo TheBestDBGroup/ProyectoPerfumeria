@@ -101,6 +101,7 @@ const EvaluacionRenovacion = () => {
 		    console.log('response renovacion', res.data);
 		    handleCloseRenovar()
 		    alert('Contrato Renovado')
+		    history.push(`/`);
             
 		  })
 		  .catch(function (error) {
