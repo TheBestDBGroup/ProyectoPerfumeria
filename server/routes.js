@@ -26,10 +26,19 @@ router.get("/read/productores", productorController.getProductores); //OBTENER T
 router.get("/read/productores", productorController.getProductores);
 
 //OBTENER LAS OPCIONES DE CONTRATO DE UN PROVEEDOR
-router.post("/read/contrato/opciones-proveedor/pago",contratoController.getOpcionesPagoProveedor); 
-router.post("/read/contrato/opciones-proveedor/envio",contratoController.getOpcionesEnvioProveedor);
+router.post(
+  "/read/contrato/opciones-proveedor/pago",
+  contratoController.getOpcionesPagoProveedor
+);
+router.post(
+  "/read/contrato/opciones-proveedor/envio",
+  contratoController.getOpcionesEnvioProveedor
+);
 
 router.post("/create/renovacion", contratoController.postRenovarContrato); //RENOVAR CONTRATO
+router.post("/create/contrato", contratoController.postCrearContrato); //CREAR CONTRATO
+router.post("/create/cond-env-pago", contratoController.postCrearCondEnvPago); //CREAR COND ENV PAGO
+router.post("/create/clausula-prod", contratoController.postCrearClausulaProd); //CREAR CLAUSULA PROD
 
 //OBTENER PRODUCTOR
 router.post("/read/productor", productorController.getProductor);
