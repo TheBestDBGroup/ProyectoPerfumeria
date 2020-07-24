@@ -1,14 +1,24 @@
 INSERT INTO ydm_criterio_eval VALUES
-(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana|', 1),
-(DEFAULT, 'Costo', 'Bajos costos', 2),
-(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio', 4),
-(DEFAULT, 'Condición de pago', 'Flexibilidad de pago', 1),
-(DEFAULT, 'Cumplimiento', 'cumple lineamientos de contrato', 2),
-(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana|', 9),
-(DEFAULT, 'Costo', 'Bajos costos', 6),
-(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio', 4),
-(DEFAULT, 'Condición de pago', 'Flexibilidad de pago', 1);
-
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana'),
+(DEFAULT, 'Costo', 'Bajos costos'),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago'),
+(DEFAULT, 'Cumplimiento', 'cumple lineamientos de contrato'),
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana'),
+(DEFAULT, 'Costo', 'Bajos costos'),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio'),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago'),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio'),
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana'),
+(DEFAULT, 'Cumplimiento', 'cumple lineamientos de contrato'),
+(DEFAULT, 'Ubicación geográfica', 'Ubicacion cercana'),
+(DEFAULT, 'Costo', 'Bajos costos'),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago'),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio'),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago'),
+(DEFAULT, 'Costo', 'Bajos costos'),
+(DEFAULT, 'Alternativa de envío', 'Varias alternativas de envio'),
+(DEFAULT, 'Condición de pago', 'Flexibilidad de pago'),
+(DEFAULT, 'Costo', 'Bajos costos');
 
 INSERT INTO ydm_pais VALUES
   (DEFAULT, 'Afganistán'),
@@ -295,30 +305,42 @@ INSERT INTO ydm_datos_pago  VALUES
 
 
 INSERT INTO ydm_escala VALUES
-  ('2018/10/15', 1, 10, 1, '2019/10/15'),
-  ('2020/07/05', 1, 20, 2, NULL),
-  ('2018/02/13', 1, 15, 3, '2019/02/13'),
-  ('2016/05/26', 1, 30, 4, '2017/05/26'),
-  ('2019/09/23', 1, 10, 5, NULL),
-  ('2017/01/28', 1, 20, 6, '2018/01/28'),
+  ('2020/06/15', 1, 10, 1, NULL),
+  ('2019/07/22', 1, 20, 2, '2020/02/22'),
+  ('2019/07/05', 1, 15, 3, '2020/05/15'),
+  ('2020/02/10', 1, 30, 4, '2017/05/26'),
+  ('2020/05/18', 1, 10, 5, NULL),
+  ('2019/02/28', 1, 20, 6, '2020/04/10'),
   ('2020/02/18', 1, 15, 1, NULL),
   ('2020/03/01', 1, 30, 2, NULL),
   ('2016/07/05', 1, 10, 3, '2017/07/05');
 
 INSERT INTO ydm_eval_crit VALUES
-  (DEFAULT, 1, 1, 10, 'Inicial', '2019/10/15'),
-  (DEFAULT, 1, 2, 20, 'Inicial', '2019/10/15'),
-  (DEFAULT, 1, 3, 40, 'Inicial', '2019/10/15'),
-  (DEFAULT, 1, 4, 10, 'Inicial', '2019/10/15'),
-  (DEFAULT, 1, 5, 20, 'Inicial', '2019/10/15'),
-  (DEFAULT, 2, 6, 45, 'Inicial', '2019/10/15'),
-  (DEFAULT, 2, 7, 30, 'Inicial', '2019/10/15'),
-  (DEFAULT, 2, 8, 20, 'Inicial', '2019/10/15'),
-  (DEFAULT, 2, 9, 5, 'Inicial', '2019/10/15');
+  ('2020/06/15', 1, 1, 20, 'Renovación', '2020/07/15'),
+  ('2020/06/15', 1, 2, 30, 'Renovación', '2020/07/15'),
+  ('2020/06/15', 1, 3, 30, 'Renovación', '2020/07/15'),
+  ('2020/06/15', 1, 4, 20, 'Renovación', '2020/07/15'),
+  ('2019/07/22', 2, 5, 40, 'Inicial', '2019/08/22'),
+  ('2019/07/22', 2, 6, 20, 'Inicial', '2019/08/22'),
+  ('2019/07/22', 2, 7, 40, 'Inicial', '2019/08/22'),
+  ('2019/07/05', 3, 8, 25, 'Renovación', '2019/08/05'),
+  ('2019/07/05', 3, 9, 25, 'Renovación', '2019/08/05'),
+  ('2019/07/05', 3, 10, 30, 'Renovación', '2019/08/05'),
+  ('2019/07/05', 3, 11, 20, 'Renovación', '2019/08/05'),
+  ('2020/02/10', 4, 12, 50, 'Inicial', NULL),
+  ('2020/02/10', 4, 13, 10, 'Inicial', NULL),
+  ('2020/02/10', 4, 14, 40, 'Inicial', NULL),
+  ('2020/05/18', 5, 15, 60, 'Inicial', NULL),
+  ('2020/05/18', 5, 16, 20, 'Inicial', NULL),
+  ('2020/05/18', 5, 17, 20, 'Inicial', NULL),
+  ('2019/02/28', 6, 18, 30, 'Inicial', '2019/09/20'),
+  ('2019/02/28', 6, 19, 30, 'Inicial', '2019/09/20'),
+  ('2019/02/28', 6, 20, 40, 'Inicial', '2019/09/20');
+
 
 INSERT INTO ydm_evaluacion VALUES
-  ('2018/10/15', 1, 1, 80, 'Inicial'),
-  ('2020/07/05', 2, 2, 75, 'Renovación'),
+  ('2018/10/15', 1, 1, 80, 'Renovación'),
+  ('2020/07/05', 2, 2, 75, 'Inicial'),
   ('2018/02/13', 3, 3, 50, 'Renovación'),
   ('2016/05/26', 1, 4, 40, 'Inicial'),
   ('2019/09/23', 2, 5, 70, 'Inicial'),
@@ -353,7 +375,7 @@ INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 2, 'Crédito', 2, 50, 6),
   (DEFAULT, 3, 'Crédito', 4, 25, 3),
-  (DEFAULT, 1, 'Crédito', 2, 50, 2,
+  (DEFAULT, 1, 'Crédito', 2, 50, 2),
   (DEFAULT, 2, 'Crédito', 5, 20, 2),
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
 
