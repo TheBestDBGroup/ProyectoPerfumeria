@@ -20,7 +20,7 @@ const Ingrediente = ({indice,handleChange,opciones,ingredientes,handleDelete}) =
 	if(ingredientes && ingredientes.length>0 && ingredientes[indice]) {
 
 	const renderValue = () => {
-		if(ingredientes[indice].id === '') return ''
+		if(ingredientes[indice].id === '') {return ''}
     	return `ID ${ingredientes[indice].id_ingrediente_esencia} / CAS ${ingredientes[indice].cas_ingrediente_esencia} / NOMBRE ${ingredientes[indice].nombre_ingrediente_esencia} `;
 	}
 
@@ -37,7 +37,7 @@ const Ingrediente = ({indice,handleChange,opciones,ingredientes,handleDelete}) =
 	          id={`ingrediente-${indice}`}
 	          label={ingredientes[indice].nombre}
 	          renderValue={() => renderValue()}
-	          value={ingredientes[indice].id_ingrediente_general}
+	          value={ingredientes[indice].id_ingrediente_esencia}
 	          onChange={value => handleChange(indice, value)}
 	          placeholder={ingredientes[indice].nombre}
 	        >
