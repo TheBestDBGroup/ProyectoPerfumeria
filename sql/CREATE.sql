@@ -137,7 +137,7 @@ CREATE SEQUENCE ydm_secuencia_ingrediente_general
      start with 1
      increment 1
      minvalue 1
-     maxvalue 10
+     maxvalue 15
 ;
 
 CREATE TABLE ydm_ingrediente_general
@@ -208,22 +208,22 @@ CREATE TABLE ydm_intensidad
 
 CREATE TABLE ydm_escala
 (
-    fecha_creacion_escala date NOT NULL DEFAULT CURRENT_DATE,
+    fecha_creacion_escala timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     min_escala numeric NOT NULL,
     max_escala numeric NOT NULL,
     id_productor_escala numeric NOT NULL,
-    fecha_expiracion_escala date,
+    fecha_expiracion_escala timestamp,
     CONSTRAINT pk_fecha_creacion_escala PRIMARY KEY (fecha_creacion_escala)
 );
 
 CREATE TABLE ydm_eval_crit
 (
-    id_eval_crit date NOT NULL,
+    id_eval_crit timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     id_productor_eval_crit numeric NOT NULL,
     id_criterio_eval_eval_crit numeric NOT NULL,
     peso_prctj_eval_crit numeric NOT NULL,
     tipo_eval_crit varchar(15) NOT NULL,
-    fecha_final_eval_crit date,
+    fecha_final_eval_crit timestamp,
     CONSTRAINT pk_id_eval_crit PRIMARY KEY (id_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
     CONSTRAINT chk_tipo_eval_crit CHECK(tipo_eval_crit in ('Inicial', 'Renovación'))
 );
@@ -323,7 +323,7 @@ CREATE TABLE ydm_fo_pc
     id_palabra_clave_fo_pc numeric NOT NULL,
     tipo_palabra_clave_fo_pc varchar(15) NOT NULL,
     CONSTRAINT pk_fo_pc PRIMARY KEY (id_familia_olfativa_fo_pc,id_palabra_clave_fo_pc),
-    CONSTRAINT chk_tipo_palabra_clave_fo_pc CHECK(tipo_palabra_clave_fo_pc in ('Aroma', 'Carácter', 'Personalidad'))
+    CONSTRAINT chk_tipo_palabra_clave_fo_pc CHECK(tipo_palabra_clave_fo_pc in ('Aroma', 'Carácter', 'Personalidad', 'Preferencia uso'))
 );
 
 CREATE TABLE ydm_g_pc
