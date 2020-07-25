@@ -1,14 +1,24 @@
 import React from 'react';
 import './evaluacion-styles.css';
-import ChooseEvalType from '../ChooseEvalType/ChooseEvalType.js'
+import ChooseEvalType from '../ChooseEvalType/ChooseEvalType'
+import SubHeader from '../../../components/Subheader/Subheader'
+import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import { Redirect } from 'react-router-dom'
 
-
-//Redirigir a ChooseEvalType si tiene filtro de productor
-//Si no tiene filtro de productor, redirigir al usuario para que elija el
-//filtro de productor 
-//Filtro de productor es una variable de localstorage
-//Filtro de productor se muestra en subheader de las otras cosas
+const subheaderLinks = [
+	{
+		linkName: "Crear Evaluación",
+		linkRef: "/evaluacion/evaluar/crear-evaluacion",
+	},
+	{
+		linkName: "Realizar Evaluación",
+		linkRef: "/evaluacion/evaluar/realizar-evaluacion",
+	},
+	{
+		linkName: "Cancelar Contrato",
+		linkRef: "/evaluacion/cancelar-contrato",
+	}
+]
 
 const Evaluacion = () => {
 
@@ -16,7 +26,12 @@ const Evaluacion = () => {
 	
 	
 	if(productorId){
-		return <ChooseEvalType/>
+		return (
+			<>
+				<SubHeader subheaderLinks={subheaderLinks}/>
+				<InfoProdSubheader redirectDir={'evaluacion'}/>
+			</>
+		)
 	}
 	else {
 

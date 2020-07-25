@@ -7,12 +7,21 @@ import { Link as DomLink } from 'react-router-dom'
 
 const Header = () => (
 	
-	<Nav className="header-nav">	
+	<Nav className="header-nav">
+		
 		<Nav.Item>
+		<DomLink
+		        to={`/`}
+		        style={{
+		        textDecoration: 'none',
+		        color:'#9aa0ac'
+		    }}>	
 			<div className="header-logo-wrapper">
 				<img src={logo} alt="logo" className="header-logo"/>
 			</div>
+		</DomLink> 
 		</Nav.Item>
+		
 
 		
 		<Nav className="header-links-wrapper">

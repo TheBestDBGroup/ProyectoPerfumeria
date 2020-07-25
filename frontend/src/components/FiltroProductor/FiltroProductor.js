@@ -4,36 +4,6 @@ import {Table, Button} from "tabler-react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
-//Aqui se elige el productor con quien trabajar
-//sessionStorage.setItem('nombre', response.data.user.nombre);
-
-const DummyProductores = [
-	{ 
-		id_productor: 1,
-		nombre_productor:'Productor El perfumista',
-		web_productor: 'www.proveedor.com',
-		email_productor: 'proveedor@gmail.com'
-	},
-	{ 
-		id_productor: 2,
-		nombre_productor:'Proveedor Perfumito 3000',
-		web_productor: 'www.proveedor.com',
-		email_productor: 'proveedor@gmail.com'
-	},
-	{ 
-		id_productor: 3,
-		nombre_productor:'Proveedor Perfumito 3000',
-		web_productor: 'www.proveedor.com',
-		email_productor: 'proveedor@gmail.com'
-	},
-	{ 
-		id_productor: 4,
-		nombre_productor:'Proveedor Perfumito 3000',
-		web_productor: 'www.proveedor.com',
-		email_productor: 'proveedor@gmail.com'
-	},
-]
-
 
 const FiltroProductor = (props) => {
 
@@ -44,7 +14,7 @@ const FiltroProductor = (props) => {
 
 	const handleSelect = (id) => {
 		localStorage.setItem('id_productor', id);
-		history.push(`/${redirectDir}`);
+		history.replace(`/${redirectDir}`);
 	}
 
 	useEffect(() => {

@@ -39,7 +39,7 @@ const Pago = ({indice,handleChange,opciones,pagos,handleDelete}) => {
         <InputLabel id={`pago-${indice}`}> Opcion Pago </InputLabel>
 	        <Select
 	          renderValue={() => renderValue()}
-	          value={pagos[indice].id_alt_envio}
+	          value={pagos[indice].id_condicion_pago}
 	          onChange={value => handleChange(indice, value)}
 	        >
 

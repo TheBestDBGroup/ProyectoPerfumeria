@@ -5,78 +5,66 @@ import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
 import Evaluacion from './pages/Evaluacion/Evaluacion/Evaluacion'
 import FiltroProductor from './components/FiltroProductor/FiltroProductor'
-import EvaluacionInicial from './pages/Evaluacion/EvaluacionInicial/EvaluacionInicial'
-import EvaluacionRenovacion from './pages/Evaluacion/EvaluacionRenovacion/EvaluacionRenovacion'
 import NuevoContrato from './pages/Evaluacion/NuevoContrato/NuevoContrato'
+import ChooseEvalType from './pages/Evaluacion/ChooseEvalType/ChooseEvalType'
+import CrearEvaluacion from './pages/Evaluacion/CrearEvaluacion/CrearEvaluacion'
+import RealizarEvaluacionInicial from './pages/Evaluacion/RealizarEvaluacionInicial/RealizarEvaluacionInicial'
+import RealizarEvaluacionRenovacion from './pages/Evaluacion/RealizarEvaluacionRenovacion/RealizarEvaluacionRenovacion'
 
-
-
-
-const subheaderLinks = {
-  root:  [
-  ],
-
-  evaluacion:[
-    {
-      linkName: "Evaluaciones",
-      linkRef: "/",
-    },
-    {
-      linkName: "Fórmulas",
-      linkRef: "/",
-    },
-    {
-      linkName: "Criterios de Evaluación",
-      linkRef: "/s",
-    },
-  ],
-
-  compras:[
-    {
-      linkName: "Contratos",
-      linkRef: "/",
-    },
-  ],
-
-  recomendador:[
-    {
-      linkName: "Filtros",
-      linkRef: "/",
-    },
-  ],
-
-}
-
-
-
+//> /evaluacion/mostrar-condiciones-eval-inicial/
 const routes = [
-    {
+    {//root
       path: '/',
       render: (props) => <Main {...props} />
     },
-    {
+    //RUTAS DE EVALUACION //
+    {//menu de evaluacion
       path: '/evaluacion',
       render: (props) => <Evaluacion {...props} />
     },
-    {
+    {//redireccion para escoger el productor en el filtro de Prod
       path: '/elegirProd/:redirectDir',
       render: (props) => <FiltroProductor {...props} />
     },
-    {
-      path: '/evaluacion/inicial',
-      render: (props) => <EvaluacionInicial{...props} />
+    {//elegir tipo de crear evaluacion o realizar evaluacion tipo = crear-evaluacion o realizar-evaluacion
+      path: '/evaluacion/evaluar/:tipo',
+      render: (props) => <ChooseEvalType {...props} />
     },
-    {
-      path: '/contrato/generar/:idproveedor',
-      render: (props) => <NuevoContrato {...props} />
+    { //crear evaluacion, :tipo = inicial o renovacion
+      path: '/crear-evaluacion/:tipo',
+      render: (props) => <CrearEvaluacion {...props} />
     },
-    {
-      path: '/evaluacion/renovacion',
-      render: (props) => <EvaluacionRenovacion {...props}/>
+    { //lista de proveedores potenciales
+      path: '/realizar-evaluacion/inicial',
+      render: (props) => <RealizarEvaluacionInicial {...props} />
     },
-    {
-      path: '/recomendador',
-      render: (props) => <Main {...props}/>
+    { //lista de proveedores con contrato pendiente a renovar
+      path: '/realizar-evaluacion/renovacion',
+      render: (props) => <RealizarEvaluacionRenovacion {...props} />
+    },
+    { //no implementado, muestra las condiciones de evalucion del proveedor
+      path: '/evaluacion/mostrar-condiciones-eval-inicial/:idproveedor',
+      render: (props) => <Main {...props} />
+    },
+    { //no implementado, form donde se llenan los criterios de evaluacion para el proveedor
+      path: '/realizar-evaluacion/llenar-criterios/:idproveedor/:tipoeval',
+      render: (props) => <Main {...props} />
+    },
+    { //no implementado,resultados evaluacion --aqui se renueva contrato :estatus=paso
+      path: '/realizar-evaluacion/resultados-eval/:tipoeval/:calificacion/:estatus/:idproveedor',
+      render: (props) => <Main {...props} />
+    },
+    { //no implementado, crear contrato
+      path: '/contrato/crear',
+      render: (props) => <Main {...props} />
+    },
+    { //no implementado, listas de contratos vigentes
+      path: '/contrato/ver-vigentes',
+      render: (props) => <Main {...props} />
+    },
+    { //no implementado, pantalla para cancelar y poner motivos de cancelacion
+      path: '/contrato/cancelar/:idContrato',
+      render: (props) => <Main {...props} />
     },
 ];
 

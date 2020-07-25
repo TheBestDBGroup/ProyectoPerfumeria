@@ -1,0 +1,57 @@
+.crear-evaluacion-wrapper {
+	min-width: 80%;
+	/*display:flex;
+	justify-content: center;*/
+}
+
+.center-everything {
+	display: flex;
+	justify-content: center;
+}
+
+.center-title{
+	display:flex;
+	justify-content: center;
+}
+
+.center-title h3{
+	margin-top: 15px;
+}
+
+.escala-evaluacion-title {
+	margin-top: 20px;
+}
+
+.escala-eval-content-wrapper {
+	display:flex;
+	justify-content:center;
+	width:100%;
+	margin-top: 10px;
+}
+.escala-eval-label {
+	margin:10px;
+}
+
+.criterio-exito{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width:500px;
+	margin-bottom: 15px;
+}
+
+.criterio-exito h4 {
+	margin-right: 5px;
+}
+
+.criterios-eval-wrapper {
+	width:700px;
+}
+
+.crit-eval-submit-button {
+	display:block;
+}
+
+.crit-eval-title {
+	margin-top:15px;
+}
