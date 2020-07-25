@@ -218,13 +218,13 @@ CREATE TABLE ydm_escala
 
 CREATE TABLE ydm_eval_crit
 (
-    id_eval_crit date NOT NULL,
+    fecha_inicial_eval_crit date NOT NULL,
     id_productor_eval_crit numeric NOT NULL,
     id_criterio_eval_eval_crit numeric NOT NULL,
     peso_prctj_eval_crit numeric NOT NULL,
     tipo_eval_crit varchar(15) NOT NULL,
     fecha_final_eval_crit date,
-    CONSTRAINT pk_id_eval_crit PRIMARY KEY (id_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
+    CONSTRAINT pk_fecha_inicial_eval_crit PRIMARY KEY (fecha_inicial_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
     CONSTRAINT chk_tipo_eval_crit CHECK(tipo_eval_crit in ('Inicial', 'Renovación'))
 );
 
