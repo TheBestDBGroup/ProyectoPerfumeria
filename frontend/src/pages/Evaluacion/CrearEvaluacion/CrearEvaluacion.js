@@ -10,39 +10,39 @@ import './crear-evaluacion-styles.css'
 const DummyCriterios =  [
 	{
 	   id_criterio_evaluacion:1,
-	   tipo_criterio_evaluacion:'es bonitico',	   
-	   descripcion_criterio_evaluacion:'bonitico Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
-
+	   tipo_criterio_evaluacion:'exito',	   
+	   descripcion_criterio_evaluacion:'Criterio de éxito'
 	},
 	{
 	   id_criterio_evaluacion:2,
-	   tipo_criterio_evaluacion:'es eficiente',
-	   descripcion_criterio_evaluacion:'eficiente Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   tipo_criterio_evaluacion:'normal',
+	   descripcion_criterio_evaluacion:'Ubicación del Proveedor',
 
 	},
 	{
 	   id_criterio_evaluacion:3,
-	   tipo_criterio_evaluacion:'es rapido',
-	   descripcion_criterio_evaluacion:'rapido Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   tipo_criterio_evaluacion:'normal',
+	   descripcion_criterio_evaluacion:'Costo',
 
 	},
 	{
 	   id_criterio_evaluacion:4,
-	   tipo_criterio_evaluacion:'esta cool',
-	   descripcion_criterio_evaluacion:'cool Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   tipo_criterio_evaluacion:'normal',
+	   descripcion_criterio_evaluacion:'Alternativas de Envío',
 	},
 
 ]
 
+//no borrar
 
 const initEscala = {
 	min_escala:'',
     max_escala:'',
-    criterio_exito:'',
 }
 
 const CrearEvaluacion = (props) => {
 
+	const [criterioExito, setCriterioExito] = useState({})
 	const [criterios,setCriterios] = useState([])
 	const [opcionesCriterios, setOpcionesCriterios] = useState(DummyCriterios)
 	const [escala,setEscala] = useState(initEscala)
@@ -53,7 +53,7 @@ const CrearEvaluacion = (props) => {
 
 	const agregarCriterio = () => {
 		let criteriosCopy = [...criterios]
-		criteriosCopy.push({id:'',peso_prctj__eval_crit:''})
+		criteriosCopy.push({id:'',peso_prctj_eval_crit:''})
 		setCriterios(criteriosCopy)
 	}
 
@@ -65,16 +65,19 @@ const CrearEvaluacion = (props) => {
 
 	const handleChangeCriterio = (indice,e) => {
 		let criteriosCopy = [...criterios]
-		let peso = criteriosCopy[indice].peso_prctj__eval_crit
+		let peso = criteriosCopy[indice].peso_prctj_eval_crit
 		criteriosCopy[indice] = opcionesCriterios[e.target.value]
-		criteriosCopy[indice].peso_prctj__eval_crit = peso
+		criteriosCopy[indice].peso_prctj_eval_crit = peso
 		setCriterios(criteriosCopy)
-		
+	}
+
+	const handleChangeCritExito = (e) => {
+		setCriterioExito({...criterioExito,peso_prctj_eval_crit: e.target.value})
 	}
 
 	const handlePesoCriterio =(indice, e) => {
 		let criteriosCopy =[...criterios]
-		criteriosCopy[indice].peso_prctj__eval_crit = e.target.value
+		criteriosCopy[indice].peso_prctj_eval_crit = e.target.value
 		setCriterios(criteriosCopy)
 	}
 
@@ -118,15 +121,18 @@ const CrearEvaluacion = (props) => {
 							<TextField label="Puntaje Máximo" variant="outlined" name="max_escala" value={escala.max_escala} onChange={handleChangeEscala}/>
 						</div>
 					</div>
+
+					<Divider variant="middle" />
+
 					<div className="center-title">
 						<div className="criterio-exito">
 							<h4>Criterio de Éxito </h4>
-							<TextField label="% mínimo" variant="outlined" name="criterio_exito" value={escala.criterio_exito} onChange={handleChangeEscala}/>
+							<TextField label="Nota mínima aprobatoria" variant="outlined" name="criterio_exito" value={criterioExito.peso_prctj_eval_crit} onChange={(e) => handleChangeCritExito(e)}/>
 						</div>	
 					</div>
 
 
-					<Divider variant="middle" />
+					
 					<div className="center-title">
 						<div className="criterios-eval-wrapper">
 							<div className="center-title">

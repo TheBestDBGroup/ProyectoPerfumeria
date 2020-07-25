@@ -6,11 +6,9 @@ const Criterio = ({handleChangeCriterio,criterio,indice}) => {
 			<>
 				<div className="criterio-wrapper">
 					<div className="criterio-title-wrapper">
-					<h5 className="criterio-title"> Criterio {criterio.tipo_criterio_evaluacion} </h5>
+					<h5 className="criterio-title"> Criterio {criterio.descripcion_criterio_evaluacion} </h5>
 					<p> Peso: {criterio.peso_prctj_eval_crit}% </p>
 					</div>
-					<p className="criterio-subtitle"> Descripción </p>
-					<p> {criterio.descripcion_criterio_evaluacion} </p>
 					<div className="calificacion-wrapper">
 						<p className="criterio-subtitle calificacion-subtitle"> Calificación </p>
 						<TextField

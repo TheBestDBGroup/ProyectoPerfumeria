@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import './realizar-evaluacion-renovacion-styles.css';
+import './proveedores-vigentes.css';
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import {Table, Button} from "tabler-react";
 import { useHistory } from "react-router-dom";
@@ -34,6 +34,8 @@ const RealizarEvaluacionRenovacion = () => {
 	}
 
 	useEffect(() => {
+
+		//TODO:cambiar por proveedores vigentes!!
         axios.post('/read/proveedores-por-renovar', {
 		    id_productor: productorId,
 		  })
@@ -50,7 +52,7 @@ const RealizarEvaluacionRenovacion = () => {
 
 
   	const handleSelect = (id, idcontrato) => {
-		history.replace(`/realizar-evaluacion/llenar-criterios/${id}/renovacion/${idcontrato}`);
+		history.replace(`/contrato/cancelar/${idcontrato}`);
 	}
 
 
@@ -60,7 +62,7 @@ const RealizarEvaluacionRenovacion = () => {
 	return (
 		<>
 		<InfoProdSubheader redirectDir={'evaluacion'}/>
-		<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor sobre el que desea realizar renovar contrato </h1>
+		<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor sobre el que desea cancelar contrato </h1>
 
 		
 		<Table>
@@ -85,7 +87,7 @@ const RealizarEvaluacionRenovacion = () => {
 			     	<Table.Col>{proveedor.id_contrato} </Table.Col>
 			     	<Table.Col>{convertISODate(proveedor.fecha_emision_contrato)} </Table.Col>	
 			    	<Table.Col>
-			        	<Button onClick={() => handleSelect(proveedor.id_proveedor, proveedor.id_contrato)} color="primary" className="eval-ren-buttons"> Evaluar </Button>
+			        	<Button onClick={() => handleSelect(proveedor.id_proveedor, proveedor.id_contrato)} color="primary" className="eval-ren-buttons">Cancelar Contrato</Button>
 			      	</Table.Col>
 			    </Table.Row>
 			   ))}

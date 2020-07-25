@@ -16,7 +16,7 @@ const subheaderLinks = [
 	},
 	{
 		linkName: "Cancelar Contrato",
-		linkRef: "/evaluacion/cancelar-contrato",
+		linkRef: "/contrato/ver-vigentes",
 	}
 ]
 

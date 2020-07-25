@@ -10,3 +10,8 @@
 .criterio-delete-icon {
 	margin-top: 16px;
 }
+
+.peso-label {
+	margin-top:8px;
+	display: inline-block;
+}

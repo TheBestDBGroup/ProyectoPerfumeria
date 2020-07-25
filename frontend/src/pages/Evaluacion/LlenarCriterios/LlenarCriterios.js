@@ -9,36 +9,28 @@ import { useHistory } from "react-router-dom";
 
 const DummyCriterios =  [
 	{
-	   id_eval_crit:1,	
-	   id_criterio_evaluacion:1,
-	   tipo_criterio_evaluacion:'es bonitico',
-	   peso_prctj_eval_crit:20,	   
-	   descripcion_criterio_evaluacion:'bonitico Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
-
-	},
-	{
 	   id_eval_crit:2,	
 	   id_criterio_evaluacion:2,
-	   tipo_criterio_evaluacion:'es eficiente',
+	   tipo_criterio_evaluacion:'normal',
 	   peso_prctj_eval_crit:20,
-	   descripcion_criterio_evaluacion:'eficiente Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   descripcion_criterio_evaluacion:'Ubicación Servicio',
 
 	},
 	{
 	   id_eval_crit:3,	
 	   id_criterio_evaluacion:3,
-	   tipo_criterio_evaluacion:'es rapido',
+	   tipo_criterio_evaluacion:'normal',
 	   peso_prctj_eval_crit:10,
-	   descripcion_criterio_evaluacion:'rapido Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   descripcion_criterio_evaluacion:'Servicio',
 
 	},
 
 	{
        id_eval_crit:4,	
 	   id_criterio_evaluacion:4,
-	   tipo_criterio_evaluacion:'esta cool',
+	   tipo_criterio_evaluacion:'normal',
 	   peso_prctj_eval_crit:50,
-	   descripcion_criterio_evaluacion:'cool Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+	   descripcion_criterio_evaluacion:'Otro criterio',
 	},
 
 ]
@@ -46,26 +38,36 @@ const DummyCriterios =  [
 const DummyEscala = {
     min_escala: '0',
     max_escala: '10',
-    criterio_exito:'50',
 }
 
 
 //////////NO BORRAR
 //les agrega el valor calificacion
-	const procesarEvaCrit = (crits) => {
+
+
+
+
+const LlenarCriterios = (props) => {
+
+	const [criterioExito, setCriterioExito] = useState({
+	   id_eval_crit:1,	
+	   id_criterio_evaluacion:1,
+	   tipo_criterio_evaluacion:'exito',
+	   peso_prctj_eval_crit:10,	   
+	   descripcion_criterio_evaluacion:'Criterio Exito'
+	})
+
+	const procesarEvaCrit = (crits) => {		
 		crits.forEach(crit => {
 			crit.calificacion=''
 		});
 		return crits
 	}
 
-
-
-const LlenarCriterios = (props) => {
-
 	const id_productor = localStorage.getItem('id_productor');
 	const id_proveedor = props.match.params.idproveedor
 	const tipo_evaluacion = props.match.params.tipoeval
+	const id_contrato = props.match.params.idcontrato
 	const [evaCrits, setEvaCrits] = useState(procesarEvaCrit(DummyCriterios))
 	const [escala, setEscala] = useState(DummyEscala)
 	const [result, setResult] = useState('')
@@ -73,7 +75,7 @@ const LlenarCriterios = (props) => {
 
 	const calificar = () => {
 		
-		let nota_aprobatoria = escala.max_escala * (escala.criterio_exito/100)
+		let nota_aprobatoria = criterioExito
 		let nota_acumulada =0
 		let copyEvaCrits = [...evaCrits]
 		
@@ -87,9 +89,8 @@ const LlenarCriterios = (props) => {
 
 
 	const handleSubmit = () => {
-		//Calificar
 		let [calificacion,status] = calificar()
-		history.replace(`/realizar-evaluacion/resultados-eval/${tipo_evaluacion}/${calificacion}/${status}/${id_proveedor}`)
+		history.replace(`/realizar-evaluacion/resultados-eval/${tipo_evaluacion}/${calificacion}/${status}/${id_proveedor}/${id_contrato}`)
 	
 	}
 
@@ -132,8 +133,8 @@ const LlenarCriterios = (props) => {
 						</div>
 
 						<div className="llenar-criterios-escala-inner-wrapper">
-							<h6> Porcentaje requerido para aprobar: </h6>
-							<p> {escala.criterio_exito}% </p>
+							<h6> Nota requerida para aprobar: </h6>
+							<p> {criterioExito.peso_prctj_eval_crit} </p>
 						</div>
 					</div>
 

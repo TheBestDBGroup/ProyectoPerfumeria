@@ -3,6 +3,8 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom'
 import "tabler-react/dist/Tabler.css";
 import Main from './pages/Main/Main'
 import Header from './components/Header/Header'
+
+//Componentes de Evaluacion
 import Evaluacion from './pages/Evaluacion/Evaluacion/Evaluacion'
 import FiltroProductor from './components/FiltroProductor/FiltroProductor'
 import NuevoContrato from './pages/Evaluacion/NuevoContrato/NuevoContrato'
@@ -12,7 +14,10 @@ import RealizarEvaluacionInicial from './pages/Evaluacion/RealizarEvaluacionInic
 import RealizarEvaluacionRenovacion from './pages/Evaluacion/RealizarEvaluacionRenovacion/RealizarEvaluacionRenovacion'
 import MostrarCondiciones from './pages/Evaluacion/MostrarCondiciones/MostrarCondiciones'
 import LlenarCriterios from './pages/Evaluacion/LlenarCriterios/LlenarCriterios'
-//> /evaluacion/mostrar-condiciones-eval-inicial/
+import MostrarResultado from './pages/Evaluacion/MostrarResultado/MostrarResultado'
+import ProveedoresVigentes from './pages/Evaluacion/ProveedoresVigentes/ProveedoresVigentes'
+import CancelarContrato from './pages/Evaluacion/CancelarContrato/CancelarContrato'
+
 const routes = [
     {//root
       path: '/',
@@ -48,24 +53,24 @@ const routes = [
       render: (props) => <MostrarCondiciones {...props} />
     },
     { // form donde se llenan los criterios de evaluacion para el proveedor
-      path: '/realizar-evaluacion/llenar-criterios/:idproveedor/:tipoeval',
+      path: '/realizar-evaluacion/llenar-criterios/:idproveedor/:tipoeval/:idcontrato',
       render: (props) => <LlenarCriterios {...props} />
     },
-    { //no implementado,resultados evaluacion --aqui se renueva contrato :estatus=true paso/false no paso
-      path: '/realizar-evaluacion/resultados-eval/:tipoeval/:calificacion/:estatus/:idproveedor',
-      render: (props) => <Main {...props} />
+    { //aqui se renueva contrato :status=true paso/false no paso 
+      path: '/realizar-evaluacion/resultados-eval/:tipoeval/:calificacion/:status/:idproveedor/:idcontrato',
+      render: (props) => <MostrarResultado {...props} />
     },
-    { //no implementado, crear contrato
-      path: '/contrato/crear',
-      render: (props) => <Main {...props} />
+    { //crear contrato
+      path: '/contrato/crear/:idproveedor',
+      render: (props) => <NuevoContrato {...props} />
     },
-    { //no implementado, listas de contratos vigentes
+    { //WIP! listas de contratos vigentes
       path: '/contrato/ver-vigentes',
-      render: (props) => <Main {...props} />
+      render: (props) => <ProveedoresVigentes {...props} />
     },
     { //no implementado, pantalla para cancelar y poner motivos de cancelacion
       path: '/contrato/cancelar/:idContrato',
-      render: (props) => <Main {...props} />
+      render: (props) => <CancelarContrato {...props} />
     },
 ];
 

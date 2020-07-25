@@ -385,121 +385,134 @@ return (
 		
 		<div className="nuevo-contrato-content">
 
-		<h3 className="nuevo-contrato-subtitle"> Informacion General </h3>
+		<div className="center">
+			<h3 className="nuevo-contrato-subtitle"> Informacion General </h3>
+		</div>
 
-		<div className="info-wrapper">
-			<div className="info-content">
-				<h6> Información Productor </h6>
-				<InfoContrato 
-					nombre={infoProductor.nombre_productor} 
-					web={infoProductor.web_productor}
-					email={infoProductor.email_productor}
-					id={infoProductor.id_productor}
-				/>
-			</div>
-			
-			<div className="info-content">
-				<h6> Información Proveedor</h6>
-				<InfoContrato 
-					nombre={infoProveedor.nombre_proveedor} 
-					web={infoProveedor.web_proveedor}
-					email={infoProveedor.email_proveedor}
-					id={infoProveedor.id_proveedor}
-				/>
+
+		<div className="center">
+			<div className="info-wrapper">
+				<div className="info-content">
+					<h6> Información Productor </h6>
+					<InfoContrato 
+						nombre={infoProductor.nombre_productor} 
+						web={infoProductor.web_productor}
+						email={infoProductor.email_productor}
+						id={infoProductor.id_productor}
+					/>
+				</div>
+				
+				<div className="info-content">
+					<h6> Información Proveedor</h6>
+					<InfoContrato 
+						nombre={infoProveedor.nombre_proveedor} 
+						web={infoProveedor.web_proveedor}
+						email={infoProveedor.email_proveedor}
+						id={infoProveedor.id_proveedor}
+					/>
+				</div>
 			</div>
 		</div>
-		<div className="nuevo-contrato-exc-wrapper">
-			<h5 className="nuevo-contrato-exc-title">¿De exclusividad? </h5>
-			<Checkbox
-		        checked={exclusividad}
-		        onChange={handleChangeExclusividad}
-		        inputProps={{ 'aria-label': 'primary checkbox' }}
-      		/>
-      	</div>
 
-    
-			<div className="nuevo-cont-divider">
-			<div className="nuevo-contrato-subtitle-wrapper">
-			<h3 className="nuevo-contrato-subtitle"> Ingredientes Generales</h3>
-			<Button variant="outlined" size="small" onClick={agregarIGen}>
-			  + Nuevo
-			</Button>
-        	</div>
+		<div className="center">
+			<div className="nuevo-contrato-exc-wrapper">
+				<h5 className="nuevo-contrato-exc-title">¿De exclusividad? </h5>
+				<Checkbox
+			        checked={exclusividad}
+			        onChange={handleChangeExclusividad}
+			        inputProps={{ 'aria-label': 'primary checkbox' }}
+	      		/>
+	      	</div>
+	    </div>
 
-			{ingredientesGen.map((ingrediente,indice) => (
-				<IngredienteGeneral 
-					key={indice} 
-					indice={indice}
-					handleChange={handleChangeIGen} 
-					ingredientes={ingredientesGen} 
-					opciones={opcionesIGen}
-					handleDelete={borrarIGen}
-				/>
-			))}
+    		<div className="center">
+				<div className="nuevo-cont-divider">
+				<div className="nuevo-contrato-subtitle-wrapper">
+				<h3 className="nuevo-contrato-subtitle"> Ingredientes Generales</h3>
+				<Button variant="outlined" size="small" onClick={agregarIGen}>
+				  + Nuevo
+				</Button>
+	        	</div>
+
+				{ingredientesGen.map((ingrediente,indice) => (
+					<IngredienteGeneral 
+						key={indice} 
+						indice={indice}
+						handleChange={handleChangeIGen} 
+						ingredientes={ingredientesGen} 
+						opciones={opcionesIGen}
+						handleDelete={borrarIGen}
+					/>
+				))}
+			</div>
 			</div>
 
-			<div className="nuevo-cont-divider">
-			<div className="nuevo-contrato-subtitle-wrapper">
-			<h3 className="nuevo-contrato-subtitle"> Ingredientes Esenciales</h3>
-			<Button variant="outlined" size="small" onClick={agregarIEsen}>
-			  + Nuevo
-			</Button>
-        	</div>
+			<div className="center">
+				<div className="nuevo-cont-divider">
+				<div className="nuevo-contrato-subtitle-wrapper">
+				<h3 className="nuevo-contrato-subtitle"> Ingredientes Esenciales</h3>
+				<Button variant="outlined" size="small" onClick={agregarIEsen}>
+				  + Nuevo
+				</Button>
+	        	</div>
 
-			{ingredientesEsen.map((ingrediente,indice) => (
-				<IngredienteGeneral 
-					key={indice} 
-					indice={indice}
-					handleChange={handleChangeIEsen} 
-					ingredientes={ingredientesEsen} 
-					opciones={opcionesIEsen}
-					handleDelete={borrarIEsen}
-				/>
-			))}
+				{ingredientesEsen.map((ingrediente,indice) => (
+					<IngredienteGeneral 
+						key={indice} 
+						indice={indice}
+						handleChange={handleChangeIEsen} 
+						ingredientes={ingredientesEsen} 
+						opciones={opcionesIEsen}
+						handleDelete={borrarIEsen}
+					/>
+				))}
+				</div>
 			</div>
 		
 
 
-
-			<div className="nuevo-cont-divider">
-			<div className="nuevo-contrato-subtitle-wrapper">
-			<h3 className="nuevo-contrato-subtitle"> Opciones de Envio</h3>
-			
-			<Button variant="outlined" size="small" onClick={agregarEnvio}>
-			  + Nuevo
-			</Button>
-        	</div>
-			{envios.map((envio,indice) => (
-				<Envio
-					key={indice} 
-					indice={indice} 
-					handleChange={handleChangeEnvio} 
-					envios={envios} 
-					opciones={opcionesEnvio}
-					handleDelete={borrarEnvio}
-				/>
-			))}
+			<div className="center">
+				<div className="nuevo-cont-divider">
+				<div className="nuevo-contrato-subtitle-wrapper">
+				<h3 className="nuevo-contrato-subtitle"> Opciones de Envio</h3>
+				
+				<Button variant="outlined" size="small" onClick={agregarEnvio}>
+				  + Nuevo
+				</Button>
+	        	</div>
+				{envios.map((envio,indice) => (
+					<Envio
+						key={indice} 
+						indice={indice} 
+						handleChange={handleChangeEnvio} 
+						envios={envios} 
+						opciones={opcionesEnvio}
+						handleDelete={borrarEnvio}
+					/>
+				))}
+				</div>
 			</div>
 
-
-			<div className="nuevo-cont-divider">
-			<div className="nuevo-contrato-subtitle-wrapper">
-			<h3 className="nuevo-contrato-subtitle"> Opciones de Pago</h3>
-			
-			<Button variant="outlined" size="small" onClick={agregarPago}>
-			  + Nuevo
-			</Button>
-        	</div>
-			{pagos.map((pago,indice) => (
-				<Pago
-					key={indice} 
-					indice={indice} 
-					handleChange={handleChangePago} 
-					pagos={pagos} 
-					opciones={opcionesPago}
-					handleDelete={borrarPago}
-				/>
-			))}
+			<div className="center">
+				<div className="nuevo-cont-divider">
+				<div className="nuevo-contrato-subtitle-wrapper">
+				<h3 className="nuevo-contrato-subtitle"> Opciones de Pago</h3>
+				
+				<Button variant="outlined" size="small" onClick={agregarPago}>
+				  + Nuevo
+				</Button>
+	        	</div>
+				{pagos.map((pago,indice) => (
+					<Pago
+						key={indice} 
+						indice={indice} 
+						handleChange={handleChangePago} 
+						pagos={pagos} 
+						opciones={opcionesPago}
+						handleDelete={borrarPago}
+					/>
+				))}
+				</div>
 			</div>
 
 

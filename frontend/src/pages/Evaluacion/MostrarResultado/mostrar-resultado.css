@@ -1,0 +1,12 @@
+.center {
+	display:flex;
+	justify-content: center;
+}
+
+.content-wrapper {
+	margin:50px;
+}
+
+.button-one{
+	margin-right:10px;
+}
