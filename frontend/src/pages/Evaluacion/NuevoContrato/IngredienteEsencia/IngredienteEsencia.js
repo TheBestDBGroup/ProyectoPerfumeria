@@ -37,7 +37,7 @@ const Ingrediente = ({indice,handleChange,opciones,ingredientes,handleDelete}) =
 	          id={`ingrediente-${indice}`}
 	          label={ingredientes[indice].nombre}
 	          renderValue={() => renderValue()}
-	          value={ingredientes[indice].id_ingrediente_general}
+	          value={ingredientes[indice].id_ingrediente_esencia}
 	          onChange={value => handleChange(indice, value)}
 	          placeholder={ingredientes[indice].nombre}
 	        >

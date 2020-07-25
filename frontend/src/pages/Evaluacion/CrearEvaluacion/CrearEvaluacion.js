@@ -89,7 +89,7 @@ const CrearEvaluacion = (props) => {
 						<h4> Tipo = {tipo=='inicial'?'Inicial':'Renovación'}</h4>
 					</div>
 
-					<Divider variant="middle" />
+					<Divider />
 					<div className="center-title">
 					<h4 className="escala-evaluacion-title">Escala de Evaluación</h4>
 					</div>

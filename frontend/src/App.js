@@ -10,7 +10,8 @@ import ChooseEvalType from './pages/Evaluacion/ChooseEvalType/ChooseEvalType'
 import CrearEvaluacion from './pages/Evaluacion/CrearEvaluacion/CrearEvaluacion'
 import RealizarEvaluacionInicial from './pages/Evaluacion/RealizarEvaluacionInicial/RealizarEvaluacionInicial'
 import RealizarEvaluacionRenovacion from './pages/Evaluacion/RealizarEvaluacionRenovacion/RealizarEvaluacionRenovacion'
-
+import MostrarCondiciones from './pages/Evaluacion/MostrarCondiciones/MostrarCondiciones'
+import LlenarCriterios from './pages/Evaluacion/LlenarCriterios/LlenarCriterios'
 //> /evaluacion/mostrar-condiciones-eval-inicial/
 const routes = [
     {//root
@@ -42,13 +43,13 @@ const routes = [
       path: '/realizar-evaluacion/renovacion',
       render: (props) => <RealizarEvaluacionRenovacion {...props} />
     },
-    { //no implementado, muestra las condiciones de evalucion del proveedor
+    { //muestra las condiciones de evalucion del proveedor
       path: '/evaluacion/mostrar-condiciones-eval-inicial/:idproveedor',
-      render: (props) => <Main {...props} />
+      render: (props) => <MostrarCondiciones {...props} />
     },
     { //no implementado, form donde se llenan los criterios de evaluacion para el proveedor
       path: '/realizar-evaluacion/llenar-criterios/:idproveedor/:tipoeval',
-      render: (props) => <Main {...props} />
+      render: (props) => <LlenarCriterios {...props} />
     },
     { //no implementado,resultados evaluacion --aqui se renueva contrato :estatus=paso
       path: '/realizar-evaluacion/resultados-eval/:tipoeval/:calificacion/:estatus/:idproveedor',
