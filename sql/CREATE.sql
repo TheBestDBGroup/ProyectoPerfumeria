@@ -165,7 +165,8 @@ CREATE TABLE ydm_criterio_eval
     tipo_criterio_eval varchar(30) NOT NULL,
     descripcion_criterio_eval varchar NOT NULL, 
     CONSTRAINT pk_id_criterio_eval PRIMARY KEY (id_criterio_eval),
-    CONSTRAINT chk_tipo_criterio_eval CHECK(tipo_criterio_eval in ('Ubicación geográfica', 'Costo', 'Alternativa de envío', 'Condición de pago', 'Cumplimiento'))
+    CONSTRAINT chk_tipo_criterio_eval CHECK(tipo_criterio_eval in ('exito', 'normal')),
+    CONSTRAINT chk_descripcion_criterio_eval CHECK(descripcion_criterio_eval in ('Ubicación geográfica', 'Costo', 'Alternativa de envío', 'Condición de pago', 'Cumplimiento', 'Criterio de Éxito'))
 );
 
 CREATE SEQUENCE ydm_secuencia_ingrediente_esencia
@@ -218,13 +219,13 @@ CREATE TABLE ydm_escala
 
 CREATE TABLE ydm_eval_crit
 (
-    fecha_eval_crit timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
+    fecha_inicial_eval_crit timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
     id_productor_eval_crit numeric NOT NULL,
     id_criterio_eval_eval_crit numeric NOT NULL,
     peso_prctj_eval_crit numeric NOT NULL,
     tipo_eval_crit varchar(15) NOT NULL,
-    fecha_final_eval_crit date,
-    CONSTRAINT pk_fecha_eval_crit PRIMARY KEY (fecha_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
+    fecha_final_eval_crit timestamp,
+    CONSTRAINT pk_fecha_inicial_eval_crit PRIMARY KEY (fecha_inicial_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
     CONSTRAINT chk_tipo_eval_crit CHECK(tipo_eval_crit in ('Inicial', 'Renovación'))
 );
 
