@@ -20,7 +20,7 @@ const Pago = ({indice,handleChange,opciones,pagos,handleDelete}) => {
 	if(pagos && pagos.length>0 && pagos[indice]) {
 
 	const renderValue = () => {
-		if(pagos[indice].id === '') return ''
+		if(pagos[indice].id === '') {return ''}
 
 		if(pagos[indice].tipo_condicion_pago === 'Contado'){
     	return `ID ${pagos[indice].id_condicion_pago} / TIPO ${pagos[indice].tipo_condicion_pago} /`;

@@ -3,34 +3,49 @@ import {Divider, TextField, Button} from '@material-ui/core/';
 import Criterio from './Criterio/Criterio'
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import './crear-evaluacion-styles.css'
+
+
+//TODO: Cambiar criterios 
+
 const DummyCriterios =  [
 	{
 	   id_criterio_evaluacion:1,
-	   tipo_criterio_evaluacion:'inicial',
-	   descripcion_criterio_evaluacion:'es bonitico',
+	   tipo_criterio_evaluacion:'es bonitico',	   
+	   descripcion_criterio_evaluacion:'bonitico Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+
 	},
 	{
 	   id_criterio_evaluacion:2,
-	   tipo_criterio_evaluacion:'inicial',
-	   descripcion_criterio_evaluacion:'es eficiente',
+	   tipo_criterio_evaluacion:'es eficiente',
+	   descripcion_criterio_evaluacion:'eficiente Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+
 	},
 	{
 	   id_criterio_evaluacion:3,
-	   tipo_criterio_evaluacion:'renovacion',
-	   descripcion_criterio_evaluacion:'es rapido',
+	   tipo_criterio_evaluacion:'es rapido',
+	   descripcion_criterio_evaluacion:'rapido Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
+
 	},
 	{
 	   id_criterio_evaluacion:4,
-	   tipo_criterio_evaluacion:'renovacion',
-	   descripcion_criterio_evaluacion:'esta cool',
+	   tipo_criterio_evaluacion:'esta cool',
+	   descripcion_criterio_evaluacion:'cool Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lorem eros, interdum eget justo non, pretium semper eros. Ut eget nisl a leo commodo laoreet',
 	},
 
 ]
+
+
+const initEscala = {
+	min_escala:'',
+    max_escala:'',
+    criterio_exito:'',
+}
 
 const CrearEvaluacion = (props) => {
 
 	const [criterios,setCriterios] = useState([])
 	const [opcionesCriterios, setOpcionesCriterios] = useState(DummyCriterios)
+	const [escala,setEscala] = useState(initEscala)
 	const tipo = props.match.params.tipo //inicial o de renovacion
 	const productorId = localStorage.getItem('id_productor');
 
@@ -49,36 +64,36 @@ const CrearEvaluacion = (props) => {
 	}
 
 	const handleChangeCriterio = (indice,e) => {
-		console.log('criterios e',e.target.value)
-		console.log('criterios handle change pre',criterios)
-		console.log('criterio')
 		let criteriosCopy = [...criterios]
 		let peso = criteriosCopy[indice].peso_prctj__eval_crit
-		console.log('criterios peso',peso)
 		criteriosCopy[indice] = opcionesCriterios[e.target.value]
-		console.log('opcionesCriterios')
 		criteriosCopy[indice].peso_prctj__eval_crit = peso
 		setCriterios(criteriosCopy)
 		
 	}
 
 	const handlePesoCriterio =(indice, e) => {
-		console.log('criterios handle peso pre',criterios)
-		console.log('indice', indice)
 		let criteriosCopy =[...criterios]
 		criteriosCopy[indice].peso_prctj__eval_crit = e.target.value
 		setCriterios(criteriosCopy)
-		console.log('criterios handle peso post',criterios)
 	}
 
 	const handleSubmit=() => {
 		console.log('criterios',criterios)
 	}
 
+	const handleChangeEscala = e => {
+
+    	setEscala({ ...escala, [e.target.name]: e.target.value})
+  	}
+
+
 
 	return (
 		<>
 			<InfoProdSubheader redirectDir={`crear-evaluacion/${tipo}`}/>
+			{console.log('criterios',criterios)}
+			{console.log('escala',escala)}
 				
 			<div className="center-everything">
 				<div className="crear-evaluacion-wrapper">
@@ -96,17 +111,17 @@ const CrearEvaluacion = (props) => {
 					<div className="escala-eval-content-wrapper">
 						<div className="escala-eval-label">
 							<h6> Puntaje Mínimo</h6>
-							<TextField label="Puntaje Mínimo" variant="outlined" />
+							<TextField label="Puntaje Mínimo" variant="outlined" name="min_escala" value={escala.min_escala} onChange={handleChangeEscala}/>
 						</div>
 						<div className="escala-eval-label">
 							<h6> Puntaje Máximo </h6>
-							<TextField label="Puntaje Máximo" variant="outlined" />
+							<TextField label="Puntaje Máximo" variant="outlined" name="max_escala" value={escala.max_escala} onChange={handleChangeEscala}/>
 						</div>
 					</div>
 					<div className="center-title">
 						<div className="criterio-exito">
 							<h4>Criterio de Éxito </h4>
-							<TextField label="% mínimo" variant="outlined" />
+							<TextField label="% mínimo" variant="outlined" name="criterio_exito" value={escala.criterio_exito} onChange={handleChangeEscala}/>
 						</div>	
 					</div>
 

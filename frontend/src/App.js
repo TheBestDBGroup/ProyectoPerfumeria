@@ -47,11 +47,11 @@ const routes = [
       path: '/evaluacion/mostrar-condiciones-eval-inicial/:idproveedor',
       render: (props) => <MostrarCondiciones {...props} />
     },
-    { //no implementado, form donde se llenan los criterios de evaluacion para el proveedor
+    { // form donde se llenan los criterios de evaluacion para el proveedor
       path: '/realizar-evaluacion/llenar-criterios/:idproveedor/:tipoeval',
       render: (props) => <LlenarCriterios {...props} />
     },
-    { //no implementado,resultados evaluacion --aqui se renueva contrato :estatus=paso
+    { //no implementado,resultados evaluacion --aqui se renueva contrato :estatus=true paso/false no paso
       path: '/realizar-evaluacion/resultados-eval/:tipoeval/:calificacion/:estatus/:idproveedor',
       render: (props) => <Main {...props} />
     },

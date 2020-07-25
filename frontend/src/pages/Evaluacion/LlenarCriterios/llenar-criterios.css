@@ -1,0 +1,46 @@
+.llenar-criterios-wrapper {
+	width:100%;
+	display:flex;
+	justify-content: center;
+}
+
+.center {
+	display:flex;
+	justify-content: center;
+}
+
+.llenar-criterios-titulo {
+	margin:20px;
+}
+
+.llenar-criterios-subtitle {
+	margin:10px;
+}
+
+.llenar-criterios-escala-wrapper {
+	display:flex;
+	justify-content: center;
+}
+
+.llenar-criterios-escala-inner-wrapper {
+	display:flex;
+	justify-content: center;
+	margin:10px;
+}
+
+.llenar-criterios-escala-inner-wrapper h6 {
+	margin-top: 2px;
+	margin-right: 5px;
+
+}
+
+.criterio-button-wrapper {
+	display:flex;
+	justify-content: center;
+}
+
+.criterio-button {
+	width:500px;
+	margin-bottom:50px;
+	margin-top: 10px;
+}
