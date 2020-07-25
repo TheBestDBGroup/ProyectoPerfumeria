@@ -75,9 +75,9 @@ router.post(
 );
 
 //CREAR UN CRITERIO DE EVALUACION
-router.post(
-  "/create/criterio-evaluacion",
-  evaluacionController.postCrearCriterioEvaluacion
-);
+router.post("/create/eval-crit", evaluacionController.postCrearEvalCrit);
+
+//CREAR UNA ESCALA
+router.post("/create/escala", evaluacionController.postCrearEscala);
 
 module.exports = router;
