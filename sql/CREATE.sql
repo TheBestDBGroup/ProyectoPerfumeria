@@ -208,23 +208,23 @@ CREATE TABLE ydm_intensidad
 
 CREATE TABLE ydm_escala
 (
-    fecha_creacion_escala timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion_escala timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
+    id_productor_escala numeric NOT NULL,
     min_escala numeric NOT NULL,
     max_escala numeric NOT NULL,
-    id_productor_escala numeric NOT NULL,
     fecha_expiracion_escala timestamp,
-    CONSTRAINT pk_fecha_creacion_escala PRIMARY KEY (fecha_creacion_escala)
+    CONSTRAINT pk_fecha_creacion_escala PRIMARY KEY (fecha_creacion_escala, id_productor_escala)
 );
 
 CREATE TABLE ydm_eval_crit
 (
-    id_eval_crit timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_eval_crit timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
     id_productor_eval_crit numeric NOT NULL,
     id_criterio_eval_eval_crit numeric NOT NULL,
     peso_prctj_eval_crit numeric NOT NULL,
     tipo_eval_crit varchar(15) NOT NULL,
-    fecha_final_eval_crit timestamp,
-    CONSTRAINT pk_id_eval_crit PRIMARY KEY (id_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
+    fecha_final_eval_crit date,
+    CONSTRAINT pk_fecha_eval_crit PRIMARY KEY (fecha_eval_crit, id_productor_eval_crit, id_criterio_eval_eval_crit),
     CONSTRAINT chk_tipo_eval_crit CHECK(tipo_eval_crit in ('Inicial', 'Renovación'))
 );
 
