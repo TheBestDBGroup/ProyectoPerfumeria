@@ -163,8 +163,7 @@ CREATE TABLE ydm_criterio_eval
 (
     id_criterio_eval numeric NOT NULL DEFAULT nextval('ydm_secuencia_criterio_eval'::regclass),
     tipo_criterio_eval varchar(30) NOT NULL,
-    descripcion_criterio_eval varchar NOT NULL,
-    peso_criterio_eval numeric NOT NULL, 
+    descripcion_criterio_eval varchar NOT NULL, 
     CONSTRAINT pk_id_criterio_eval PRIMARY KEY (id_criterio_eval),
     CONSTRAINT chk_tipo_criterio_eval CHECK(tipo_criterio_eval in ('Ubicación geográfica', 'Costo', 'Alternativa de envío', 'Condición de pago', 'Cumplimiento'))
 );
@@ -217,16 +216,9 @@ CREATE TABLE ydm_escala
     CONSTRAINT pk_fecha_creacion_escala PRIMARY KEY (fecha_creacion_escala)
 );
 
-CREATE SEQUENCE ydm_secuencia_eval_crit
-     start with 1
-     increment 1
-     minvalue 1
-     maxvalue 100
-;
-
 CREATE TABLE ydm_eval_crit
 (
-    id_eval_crit numeric NOT NULL DEFAULT nextval('ydm_secuencia_eval_crit'::regclass),
+    id_eval_crit date NOT NULL,
     id_productor_eval_crit numeric NOT NULL,
     id_criterio_eval_eval_crit numeric NOT NULL,
     peso_prctj_eval_crit numeric NOT NULL,
