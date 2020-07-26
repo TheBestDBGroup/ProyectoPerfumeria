@@ -250,7 +250,10 @@ INSERT INTO ydm_perfume VALUES
   (DEFAULT, 'Coastal Cypress & Sea Fennel Eau de Toilette', 'Monolítico', 'Hombre', 'Adulto', 5),
   (DEFAULT, 'Jolie Femme', 'Monolítico', 'Mujer','Atemporal', 6),
   (DEFAULT, 'Black Utique perfum', 'Por fases', 'Hombre', 'Adulto', 6),
-  (DEFAULT, 'Muffin Utique Perfum', 'Por fases', 'Hombre', 'Adulto', 6);
+  (DEFAULT, 'Muffin Utique Perfum', 'Por fases', 'Hombre', 'Adulto', 6),
+  (DEFAULT, 'Burberry brit rhythm burnerry  ', 'Por fases', 'Hombre', 'Adulto', 2),
+  (DEFAULT, 'Brit Rythm for him intense burburry ', 'Por fases', 'Hombre', 'Adulto', 2),
+  (DEFAULT, 'Burburry london', 'Por fases', 'Mujer', 'Adulto', 2);
 
 INSERT INTO ydm_pi_pdt_env VALUES
   (DEFAULT, 1, 66, 'Envios Productor'),
@@ -350,18 +353,15 @@ INSERT INTO ydm_eval_crit VALUES
   ('2020/07/21 19:10:25', 2, 6, 60, 'Renovación',NULL);
 
 INSERT INTO ydm_evaluacion VALUES
-  ('2018/10/15 19:00:00', 1, 1, 80, 'Inicial'),
-  ('2019/10/15 19:00:00', 1, 1, 75, 'Renovación'),
-  ('2020/03/01 19:00:00', 2, 1, 60, 'Inicial'),
-  ('2020/07/05 19:00:00', 2, 2, 75, 'Inicial'),
-  ('2018/02/13 19:00:00', 3, 3, 90, 'Inicial'),
-  ('2019/02/13 19:00:00', 3, 3, 80, 'Renovación'),
-  ('2020/02/13 19:00:00', 3, 3, 75, 'Renovación'),
-  ('2019/07/26 19:00:00', 1, 4, 40, 'Inicial'),
-  ('2019/09/23 19:00:00', 2, 5, 70, 'Inicial'),
-  ('2017/01/28 19:00:00', 3, 6, 80, 'Inicial'),
-  ('2020/02/18 19:00:00', 1, 5, 90, 'Inicial'),  
-  ('2016/07/05 19:00:00', 3, 4, 40, 'Inicial');
+  ('2018/10/15', 1, 1, 8, 'Renovación'),
+  ('2020/07/05', 2, 2, 15, 'Inicial'),
+  ('2018/02/13', 3, 3, 8, 'Renovación'),
+  ('2016/05/26', 1, 4, 20, 'Inicial'),
+  ('2019/09/23', 2, 5, 6, 'Inicial'),
+  ('2017/01/28', 3, 6, 8, 'Inicial'),
+  ('2020/02/18', 1, 5, 16, 'Inicial'),
+  ('2020/03/01', 2, 1, 4, 'Renovación'),
+  ('2016/07/05', 3, 4, 6, 'Renovación');
 
 INSERT INTO ydm_contrato VALUES
   (DEFAULT, '2018/10/15', NULL, NULL, TRUE, 1, 1),
@@ -380,18 +380,28 @@ INSERT INTO ydm_contrato VALUES
   (DEFAULT, '2018/08/05', NULL, NULL, FALSE, 2, 2);
 
 INSERT INTO ydm_renueva VALUES
-  (DEFAULT, 1, '2019/10/15'),
+  (DEFAULT, 1, '2020/07/05'),
   (DEFAULT, 5, '2019/10/12'),
   (DEFAULT, 8, '2019/12/14'),
-  (DEFAULT, 14,'2019/08/05'); 
+  (DEFAULT, 14,'2019/08/05'),
+  (DEFAULT, 3, '2020/07/05'),
+  (DEFAULT, 6, '2019/10/12'),
+  (DEFAULT, 7, '2020/06/18'),
+  (DEFAULT, 11, '2020/09/15'),
+  (DEFAULT, 12, '2020/07/19');
+
 
 INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 2, 'Crédito', 2, 50, 6),
-  (DEFAULT, 3, 'Crédito', 4, 25, 3),
-  (DEFAULT, 1, 'Crédito', 2, 50, 2),
-  (DEFAULT, 2, 'Crédito', 5, 20, 2),
+  (DEFAULT, 3, 'Crédito', 3, 33, 4),
+  (DEFAULT, 1, 'Crédito', 2, 50, 6),
+  (DEFAULT, 2, 'Crédito', 3, 33, 4),
+  (DEFAULT, 3, 'Crédito', 2, 50, 6),
+  (DEFAULT, 1, 'Crédito', 3, 33, 4),
+  (DEFAULT, 2, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
+
 
 INSERT INTO ydm_alt_envio VALUES
   (DEFAULT, 1, 66, 'Avion', 2000, NULL),
@@ -402,36 +412,112 @@ INSERT INTO ydm_alt_envio VALUES
   (DEFAULT, 3, 72, 'Barco', 1800, NULL),
   (DEFAULT, 1, 81, 'Avion', 2000, NULL),
   (DEFAULT, 2, 9, 'Barco', 3000, NULL),
-  (DEFAULT, 3, 3, 'Barco', 2000, NULL);
+  (DEFAULT, 3, 3, 'Barco', 2000, NULL),
+  (DEFAULT, 1, 60, 'Avion', 2000, NULL),
+  (DEFAULT, 2, 6, 'Barco', 3000, NULL),
+  (DEFAULT, 3, 126, 'Barco', 2000, NULL);
 
 INSERT INTO ydm_cond_env_pago VALUES
-  (DEFAULT, 1, NULL, 1, 1, 1, 1, 66),
-  (DEFAULT, 2, NULL, 2, 2, 4, 2, 170),
-  (DEFAULT, 3, NULL, 3, 3, 6, 3, 72),
-  (DEFAULT, 4, NULL, 4, 1, 7, 1, 81),
-  (DEFAULT, 5, NULL, 5, 2, 8, 2, 9),
-  (DEFAULT, 6, NULL, 6, 3, 9, 3, 3);
+  (DEFAULT, 1, NULL, 1, 1, NULL, NULL, NULL),
+  (DEFAULT, 1, NULL, NULL, NULL, 1, 1, 66),
+  (DEFAULT, 2, NULL, 2, 2, NULL, NULL, NULL),
+  (DEFAULT, 2, NULL, NULL, NULL, 4, 2, 170),
+  (DEFAULT, 3, NULL, 3, 3, NULL, NULL, NULL),
+  (DEFAULT, 3, NULL, NULL, NULL, 6, 3, 72),
+  (DEFAULT, 4, NULL, 4, 1, NULL, NULL, NULL),
+  (DEFAULT, 4, NULL, NULL, NULL, 7, 1, 81),
+  (DEFAULT, 5, NULL, 5, 2, NULL, NULL, NULL),
+  (DEFAULT, 5, NULL, NULL, NULL, 8, 2, 9),
+  (DEFAULT, 6, NULL, 6, 3, NULL, NULL, NULL),
+  (DEFAULT, 6, NULL, NULL, NULL, 9, 3, 3),
+  (DEFAULT, 7, NULL, 4, 1, NULL, NULL, NULL),
+  (DEFAULT, 7, NULL, NULL, NULL, 7, 1, 81),
+  (DEFAULT, 8, NULL, 5, 2, NULL, NULL, NULL),
+  (DEFAULT, 8, NULL, NULL, NULL, 8, 2, 9),
+  (DEFAULT, 9, NULL, 6, 3, NULL, NULL, NULL),
+  (DEFAULT, 9, NULL, NULL, NULL, 9, 3, 3);
 
 INSERT INTO ydm_pedido VALUES
-  (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 1, 1, '2018/10/28', 1),
-  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 2, 2, 2, 2, 2, '2019/07/15', 2),
-  (DEFAULT, '2020/07/12', 15000, 'Por confirmar', 3, 3, 3, 3, 3, 3, NULL, NULL);
+  (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 2, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 2, 3, 2, 4, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Por confirmar', 3, 3, 5, 3, 6, NULL, NULL),
+  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 7, 4, 8, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 5, 9, 5, 10, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Cancelado por productor', 3, 6, 11, 6, 12, NULL, NULL),
+  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 13, 7, 14, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 3, 15, 8, 16, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Cancelado por proveedor', 3, 1, 17, 9, 18, NULL, NULL);
 
 INSERT INTO ydm_pago VALUES
   (DEFAULT, 1, '2018/10/29', 20000),
   (DEFAULT, 2, '2019/08/10', 15000),
-  (DEFAULT, 2, '2020/02/20', 15000);
-  
-    
+  (DEFAULT, 2, '2020/02/20', 15000),
+  (DEFAULT, 4, '2018/10/18', 10000),
+  (DEFAULT, 4, '2019/02/20', 10000),
+  (DEFAULT, 4, '2019/06/20', 10000),
+  (DEFAULT, 5, '2019/08/10', 15000),
+  (DEFAULT, 5, '2020/01/24', 15000),
+  (DEFAULT, 7, '2018/10/18', 10000),
+  (DEFAULT, 7, '2018/10/18', 10000),
+  (DEFAULT, 7, '2018/10/18', 10000),
+  (DEFAULT, 8, '2019/07/10', 15000);
+
+
 INSERT INTO ydm_intensidad VALUES 
   (DEFAULT, 1, 'Eau de perfume', '15%'),
   (DEFAULT, 2, 'Eau de cologne', '5%'),
-  (DEFAULT, 3, 'Eau de toilette', '8%');
+  (DEFAULT, 3, 'Eau de toilette', '8%'),
+  (DEFAULT, 4, 'Eau de perfume', '15%'),
+  (DEFAULT, 5, 'Eau de perfume', '15%'),
+  (DEFAULT, 6, 'Eau de toilette', '8%'),
+  (DEFAULT, 7, 'Perfume', '15-40%'),
+  (DEFAULT, 8, 'Eau de toilette', '8%'),
+  (DEFAULT, 9, 'Eau de toilette', '8%'),
+  (DEFAULT, 10, 'Eau de perfume', '15%'),
+  (DEFAULT, 11, 'Eau de toilette', '8%'),
+  (DEFAULT, 12, 'Eau de toilette', '8%'),
+  (DEFAULT, 13, 'Eau de cologne', '5%'),
+  (DEFAULT, 14, 'Eau de cologne', '5%'),
+  (DEFAULT, 15, 'Eau de perfume', '15%'),
+  (DEFAULT, 16, 'Eau de perfume', '15%'),
+  (DEFAULT, 17, 'Eau de perfume', '15%'),
+  (DEFAULT, 18, 'Eau de cologne', '5%');
 
 INSERT INTO ydm_pres_perf VALUES 
   (DEFAULT, 1, 1, 500),
   (DEFAULT, 2, 2, 100),
-  (DEFAULT, 3, 3, 50);
+  (DEFAULT, 3, 3, 50),
+  (DEFAULT, 4, 4, 100),
+  (DEFAULT, 4, 4, 200),
+  (DEFAULT, 5, 5, 55),
+  (DEFAULT, 5, 5, 100),
+  (DEFAULT, 6, 6, 18),
+  (DEFAULT, 6, 6, 30),
+  (DEFAULT, 6, 6, 50),
+  (DEFAULT, 6, 6, 100),
+  (DEFAULT, 7, 7, 75),
+  (DEFAULT, 7, 7, 125),
+  (DEFAULT, 8, 8, 50),
+  (DEFAULT, 8, 8, 100),
+  (DEFAULT, 9, 9, 30),
+  (DEFAULT, 9, 9, 50),
+  (DEFAULT, 9, 9, 90),
+  (DEFAULT, 11, 11,50),
+  (DEFAULT, 11, 11, 100),
+  (DEFAULT, 12, 12, 50),
+  (DEFAULT, 12, 12, 100),
+  (DEFAULT, 13, 13, 100),
+  (DEFAULT, 14, 14, 15),
+  (DEFAULT, 14, 14, 100),
+  (DEFAULT, 15, 15, 15),
+  (DEFAULT, 15, 15, 100),
+  (DEFAULT, 16, 16, 100),
+  (DEFAULT, 16, 16, 200),
+  (DEFAULT, 17, 17, 100),
+  (DEFAULT, 17, 17, 200),
+  (DEFAULT, 18, 18, 100),
+  (DEFAULT, 18, 18, 200);
+
 
 INSERT INTO ydm_ingrediente_esencia VALUES  
   (DEFAULT, '101-86-0', 'Hexil Cinamaldehido', 'Maceración', 1,  'Este aldehído encuentra un uso considerable en las formulaciones de perfumes por su rico aporte floral y agradable de olor a tabaco aceitoso a bases de jazmín, gardenia, tuberosa, magnolia, etc. y en general como parte de un tema floral en otros tipos de fragancias.', '2021/12/12', 235 , 'Aceite de parafina'),
@@ -537,24 +623,91 @@ INSERT INTO ydm_clausula_prod  VALUES
   (DEFAULT, 8, 3, NULL);
 
 INSERT INTO ydm_presentacion VALUES  
-   (DEFAULT, 1000, 10, 1, NULL, 1, NULL),
-   (DEFAULT, 5000, 50, 1, NULL, 1, NULL),
-   (DEFAULT, 25000, 250, 1, NULL, 1, NULL),
-   (DEFAULT, 15, 20, 2, NULL, 1, NULL),
-   (DEFAULT, 30, 40, 2, NULL, 1, NULL),
-   (DEFAULT, 80, 95, 2, NULL, 1, NULL),
-   (DEFAULT, 15, 60, 3, NULL, 1, NULL),
-   (DEFAULT, 60, 200, 3, NULL, 1, NULL),
-   (DEFAULT, 200, 600, 3, NULL, 1, NULL),
-   (DEFAULT, 1000, 10, NULL, 1, 1, NULL),
-   (DEFAULT, 2000, 20, NULL, 1, 1, NULL),
-   (DEFAULT, 5000, 50, NULL, 1, 1, NULL),
-   (DEFAULT, 1000, 15, NULL, 2, 1, NULL),
-   (DEFAULT, 2000, 30, NULL, 2, 1, NULL),
-   (DEFAULT, 5000, 45, NULL, 2, 1, NULL),
-   (DEFAULT, 1000, 20, NULL, 3, 1, NULL),
-   (DEFAULT, 2000, 40, NULL, 3, 1, NULL),
-   (DEFAULT, 5000, 50, NULL, 3, 1, NULL);
+  (DEFAULT, 100, 100, 1, NULL, 1, NULL),
+  (DEFAULT, 500, 500, 1, NULL, 1, NULL),
+  (DEFAULT, 2500, 250, 1, NULL, 1, NULL),
+  (DEFAULT, 15, 200, 2, NULL, 1, NULL),
+  (DEFAULT, 30, 400, 2, NULL, 1, NULL),
+  (DEFAULT, 80, 800, 2, NULL, 1, NULL),
+  (DEFAULT, 15, 600, 3, NULL, 3, NULL),
+  (DEFAULT, 60, 200, 3, NULL, 3, NULL),
+  (DEFAULT, 200, 600, 3, NULL, 3, NULL),
+  (DEFAULT, 250, 500, 4, NULL, 1, NULL),
+  (DEFAULT, 200, 2500, 4, NULL, 1, NULL),
+  (DEFAULT, 250, 600, 5, NULL, 2, NULL),
+  (DEFAULT, 500, 1200, 5, NULL, 2, NULL),
+  (DEFAULT, 200, 400, 2, NULL, 2, NULL),
+  (DEFAULT, 400, 1000, 6, NULL, 3, NULL),
+  (DEFAULT, 50, 500, 7, NULL, 1, NULL),
+  (DEFAULT, 100, 1000, 7, NULL, 1, NULL),
+  (DEFAULT, 100, 200, 8, NULL, 1, NULL),
+  (DEFAULT, 200, 400, 8, NULL, 1, NULL),
+  (DEFAULT, 300, 600, 8, NULL, 1, NULL),
+  (DEFAULT, 80, 150, 9, NULL, 2, NULL),
+  (DEFAULT, 160, 300, 9, NULL, 2, NULL), 
+  (DEFAULT, 200, 500, 10, NULL, 2, NULL),
+  (DEFAULT, 400, 1000, 10, NULL, 2, NULL),
+  (DEFAULT,  600,2000, 10, NULL, 2, NULL),
+  (DEFAULT, 150, 1500, 11, NULL, 2, NULL),
+  (DEFAULT, 300, 3000, 11, NULL, 2, NULL),
+  (DEFAULT, 100, 600, 12, NULL, 3, NULL),
+  (DEFAULT, 200, 1200, 12, NULL, 3, NULL),
+
+  (DEFAULT, 90, 100, NULL, 1, 1, NULL),
+  (DEFAULT, 180, 200, NULL, 1, 1, NULL),
+  (DEFAULT, 300, 500, NULL, 1, 1, NULL),
+  (DEFAULT, 70, 150, NULL, 2, 2, NULL),
+  (DEFAULT, 140, 300, NULL, 2, 2, NULL),
+  (DEFAULT, 210, 600, NULL, 2, 2, NULL),
+  (DEFAULT, 100, 200, NULL, 3, 3, NULL),
+  (DEFAULT, 200, 400, NULL, 3, 3, NULL),
+  (DEFAULT, 250, 500, NULL, 3, 3, NULL),
+  (DEFAULT, 90, 100, NULL, 4, 1, NULL),
+  (DEFAULT, 180, 200, NULL, 4, 1, NULL),
+  (DEFAULT, 300, 500, NULL, 5, 1, NULL),
+  (DEFAULT, 70, 150, NULL, 6, 2, NULL),
+  (DEFAULT, 140, 300, NULL, 6, 2, NULL),
+  (DEFAULT, 210, 600, NULL, 7, 3, NULL),
+  (DEFAULT, 100, 200, NULL, 7, 3, NULL),
+  (DEFAULT, 200, 400, NULL, 8, 3, NULL),
+  (DEFAULT, 250, 500, NULL, 8, 1, NULL),
+  (DEFAULT, 90, 100, NULL, 8, 1, NULL),
+  (DEFAULT, 180, 200, NULL, 9, 2, NULL),
+  (DEFAULT, 300, 500, NULL, 9, 2, NULL),
+  (DEFAULT, 70, 150, NULL, 9, 2, NULL),
+  (DEFAULT, 140, 300, NULL, 10, 3, NULL),
+  (DEFAULT, 210, 600, NULL, 11, 1, NULL),
+  (DEFAULT, 100, 200, NULL, 11, 1, NULL),
+  (DEFAULT, 200, 400, NULL, 12, 2, NULL),
+  (DEFAULT, 250, 500, NULL, 13, 3, NULL),
+  (DEFAULT, 90, 100, NULL, 13, 3, NULL),
+
+  (DEFAULT, 100, 100, 1, NULL, NULL, 1),
+  (DEFAULT, 80, 800, 2, NULL, NULL, 1),
+  (DEFAULT, 15, 600, 3, NULL, NULL, 2),
+  (DEFAULT, 200, 2500, 4, NULL, NULL, 3),
+  (DEFAULT, 250, 600, 5, NULL, NULL, 4),
+  (DEFAULT, 400, 1000, 6, NULL, NULL, 5),
+  (DEFAULT, 50, 500, 7, NULL, NULL, 6),
+  (DEFAULT, 200, 400, 8, NULL, NULL, 1),
+  (DEFAULT, 160, 300, 9, NULL, NULL, 2), 
+  (DEFAULT, 400, 1000, 10, NULL, NULL, 3),
+  (DEFAULT, 150, 1500, 11, NULL, NULL, 4),
+  (DEFAULT, 100, 600, 12, NULL, NULL, 5),
+
+
+  (DEFAULT, 90, 100, NULL, 1, NULL, 1),
+  (DEFAULT, 210, 600, NULL, 2, NULL, 2),
+  (DEFAULT, 250, 500, NULL, 3, NULL, 3),
+  (DEFAULT, 90, 100, NULL, 4, NULL, 4),
+  (DEFAULT, 300, 500, NULL, 5, NULL, 5),
+  (DEFAULT, 140, 300, NULL, 6, NULL, 6),
+  (DEFAULT, 210, 600, NULL, 7, NULL, 1),
+  (DEFAULT, 200, 400, NULL, 8, NULL, 2),
+  (DEFAULT, 180, 200, NULL, 9, NULL, 3),
+  (DEFAULT, 140, 300, NULL, 10, NULL, 4),
+  (DEFAULT, 100, 200, NULL, 11, NULL, 5),
+  (DEFAULT, 250, 500, NULL, 13, NULL, 6);
 
 INSERT INTO ydm_detalle_pedido VALUES  
   (DEFAULT, 2, 1, 60),
@@ -567,8 +720,6 @@ INSERT INTO ydm_detalle_pedido VALUES
   (DEFAULT, 9, 2, 70),
   (DEFAULT, 14, 2, 20),
   (DEFAULT, 16, 2, 10);
-
-
 
   INSERT INTO ydm_palabra_clave VALUES
   (DEFAULT,'bergamota'),
@@ -685,7 +836,35 @@ INSERT INTO ydm_principal VALUES
   (2, 10, DEFAULT),
   (3, 8, TRUE),
   (3, 2, DEFAULT),
-  (3, 10, DEFAULT);
+  (3, 10, DEFAULT),
+  (4, 2, TRUE),
+  (4, 4, DEFAULT),
+  (5, 4, TRUE),
+  (5, 3, DEFAULT),
+  (6, 3, TRUE),
+  (6, 8, DEFAULT),
+  (7, 8, TRUE),
+  (7, 5, DEFAULT),
+  (8, 8, TRUE),
+  (8, 2, DEFAULT),
+  (9, 2, TRUE),
+  (9, 6, DEFAULT),
+  (10, 3, TRUE),
+  (10, 2, DEFAULT),
+  (11, 7, TRUE),
+  (11, 2, DEFAULT),
+  (12, 3, TRUE),
+  (12, 8, DEFAULT),
+  (13, 10, TRUE),
+  (13, 3, DEFAULT),
+  (14, 3, TRUE),
+  (15, 9, TRUE),
+  (16, 2, DEFAULT),
+  (16, 8, TRUE),
+  (17, 8, TRUE),
+  (18, 3, TRUE);
+
+
 
 INSERT INTO ydm_proceso VALUES
   (DEFAULT, 'Maceración', 'Cuando se procede por maceración es necesario colocar las flores en unas grandes calderas manteniéndolas sumergidas a fin de que suelten el olor.'),
@@ -886,8 +1065,6 @@ INSERT INTO ydm_esencia_perfume VALUES
   (3,11),
   (4,12);
 
-
-
 INSERT INTO ydm_nota VALUES
   (DEFAULT, 1, 1, 'Salida'),
   (DEFAULT, 1, 2, 'Salida'),
@@ -909,16 +1086,89 @@ INSERT INTO ydm_nota VALUES
   (DEFAULT, 3, 17, 'Fondo'),
   (DEFAULT, 3, 4, 'Fondo'),
   (DEFAULT, 3, 18, 'Fondo'),
-  (DEFAULT, 3, 19, 'Fondo');
+  (DEFAULT, 3, 19, 'Fondo'),
+  (DEFAULT, 4, 1, 'Salida'),
+  (DEFAULT, 4, 2, 'Salida'),
+  (DEFAULT, 4, 3, 'Corazón'),
+  (DEFAULT, 4, 4, 'Fondo'),
+  (DEFAULT, 4, 5, 'Fondo'),
+  (DEFAULT, 4, 6, 'Fondo'),
+  (DEFAULT, 5, 7, 'Salida'),
+  (DEFAULT, 5, 8, 'Salida'),
+  (DEFAULT, 5, 9, 'Corazón'),
+  (DEFAULT, 5, 10, 'Corazón'),
+  (DEFAULT, 5, 4, 'Fondo'),
+  (DEFAULT, 6, 11, 'Salida'),
+  (DEFAULT, 6, 12, 'Salida'),
+  (DEFAULT, 6, 13, 'Salida'),
+  (DEFAULT, 6, 15, 'Corazón'),
+  (DEFAULT, 6, 16, 'Corazón'),
+  (DEFAULT, 6, 17, 'Fondo'),
+  (DEFAULT, 6, 4, 'Fondo'),
+  (DEFAULT, 6, 18, 'Fondo'),
+  (DEFAULT, 14, 1, 'Salida'),
+  (DEFAULT, 14, 2, 'Salida'),
+  (DEFAULT, 14, 3, 'Corazón'),
+  (DEFAULT, 14, 4, 'Fondo'),
+  (DEFAULT, 14, 5, 'Fondo'),
+  (DEFAULT, 14, 6, 'Fondo'),
+  (DEFAULT, 15, 7, 'Salida'),
+  (DEFAULT, 15, 8, 'Salida'),
+  (DEFAULT, 15, 9, 'Corazón'),
+  (DEFAULT, 15, 10, 'Corazón'),
+  (DEFAULT, 15, 4, 'Fondo'),
+  (DEFAULT, 16, 11, 'Salida'),
+  (DEFAULT, 16, 12, 'Salida'),
+  (DEFAULT, 16, 13, 'Salida'),
+  (DEFAULT, 16, 15, 'Corazón'),
+  (DEFAULT, 16, 16, 'Corazón'),
+  (DEFAULT, 16, 17, 'Fondo'),
+  (DEFAULT, 16, 4, 'Fondo'),
+  (DEFAULT, 16, 18, 'Fondo'),
+  (DEFAULT, 17, 7, 'Salida'),
+  (DEFAULT, 17, 8, 'Salida'),
+  (DEFAULT, 17, 9, 'Corazón'),
+  (DEFAULT, 17, 10, 'Corazón'),
+  (DEFAULT, 17, 4, 'Fondo'),
+  (DEFAULT, 18, 11, 'Salida'),
+  (DEFAULT, 18, 12, 'Salida'),
+  (DEFAULT, 18, 13, 'Salida'),
+  (DEFAULT, 18, 15, 'Corazón'),
+  (DEFAULT, 18, 16, 'Corazón'),
+  (DEFAULT, 18, 4,  'Fondo'),
+  (DEFAULT, 18, 18, 'Fondo');
+
 
 INSERT INTO ydm_perfumista VALUES
   (DEFAULT, 'Donna', 'Ramanauskas', 60, 'dramanauskas@robertetusa.com', DEFAULT, DEFAULT),
   (DEFAULT, 'Mathieu', 'Nardin', 66, 'mnardin@mane.com', DEFAULT, DEFAULT),
-  (DEFAULT, 'Jean', 'Mignon', 66, 'jcmignon@robertetfr.com', 'Charles', DEFAULT);
+  (DEFAULT, 'Jean', 'Mignon', 66, 'jcmignon@robertetfr.com', 'Charles', DEFAULT),
+  (DEFAULT, 'Sebastian ', 'Grossman', 9, 'Sebasgrossn@gmail.com', DEFAULT, DEFAULT),
+  (DEFAULT, 'ISSEY', 'MIYAKE', 79, 'ISSEYMIYAKE@ISSEYMIYAKE.com', DEFAULT, DEFAULT),
+  (DEFAULT, 'Federico', 'Mahora', 170, 'Federicomahora@Federicomahora.com', DEFAULT, DEFAULT),
+  (DEFAULT, 'Dominique', 'Roppion', 66, 'Dominiqueroppion@Dominique Roppion.com', DEFAULT, DEFAULT),
+  (DEFAULT, 'Luisa', 'Rodriguez', 6, 'Luisarodriguez@gmail.com', DEFAULT, DEFAULT),
+  (DEFAULT, 'Andrea', 'Lezmna', 170, 'Andrealezmna@gmail.com', DEFAULT, DEFAULT);
 
 INSERT INTO ydm_pfm_pfmt VALUES
   (1,1),
   (2,2),
-  (3,3);
+  (3,3),
+  (4,4),
+  (7,5),
+  (8,5),
+  (9,5),
+  (5,6),
+  (6,7),
+  (10,8),
+  (11,9),
+  (12,1),
+  (13,2),
+  (14,3),
+  (15,4),
+  (16,6),
+  (17,7),
+  (18,8);
+
 
 

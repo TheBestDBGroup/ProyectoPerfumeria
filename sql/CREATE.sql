@@ -91,7 +91,7 @@ CREATE SEQUENCE ydm_secuencia_ingrediente_prohibido
 CREATE TABLE ydm_ingrediente_prohibido
 (
      id_ingrediente_prohibido numeric NOT NULL DEFAULT nextval('ydm_secuencia_ingrediente_prohibido'::regclass),
-     nombre_ingrediente_prohibido varchar(30) NOT NULL UNIQUE,
+     nombre_ingrediente_prohibido varchar(120) NOT NULL UNIQUE,
      CONSTRAINT pk_id_ingrediente_prohibido PRIMARY KEY (id_ingrediente_prohibido)
 );
 
@@ -327,13 +327,6 @@ CREATE TABLE ydm_fo_pc
     CONSTRAINT chk_tipo_palabra_clave_fo_pc CHECK(tipo_palabra_clave_fo_pc in ('Aroma', 'Carácter', 'Personalidad', 'Preferencia uso'))
 );
 
-CREATE TABLE ydm_g_pc
-(
-    id_ingrediente_general_g_pc numeric NOT NULL,
-    id_palabra_clave_g_pc numeric NOT NULL,
-    CONSTRAINT pk_g_pc PRIMARY KEY (id_ingrediente_general_g_pc,id_palabra_clave_g_pc)
-);
-
 CREATE SEQUENCE ydm_secuencia_pais
 start with 1
     increment 1
@@ -348,12 +341,6 @@ CREATE TABLE ydm_pais
     CONSTRAINT pk_id_pais PRIMARY KEY (id_pais)
 );
 
-CREATE TABLE ydm_pc_ep
-(
-    id_palabra_clave_pc_ep numeric NOT NULL,
-    id_esencia_perfume_pc_ep numeric NOT NULL,
-    CONSTRAINT pk_pc_ep PRIMARY KEY (id_palabra_clave_pc_ep, id_esencia_perfume_pc_ep)
-);
 
 CREATE SEQUENCE ydm_secuencia_pi_pdt_env
 start with 1
@@ -633,14 +620,13 @@ CREATE TABLE ydm_pedido
 (
     id_pedido numeric NOT NULL DEFAULT nextval('ydm_secuencia_pedido'::regclass),
     fecha_pedido date NOT NULL,
-    monto_pedido numeric NOT NULL,
+    monto_pedido numeric,
     estatus_pedido varchar NOT NULL,
     id_proveedor_pedido numeric NOT NULL,
     id_productor_pedido numeric NOT NULL,
-    id_cond_env_pago_pedido numeric,
+    id_alt_env_cond_env_pago_pedido numeric,
     id_contrato_cond_env_pago_pedido numeric,
-    id_condicion_pago_pedido numeric,
-    id_proveedor_condicion_pago_pedido numeric,
+    id_condicion_pago_cond_env_pago_pedido numeric,
     fecha_confirmacion_pedido date,
     num_factura_pedido numeric,
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
@@ -755,16 +741,6 @@ ALTER TABLE ydm_fo_pc
     ADD CONSTRAINT fk_fo_ppc_palabra_clave FOREIGN KEY (id_palabra_clave_fo_pc) REFERENCES ydm_palabra_clave(id_palabra_clave)
 ;  
 
-ALTER TABLE ydm_g_pc  
-    ADD CONSTRAINT fk_g_pc_ingrediente_general FOREIGN KEY (id_ingrediente_general_g_pc) REFERENCES ydm_ingrediente_general(id_ingrediente_general),
-    ADD CONSTRAINT fk_g_pc_palabra_clave FOREIGN KEY (id_palabra_clave_g_pc) REFERENCES ydm_palabra_clave(id_palabra_clave)
-;  
-
-ALTER TABLE ydm_pc_ep  
-    ADD CONSTRAINT fk_pc_ep_palabra_clave FOREIGN KEY (id_palabra_clave_pc_ep) REFERENCES ydm_palabra_clave(id_palabra_clave),
-    ADD CONSTRAINT fk_pc_ep_esencia_perfume FOREIGN KEY (id_esencia_perfume_pc_ep) REFERENCES ydm_esencia_perfume(id_esencia_perfume)
-;
-
 ALTER TABLE ydm_pi_pdt_env  
     ADD CONSTRAINT fk_pi_pdt_env_productor FOREIGN KEY (id_productor_pi_pdt_env) REFERENCES ydm_productor(id_productor),
     ADD CONSTRAINT fk_pi_pdt_env_pais FOREIGN KEY (id_pais_pi_pdt_env) REFERENCES ydm_pais(id_pais)
@@ -849,8 +825,8 @@ ALTER TABLE ydm_presentacion
 ALTER TABLE ydm_pedido
     ADD CONSTRAINT fk_id_proveedor_pedido FOREIGN KEY (id_proveedor_pedido) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_pedido FOREIGN KEY (id_productor_pedido) REFERENCES ydm_productor(id_productor),
-    ADD CONSTRAINT fk_id_cond_env_pedido FOREIGN KEY (id_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
-    ADD CONSTRAINT fk_cond_pago_pedido FOREIGN KEY (id_condicion_pago_pedido, id_proveedor_condicion_pago_pedido) REFERENCES ydm_condicion_pago(id_condicion_pago, id_proveedor_condicion_pago)
+    ADD CONSTRAINT fk_id_condicion_pago_cond_env_pago_pedido FOREIGN KEY (id_condicion_pago_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
+    ADD CONSTRAINT fk_id_alt_env_cond_env_pago_pedido FOREIGN KEY (id_alt_env_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago)
 ;
 
 ALTER TABLE ydm_pago
