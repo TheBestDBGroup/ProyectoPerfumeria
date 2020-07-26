@@ -39,6 +39,7 @@ const Ingrediente = ({indice,handleChange,opciones,ingredientes,handleDelete}) =
 	          renderValue={() => renderValue()}
 	          value={ingredientes[indice].id_ingrediente_general}
 	          onChange={value => handleChange(indice, value)}
+	          styles={{maxWidth:500}}
 	          placeholder={ingredientes[indice].nombre}
 	        >
 

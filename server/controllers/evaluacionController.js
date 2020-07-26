@@ -5,7 +5,7 @@ types.setTypeParser(1114, function (stringValue) {
   return stringValue;
 });
 
-const getCriteriosEvaluacion = (response) => {
+const getCriteriosEvaluacion = (request,response) => {
   const query = "SELECT * from ydm_criterio_eval";
 
   pool.query(query, (error, results) => {

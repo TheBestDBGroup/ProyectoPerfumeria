@@ -31,7 +31,7 @@ const Ingrediente = ({indice,handleChange,opciones,ingredientes,handleDelete}) =
 		<div className="ingrediente-wrapper">
 		{/*<h6> Ingrediente {indice + 1}</h6>*/}
       	<FormControl className={classes.formControl}>
-        <InputLabel id={`ingrediente-${indice}`}> Ingrediente General </InputLabel>
+        <InputLabel id={`ingrediente-${indice}`}> Ingrediente Esencia </InputLabel>
 	        <Select
 	          labelId={`ingrediente-${indice}`}
 	          id={`ingrediente-${indice}`}

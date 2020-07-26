@@ -25,7 +25,7 @@ const LlenarCriterios = (props) => {
 	const history = useHistory();
 
 	const calificar = () => {		
-		let nota_aprobatoria = criterioExito
+		let nota_aprobatoria = criterioExito.peso_prctj_eval_crit
 		let nota_acumulada =0
 		let copyEvaCrits = [...evaCrits]
 		
@@ -35,10 +35,24 @@ const LlenarCriterios = (props) => {
 		return [nota_acumulada, nota_acumulada>=nota_aprobatoria]
 	}
 
-
 	const handleSubmit = () => {
 		let [calificacion,status] = calificar()
 		//crear evaluacion en BD
+		axios.post('/create/evaluacion', 
+			{
+				id_productor:id_productor,
+				id_proveedor:id_proveedor,
+				nota:calificacion,
+				tipo:tipo
+			})
+		  .then((res) =>{
+		    console.log('response escala', res.data[0]);
+		  	setEscala(res.data[0])
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+
 		history.replace(`/realizar-evaluacion/resultados-eval/${tipo_evaluacion}/${calificacion}/${status}/${id_proveedor}/${id_contrato}`)
 	
 	}
@@ -52,7 +66,8 @@ const LlenarCriterios = (props) => {
 	const getCriterioExito = (crits) => {
   		let critsCopy = [...crits]
   		critsCopy = critsCopy.filter(item => item.tipo_criterio_eval === 'exito')
-  		critsCopy = {id_criterio_eval: critsCopy[0].id_criterio_eval, peso_prctj_eval_crit:''}
+  		{console.log('critsCopy',critsCopy)}
+  		critsCopy = {peso_prctj_eval_crit:critsCopy[0].peso_prctj_eval_crit}
   		return critsCopy
   	}
 
@@ -95,6 +110,7 @@ const LlenarCriterios = (props) => {
 		<>
 			{console.log('EvaCrits',evaCrits)}
 			{console.log('Escala', escala)}
+			{console.log('criterio exito',criterioExito)}
 			<div className="llenar-criterios-wrapper" >
 				<div>
 					<div className="center">

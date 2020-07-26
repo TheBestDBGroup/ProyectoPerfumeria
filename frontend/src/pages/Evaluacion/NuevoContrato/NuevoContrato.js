@@ -381,7 +381,7 @@ return (
 		
 		<h1 className="nuevo-contrato-titulo"> Nuevo Contrato</h1>
 
-
+		{console.log('ingrediente esencia', opcionesIEsen)}
 		
 		<div className="nuevo-contrato-content">
 
@@ -457,7 +457,7 @@ return (
 	        	</div>
 
 				{ingredientesEsen.map((ingrediente,indice) => (
-					<IngredienteGeneral 
+					<IngredienteEsencia
 						key={indice} 
 						indice={indice}
 						handleChange={handleChangeIEsen} 
