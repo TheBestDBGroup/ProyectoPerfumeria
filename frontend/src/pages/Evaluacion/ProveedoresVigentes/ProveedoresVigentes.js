@@ -34,13 +34,11 @@ const RealizarEvaluacionRenovacion = () => {
 	}
 
 	useEffect(() => {
-
-		//TODO:cambiar por proveedores vigentes!!
-        axios.post('/read/proveedores-por-renovar', {
+        axios.post('/read/proveedores-con-contratos-vigentes', {
 		    id_productor: productorId,
 		  })
 		  .then((res) =>{
-		    console.log('response proveedores por renovar', res.data);
+		    console.log('response contratos vigentes', res.data);
             setProveedores(res.data);
 		  })
 		  .catch(function (error) {

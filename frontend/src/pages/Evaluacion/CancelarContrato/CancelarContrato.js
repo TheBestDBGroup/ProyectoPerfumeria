@@ -3,6 +3,7 @@ import {Divider, TextField, Button} from '@material-ui/core/';
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import './cancelar-contrato.css'
 import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
 
 
@@ -17,8 +18,19 @@ const CancelarContrato = (props) => {
 	}
 
 	const handleSubmit = () => {
-		history.replace('/')
-		alert('Contrato cancelado con éxito')
+		axios.post('/update/cancelar-contrato', {
+		    id_contrato: id_contrato,
+		    motivo_cancela: motivo
+		  })
+		  .then((res) =>{
+		  	alert('Contrato cancelado con éxito')
+		    history.replace(`/`);
+            
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		 });
+		
 	}
 
 	return (

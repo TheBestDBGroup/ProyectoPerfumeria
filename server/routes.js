@@ -105,4 +105,8 @@ router.post(
   evaluacionController.getValidarEvaluacion
 );
 
+
+//GET PRODUCTORES CON CONTRATOS VIGENTES
+router.post("/read/proveedores-con-contratos-vigentes", proveedorController.getProveedoresConContratosVigentes);
+
 module.exports = router;
