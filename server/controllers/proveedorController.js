@@ -23,6 +23,29 @@ const getProveedor = (request, response) => {
   );
 };
 
+const getProveedoresConContratosVigentes = (request, response) => {
+  console.log(request.body);
+  let values = [request.body.id_productor];
+  const query =
+    "SELECT ct.id_contrato, ct.fecha_emision_contrato, pro.id_proveedor, pro.nombre_proveedor,\
+    pro.web_proveedor, pro.email_proveedor FROM ydm_contrato ct INNER JOIN ydm_proveedor pro\
+    ON ct.id_proveedor_contrato=pro.id_proveedor WHERE ct.id_productor_contrato = $1\
+    AND ct.fecha_cancela_contrato IS null AND (ct.fecha_emision_contrato + 365 >= current_date\
+      OR ct.id_contrato = (SELECT id_contrato_renueva FROM ydm_renueva r\
+        WHERE r.id_contrato_renueva = ct.id_contrato\
+        AND r.fecha_renueva + 365 >= current_date\
+        ORDER BY r.fecha_renueva desc LIMIT 1));";
+  
+    pool.query(query,values,(error, results) => {
+      if (error) {
+        console.log("ERROR DE PROV CONTRATOS VIGENTES: " + error);
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 const getProveedoresPotenciales = (request, response) => {
   let values = [request.body.id_productor];
   const query =
@@ -82,4 +105,5 @@ module.exports = {
   getProveedoresPotenciales,
   getProveedoresPorRenovar,
   getProveedor,
+  getProveedoresConContratosVigentes,
 };

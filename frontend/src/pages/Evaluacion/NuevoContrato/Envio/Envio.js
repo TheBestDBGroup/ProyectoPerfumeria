@@ -27,7 +27,7 @@ const Envio = ({indice,handleChange,opciones,envios,handleDelete}) => {
 	if(envios && envios.length>0 && envios[indice]) {
 
 	const renderValue = () => {
-		if(envios[indice].id === '') return ''
+		if(envios[indice].id === '') {return ''}
     	return `ID ${envios[indice].id_alt_envio} / PAIS ${envios[indice].nombre_pais} / TRANSPORTE ${envios[indice].transporte_alt_envio} / COSTO ${envios[indice].costo_alt_envio}`;
 	}
 
