@@ -4,6 +4,7 @@ const proveedorController = require("./controllers/proveedorController");
 const productorController = require("./controllers/productorController");
 const contratoController = require("./controllers/contratoController");
 const evaluacionController = require("./controllers/evaluacionController");
+const pedidoController = require("./controllers/pedidoController");
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
@@ -115,5 +116,10 @@ router.post(
   "/read/proveedores-con-contratos-vigentes",
   proveedorController.getProveedoresConContratosVigentes
 );
+
+//CREAR PEDIDO
+router.post("/create/pedido", pedidoController.postCrearPedido);
+//CREAR DETALLE PEDIDO
+router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
 
 module.exports = router;
