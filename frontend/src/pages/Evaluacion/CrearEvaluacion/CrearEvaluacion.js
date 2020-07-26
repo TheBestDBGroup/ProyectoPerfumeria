@@ -20,7 +20,7 @@ const CrearEvaluacion = (props) => {
 	const [criterios,setCriterios] = useState([])
 	const [opcionesCriterios, setOpcionesCriterios] = useState(undefined)
 	const [escala,setEscala] = useState(initEscala)
-	const tipo = props.match.params.tipo ==='Inicial'? 'Inicial':'Renovación'
+	const tipo = props.match.params.tipo ==='inicial'? 'Inicial':'Renovación'
 	const productorId = localStorage.getItem('id_productor');
 	const history = useHistory();
 
@@ -157,7 +157,7 @@ const CrearEvaluacion = (props) => {
 						<h3> Crear Formula de Evaluación</h3>
 					</div>
 					<div className="center-title">
-						<h4> Tipo = {tipo=='inicial'?'Inicial':'Renovación'}</h4>
+						<h4> Tipo = {tipo}</h4>
 					</div>
 
 					<Divider />
