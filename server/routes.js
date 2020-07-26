@@ -82,4 +82,11 @@ router.post("/create/escala", evaluacionController.postCrearEscala);
 
 //CREAR EVALUACION
 router.post("/create/evaluacion", evaluacionController.postCrearEvaluacion);
+
+//VALIDAR EVALUACION
+router.post(
+  "/read/validar-evaluacion",
+  evaluacionController.getValidarEvaluacion
+);
+
 module.exports = router;
