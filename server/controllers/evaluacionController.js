@@ -6,11 +6,9 @@ types.setTypeParser(1114, function (stringValue) {
 });
 
 const getCriteriosEvaluacion = (request, response) => {
-  let values = [request.body.id_proveedor, request.body.tipo_evaluacion];
+  const query = "SELECT * from ydm_criterio_eval";
 
-  const query = "SELECT * from ydm_criterio_evaluacion";
-
-  pool.query(query, values, (error, results) => {
+  pool.query(query, (error, results) => {
     if (error) {
       throw error;
     }
@@ -124,8 +122,27 @@ const postCrearEscala = (request, response) => {
   });
 };
 
+const postCrearEvaluacion = (request, response) => {
+  let valuesCrearEvaluacion = [
+    request.body.id_proveedor,
+    request.body.id_productor,
+    request.body.nota,
+    request.body.tipo,
+  ];
+  const queryCrearEvaluacion =
+    "INSERT INTO ydm_evaluacion VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *";
+
+  pool.query(queryCrearEvaluacion, valuesCrearEvaluacion, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+};
+
 module.exports = {
   getCriteriosEvaluacion,
   postCrearEvalCrit,
   postCrearEscala,
+  postCrearEvaluacion,
 };
