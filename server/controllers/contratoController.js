@@ -31,6 +31,30 @@ const getOpcionesEnvioProveedor = (request, response) => {
   });
 };
 
+const getContratosVigentes = (request, response) => {
+  console.log(request.body);
+  let valuesContratosVigentes = [request.body.id_productor];
+  const queryContratosVigentes =
+    "SELECT * FROM ydm_contrato ct WHERE ct.id_productor_contrato = $1\
+    AND ct.fecha_cancela_contrato IS null\
+    AND (ct.fecha_emision_contrato + 365 >= current_date\
+      OR ct.id_contrato = (SELECT id_contrato_renueva FROM ydm_renueva r\
+        WHERE r.id_contrato_renueva = ct.id_contrato\
+        AND r.fecha_renueva + 365 >= current_date\
+        ORDER BY r.fecha_renueva desc LIMIT 1))";
+  pool.query(
+    queryContratosVigentes,
+    valuesContratosVigentes,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR DE CONTRATOS VIGENTES: " + error);
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 const postRenovarContrato = (request, response) => {
   console.log(request.body);
   const text =
@@ -250,6 +274,7 @@ const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
 module.exports = {
   getOpcionesPagoProveedor,
   getOpcionesEnvioProveedor,
+  getContratosVigentes,
   postRenovarContrato,
   postCrearContrato,
   postCancelarContrato,
