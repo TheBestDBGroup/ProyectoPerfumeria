@@ -47,20 +47,71 @@ const postRenovarContrato = (request, response) => {
 
 const postCrearContrato = (request, response) => {
   console.log(request.body);
-  const text =
-    "INSERT INTO ydm_contrato VALUES (DEFAULT, current_date, NULL, NULL, $1, $2, $3) RETURNING *;";
-  const values = [
-    request.body.exclusivo,
-    request.body.id_productor,
-    request.body.id_proveedor,
-  ];
-  pool.query(text, values, (error, results) => {
+  exclusivo = request.body.exclusivo;
+  id_productor = request.body.id_productor;
+  id_proveedor = request.body.id_proveedor;
+
+  let valuesAntiguoContrato = [id_productor, id_proveedor];
+  const queryAntiguoContrato =
+    "SELECT * FROM ydm_contrato c\
+    WHERE id_productor_contrato = $1 AND id_proveedor_contrato = $2\
+      AND fecha_cancela_contrato is null";
+  pool.query(queryAntiguoContrato, valuesAntiguoContrato, (error, results) => {
     if (error) {
-      console.log("ERROR DE CREACIÓN DE CONTRATO: " + error);
       throw error;
     }
-    response.status(201).send(results.rows);
+    if (results.rows != "") {
+      id_contrato = results.rows[0].id_contrato;
+    } else {
+      id_contrato = null;
+    }
+    let valuesFinalizarContrato = [id_contrato];
+    const queryFinalizarContrato =
+      "UPDATE ydm_contrato c\
+      SET fecha_cancela_contrato = current_date, motivo_cancela_contrato='Creación de nuevo contrato'\
+      WHERE c.id_contrato = $1 RETURNING *";
+    pool.query(queryFinalizarContrato, valuesFinalizarContrato, (error) => {
+      if (error) {
+        throw error;
+      }
+      const valuesCrearContrato = [
+        request.body.exclusivo,
+        request.body.id_productor,
+        request.body.id_proveedor,
+      ];
+      const queryCrearContrato =
+        "INSERT INTO ydm_contrato VALUES (DEFAULT, current_date, NULL, NULL, $1, $2, $3) RETURNING *;";
+      pool.query(queryCrearContrato, valuesCrearContrato, (error, results) => {
+        if (error) {
+          console.log("ERROR DE CREACIÓN DE CONTRATO: " + error);
+          throw error;
+        }
+        response.status(201).send(results.rows);
+      });
+    });
   });
+};
+
+const postCancelarContrato = (request, response) => {
+  console.log(request.body);
+  let valuesCancelarContrato = [
+    request.body.motivo_cancela,
+    request.body.id_contrato,
+  ];
+  const queryCancelarContrato =
+    "UPDATE ydm_contrato c SET fecha_cancela_contrato = current_date, motivo_cancela_contrato = $1\
+    WHERE c.id_contrato = $2 RETURNING *";
+  pool.query(
+    queryCancelarContrato,
+    valuesCancelarContrato,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR AL CANCELAR CONTRATO: " + error);
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
 };
 
 const postCrearCondEnvPago = (request, response) => {
@@ -101,11 +152,11 @@ const postCrearClausulaProd = (request, response) => {
   });
 };
 
-
 const postGetOpcionesIngredienteGeneralExc = (request, response) => {
   console.log(request.body);
 
-  let text ="SELECT DISTINCT ydm_contrato.exclusivo_contrato, \
+  let text =
+    "SELECT DISTINCT ydm_contrato.exclusivo_contrato, \
      ydm_ingrediente_general.cas_ingrediente_general, \
      ydm_ingrediente_general.nombre_ingrediente_general,\
      ydm_ingrediente_general.id_ingrediente_general\
@@ -118,12 +169,7 @@ const postGetOpcionesIngredienteGeneralExc = (request, response) => {
      on ydm_ingrediente_general.id_proveedor_ingrediente_general = ydm_proveedor.id_proveedor\
      WHERE ydm_proveedor.id_proveedor = $1 AND ydm_contrato.exclusivo_contrato = false";
 
-
-
-  const values = [
-    request.body.id_proveedor
-  ];
-
+  const values = [request.body.id_proveedor];
 
   pool.query(text, values, (error, results) => {
     if (error) {
@@ -137,12 +183,12 @@ const postGetOpcionesIngredienteGeneralExc = (request, response) => {
 const postGetOpcionesIngredienteGeneral = (request, response) => {
   console.log(request.body);
 
-  let text ="SELECT ig.id_ingrediente_general, ig.nombre_ingrediente_general,\
+  let text =
+    "SELECT ig.id_ingrediente_general, ig.nombre_ingrediente_general,\
   ig.cas_ingrediente_general\
   from ydm_ingrediente_general ig\
   WHERE ig.id_ingrediente_general NOT IN (SELECT DISTINCT cp.id_ingr_general_clausula_prod FROM ydm_clausula_prod cp)\
   OR ig.id_ingrediente_general NOT IN (SELECT DISTINCT cp.id_ingr_general_clausula_prod FROM ydm_clausula_prod cp) IS UNKNOWN";
-
 
   pool.query(text, (error, results) => {
     if (error) {
@@ -156,13 +202,13 @@ const postGetOpcionesIngredienteGeneral = (request, response) => {
 const postGetOpcionesIngredienteEsencia = (request, response) => {
   console.log(request.body);
 
-  let text ="SELECT * from ydm_ingrediente_esencia ig\
+  let text =
+    "SELECT * from ydm_ingrediente_esencia ig\
   WHERE ig.id_ingrediente_esencia NOT IN \
   (SELECT DISTINCT cp.id_ingr_esencia_clausula_prod FROM ydm_clausula_prod cp)\
   OR ig.id_ingrediente_esencia NOT IN \
   (SELECT DISTINCT cp.id_ingr_esencia_clausula_prod FROM ydm_clausula_prod cp)\
   IS UNKNOWN";
-
 
   pool.query(text, (error, results) => {
     if (error) {
@@ -171,12 +217,13 @@ const postGetOpcionesIngredienteEsencia = (request, response) => {
     }
     response.status(201).send(results.rows);
   });
-}
+};
 
 const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
   console.log(request.body);
 
-  let text ="SELECT DISTINCT ydm_contrato.exclusivo_contrato,\
+  let text =
+    "SELECT DISTINCT ydm_contrato.exclusivo_contrato,\
   ydm_ingrediente_esencia.cas_ingrediente_esencia,\
   ydm_ingrediente_esencia.nombre_ingrediente_esencia,\
   ydm_ingrediente_esencia.id_ingrediente_esencia\
@@ -189,12 +236,7 @@ const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
   on ydm_ingrediente_esencia.id_proveedor_ingrediente_esencia = ydm_proveedor.id_proveedor\
   WHERE ydm_proveedor.id_proveedor = $1 AND ydm_contrato.exclusivo_contrato = false";
 
-
-
-  const values = [
-    request.body.id_proveedor
-  ];
-
+  const values = [request.body.id_proveedor];
 
   pool.query(text, values, (error, results) => {
     if (error) {
@@ -205,20 +247,16 @@ const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
   });
 };
 
-
-
-
-
 module.exports = {
   getOpcionesPagoProveedor,
   getOpcionesEnvioProveedor,
   postRenovarContrato,
   postCrearContrato,
+  postCancelarContrato,
   postCrearCondEnvPago,
   postCrearClausulaProd,
   postGetOpcionesIngredienteEsenciaExc,
   postGetOpcionesIngredienteEsencia,
   postGetOpcionesIngredienteGeneral,
   postGetOpcionesIngredienteGeneralExc,
-
 };

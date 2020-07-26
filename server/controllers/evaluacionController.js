@@ -5,8 +5,7 @@ types.setTypeParser(1114, function (stringValue) {
   return stringValue;
 });
 
-const getCriteriosEvaluacion = (request, response) => {
- 
+const getCriteriosEvaluacion = (response) => {
   const query = "SELECT * from ydm_criterio_eval";
 
   pool.query(query, (error, results) => {
@@ -16,6 +15,7 @@ const getCriteriosEvaluacion = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
+
 
 const getEscala = (request, response) =>{
   let values = [request.body.id_productor]
@@ -52,6 +52,33 @@ const getEvalCrits = (request,response) => {
   });
 }
 
+
+
+const getValidarEvaluacion = (request, response) => {
+  let valuesValidarEvaluacion = [
+    request.body.id_productor,
+    request.body.tipo_eval_crit,
+  ];
+  const queryValidarEvaluacion =
+    "SELECT * FROM ydm_eval_crit\
+  WHERE id_productor_eval_crit = $1\
+    AND tipo_eval_crit = $2 AND fecha_final_eval_crit is null";
+
+  pool.query(
+    queryValidarEvaluacion,
+    valuesValidarEvaluacion,
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      if (results.rows != "") {
+        response.status(200).send(true);
+      } else {
+        response.status(200).send(false);
+      }
+    }
+  );
+};
 
 
 const postCrearEvalCrit = (request, response) => {
@@ -163,10 +190,30 @@ const postCrearEscala = (request, response) => {
   });
 };
 
+const postCrearEvaluacion = (request, response) => {
+  let valuesCrearEvaluacion = [
+    request.body.id_proveedor,
+    request.body.id_productor,
+    request.body.nota,
+    request.body.tipo,
+  ];
+  const queryCrearEvaluacion =
+    "INSERT INTO ydm_evaluacion VALUES (DEFAULT, $1, $2, $3, $4) RETURNING *";
+
+  pool.query(queryCrearEvaluacion, valuesCrearEvaluacion, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(201).send(results.rows);
+  });
+};
+
 module.exports = {
   getCriteriosEvaluacion,
+  getValidarEvaluacion,
   postCrearEvalCrit,
   postCrearEscala,
   getEscala,
-  getEvalCrits
+  getEvalCrits,
+  postCrearEvaluacion,
 };

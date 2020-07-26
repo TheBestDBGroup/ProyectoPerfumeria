@@ -578,7 +578,7 @@ CREATE TABLE ydm_cond_env_pago
 
 CREATE TABLE ydm_evaluacion
 (
-    fecha_evaluacion date NOT NULL DEFAULT CURRENT_DATE,
+    fecha_evaluacion timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
     id_proveedor_evaluacion numeric NOT NULL,
     id_productor_evaluacion numeric NOT NULL,
     nota_evaluacion numeric NOT NULL,
