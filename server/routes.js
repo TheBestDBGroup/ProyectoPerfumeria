@@ -80,4 +80,6 @@ router.post("/create/eval-crit", evaluacionController.postCrearEvalCrit);
 //CREAR UNA ESCALA
 router.post("/create/escala", evaluacionController.postCrearEscala);
 
+//CREAR EVALUACION
+router.post("/create/evaluacion", evaluacionController.postCrearEvaluacion);
 module.exports = router;

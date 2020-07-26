@@ -350,15 +350,18 @@ INSERT INTO ydm_eval_crit VALUES
   ('2020/07/21 19:10:25', 2, 6, 60, 'Renovación',NULL);
 
 INSERT INTO ydm_evaluacion VALUES
-  ('2018/10/15', 1, 1, 80, 'Renovación'),
-  ('2020/07/05', 2, 2, 75, 'Inicial'),
-  ('2018/02/13', 3, 3, 50, 'Renovación'),
-  ('2016/05/26', 1, 4, 40, 'Inicial'),
-  ('2019/09/23', 2, 5, 70, 'Inicial'),
-  ('2017/01/28', 3, 6, 80, 'Inicial'),
-  ('2020/02/18', 1, 5, 90, 'Inicial'),
-  ('2020/03/01', 2, 1, 60, 'Renovación'),
-  ('2016/07/05', 3, 4, 40, 'Renovación');
+  ('2018/10/15 19:00:00', 1, 1, 80, 'Inicial'),
+  ('2019/10/15 19:00:00', 1, 1, 75, 'Renovación'),
+  ('2020/03/01 19:00:00', 2, 1, 60, 'Inicial'),
+  ('2020/07/05 19:00:00', 2, 2, 75, 'Inicial'),
+  ('2018/02/13 19:00:00', 3, 3, 90, 'Inicial'),
+  ('2019/02/13 19:00:00', 3, 3, 80, 'Renovación'),
+  ('2020/02/13 19:00:00', 3, 3, 75, 'Renovación'),
+  ('2019/07/26 19:00:00', 1, 4, 40, 'Inicial'),
+  ('2019/09/23 19:00:00', 2, 5, 70, 'Inicial'),
+  ('2017/01/28 19:00:00', 3, 6, 80, 'Inicial'),
+  ('2020/02/18 19:00:00', 1, 5, 90, 'Inicial'),  
+  ('2016/07/05 19:00:00', 3, 4, 40, 'Inicial');
 
 INSERT INTO ydm_contrato VALUES
   (DEFAULT, '2018/10/15', NULL, NULL, TRUE, 1, 1),
@@ -377,7 +380,7 @@ INSERT INTO ydm_contrato VALUES
   (DEFAULT, '2018/08/10', NULL, NULL, FALSE, 2, 2);
 
 INSERT INTO ydm_renueva VALUES
-  (DEFAULT, 1, '2020/07/05'),
+  (DEFAULT, 1, '2019/10/15'),
   (DEFAULT, 5, '2019/10/12'),
   (DEFAULT, 8, '2019/12/14'),
   (DEFAULT, 14,'2019/08/05'); 
