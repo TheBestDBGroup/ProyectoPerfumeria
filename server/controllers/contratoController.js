@@ -92,6 +92,28 @@ const postCrearContrato = (request, response) => {
   });
 };
 
+const postCancelarContrato = (request, response) => {
+  console.log(request.body);
+  let valuesCancelarContrato = [
+    request.body.motivo_cancela,
+    request.body.id_contrato,
+  ];
+  const queryCancelarContrato =
+    "UPDATE ydm_contrato c SET fecha_cancela_contrato = current_date, motivo_cancela_contrato = $1\
+    WHERE c.id_contrato = $2 RETURNING *";
+  pool.query(
+    queryCancelarContrato,
+    valuesCancelarContrato,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR AL CANCELAR CONTRATO: " + error);
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 const postCrearCondEnvPago = (request, response) => {
   console.log(request.body);
   const text =
@@ -230,6 +252,7 @@ module.exports = {
   getOpcionesEnvioProveedor,
   postRenovarContrato,
   postCrearContrato,
+  postCancelarContrato,
   postCrearCondEnvPago,
   postCrearClausulaProd,
   postGetOpcionesIngredienteEsenciaExc,

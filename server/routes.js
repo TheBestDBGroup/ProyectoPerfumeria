@@ -36,6 +36,10 @@ router.post(
 
 router.post("/create/renovacion", contratoController.postRenovarContrato); //RENOVAR CONTRATO
 router.post("/create/contrato", contratoController.postCrearContrato); //CREAR CONTRATO
+router.post(
+  "/update/cancelar-contrato",
+  contratoController.postCancelarContrato
+); //CANCERLAR CONTRATO
 router.post("/create/cond-env-pago", contratoController.postCrearCondEnvPago); //CREAR COND ENV PAGO
 router.post("/create/clausula-prod", contratoController.postCrearClausulaProd); //CREAR CLAUSULA PROD
 
@@ -82,4 +86,11 @@ router.post("/create/escala", evaluacionController.postCrearEscala);
 
 //CREAR EVALUACION
 router.post("/create/evaluacion", evaluacionController.postCrearEvaluacion);
+
+//VALIDAR EVALUACION
+router.post(
+  "/read/validar-evaluacion",
+  evaluacionController.getValidarEvaluacion
+);
+
 module.exports = router;
