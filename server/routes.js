@@ -34,6 +34,12 @@ router.post(
   contratoController.getOpcionesEnvioProveedor
 );
 
+//OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
+router.post(
+  "/read/contratos-vigentes",
+  contratoController.getContratosVigentes
+);
+
 router.post("/create/renovacion", contratoController.postRenovarContrato); //RENOVAR CONTRATO
 router.post("/create/contrato", contratoController.postCrearContrato); //CREAR CONTRATO
 router.post(
