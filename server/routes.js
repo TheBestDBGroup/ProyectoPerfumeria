@@ -68,7 +68,7 @@ router.post(
   contratoController.postGetOpcionesIngredienteGeneralExc
 );
 
-//OBTENER CRITERIOS DE EVALUACION DE UN PRODUCTOR
+//OBTENER CRITERIOS DE EVALUACION
 router.post(
   "/read/criterios-evaluacion",
   evaluacionController.getCriteriosEvaluacion
@@ -79,5 +79,12 @@ router.post("/create/eval-crit", evaluacionController.postCrearEvalCrit);
 
 //CREAR UNA ESCALA
 router.post("/create/escala", evaluacionController.postCrearEscala);
+
+//GET ESCALA
+router.post("/read/escala",evaluacionController.getEscala);
+
+//GET EVAL CRITS
+router.post("/read/eval-crits",evaluacionController.getEvalCrits);
+
 
 module.exports = router;

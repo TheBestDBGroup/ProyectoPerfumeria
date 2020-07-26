@@ -23,7 +23,7 @@ const Criterio = ({indice,handleChange,opciones,criterios,handleDelete,handlePes
 
 	const renderValue = () => {
 		if(criterios[indice].id === '') {return ''}
-    	return `${criterios[indice].descripcion_criterio_evaluacion}`;
+    	return `${criterios[indice].descripcion_criterio_eval}`;
 	}
 
 
@@ -40,7 +40,7 @@ const Criterio = ({indice,handleChange,opciones,criterios,handleDelete,handlePes
 	        >
 
 	        {opciones.map((opcion,indiceOp) =>(
-	        	<MenuItem value={indiceOp}> {opcion.descripcion_criterio_evaluacion}</MenuItem>
+	        	<MenuItem value={indiceOp}> {opcion.descripcion_criterio_eval}</MenuItem>
 	        ))}
         	</Select>
       	</FormControl>

@@ -1,39 +1,13 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Divider, TextField, Button} from '@material-ui/core/';
 import Criterio from './Criterio/Criterio'
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import './crear-evaluacion-styles.css'
+import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 
-//TODO: Cambiar criterios 
 
-const DummyCriterios =  [
-	{
-	   id_criterio_evaluacion:1,
-	   tipo_criterio_evaluacion:'exito',	   
-	   descripcion_criterio_evaluacion:'Criterio de éxito'
-	},
-	{
-	   id_criterio_evaluacion:2,
-	   tipo_criterio_evaluacion:'normal',
-	   descripcion_criterio_evaluacion:'Ubicación del Proveedor',
-
-	},
-	{
-	   id_criterio_evaluacion:3,
-	   tipo_criterio_evaluacion:'normal',
-	   descripcion_criterio_evaluacion:'Costo',
-
-	},
-	{
-	   id_criterio_evaluacion:4,
-	   tipo_criterio_evaluacion:'normal',
-	   descripcion_criterio_evaluacion:'Alternativas de Envío',
-	},
-
-]
-
-//no borrar
 
 const initEscala = {
 	min_escala:'',
@@ -42,12 +16,13 @@ const initEscala = {
 
 const CrearEvaluacion = (props) => {
 
-	const [criterioExito, setCriterioExito] = useState({})
+	const [criterioExito, setCriterioExito] = useState(undefined)
 	const [criterios,setCriterios] = useState([])
-	const [opcionesCriterios, setOpcionesCriterios] = useState(DummyCriterios)
+	const [opcionesCriterios, setOpcionesCriterios] = useState(undefined)
 	const [escala,setEscala] = useState(initEscala)
-	const tipo = props.match.params.tipo //inicial o de renovacion
+	const tipo = props.match.params.tipo ==='inicial'? 'Inicial':'Renovación'
 	const productorId = localStorage.getItem('id_productor');
+	const history = useHistory();
 
 	//MANEJAR ENVIOS
 
@@ -72,7 +47,7 @@ const CrearEvaluacion = (props) => {
 	}
 
 	const handleChangeCritExito = (e) => {
-		setCriterioExito({...criterioExito,peso_prctj_eval_crit: e.target.value})
+		setCriterioExito({...criterioExito, peso_prctj_eval_crit:e.target.value})
 	}
 
 	const handlePesoCriterio =(indice, e) => {
@@ -82,21 +57,90 @@ const CrearEvaluacion = (props) => {
 	}
 
 	const handleSubmit=() => {
-		console.log('criterios',criterios)
+		let promesas = []
+
+		//enviando criterios
+		criterios.forEach(crit => 
+
+		promesas.push(		
+				axios.post('/create/eval-crit', {
+			    	id_productor: productorId, 
+			    	peso: crit.peso_prctj_eval_crit,
+			    	tipo_eval_crit: tipo,
+			    	id_criterio_eval:crit.id_criterio_eval,
+		  		})
+			)
+		
+		);
+
+		//enviando criterio de exito
+		promesas.push(
+				axios.post('/create/eval-crit', {
+			    	id_productor: productorId, 
+			    	peso: criterioExito.peso_prctj_eval_crit,
+			    	tipo_eval_crit: tipo,
+			    	id_criterio_eval:criterioExito.id_criterio_eval,
+		  		})
+		 )
+
+		if(escala.min_escala !== '' || escala.max_escala !== ''){		
+			promesas.push(
+				axios.post('/create/escala', {
+				    	id_productor: productorId, 
+				    	min: escala.min_escala,
+				    	max: escala.max_escala,
+			  		})
+			)
+		}
+
+		Promise.all(promesas)
+		 .then(function (res) {
+		    console.log('response promise all', res)
+		    alert('Evaluación creada con exito')
+		    history.push(`/`);
+		  });
+
 	}
 
 	const handleChangeEscala = e => {
-
     	setEscala({ ...escala, [e.target.name]: e.target.value})
   	}
 
+  	const filterCriterioExito = (crits) =>{
+  		let critsCopy = [...crits]
+  		critsCopy = critsCopy.filter(item => item.tipo_criterio_eval === 'normal')
+  		return critsCopy
+  	}
+
+  	const getCriterioExito = (crits) => {
+  		let critsCopy = [...crits]
+  		critsCopy = critsCopy.filter(item => item.tipo_criterio_eval === 'exito')
+  		critsCopy = {id_criterio_eval: critsCopy[0].id_criterio_eval, peso_prctj_eval_crit:''}
+  		return critsCopy
+  	}
+
+  	useEffect(() => {
+        axios.post('/read/criterios-evaluacion', {})
+		  .then((res) =>{
+		    console.log('response criterios de evaluacion', res.data);
+		    setOpcionesCriterios(filterCriterioExito(res.data));
+            setCriterioExito(getCriterioExito(res.data))
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	     
+	}, []);
 
 
+  	if(opcionesCriterios && criterioExito){
 	return (
 		<>
 			<InfoProdSubheader redirectDir={`crear-evaluacion/${tipo}`}/>
-			{console.log('criterios',criterios)}
-			{console.log('escala',escala)}
+			{console.log('est criterios',criterios)}
+			{console.log('est escala',escala)}
+			{console.log('est criterio exito', criterioExito)}
+			{console.log('est opcionesCriterios', opcionesCriterios)}
 				
 			<div className="center-everything">
 				<div className="crear-evaluacion-wrapper">
@@ -127,7 +171,7 @@ const CrearEvaluacion = (props) => {
 					<div className="center-title">
 						<div className="criterio-exito">
 							<h4>Criterio de Éxito </h4>
-							<TextField label="Nota mínima aprobatoria" variant="outlined" name="criterio_exito" value={criterioExito.peso_prctj_eval_crit} onChange={(e) => handleChangeCritExito(e)}/>
+							<TextField label="Puntaje Mínimo Aprobatorio" variant="outlined" name="criterio_exito" value={criterioExito.peso_prctj_eval_crit} onChange={(e) => handleChangeCritExito(e)}/>
 						</div>	
 					</div>
 
@@ -169,6 +213,9 @@ const CrearEvaluacion = (props) => {
 		</>
 
 	)
+	} else {
+		return <>Cargando... </>
+	}
 }
 
 export default CrearEvaluacion

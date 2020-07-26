@@ -6,11 +6,10 @@ types.setTypeParser(1114, function (stringValue) {
 });
 
 const getCriteriosEvaluacion = (request, response) => {
-  let values = [request.body.id_proveedor, request.body.tipo_evaluacion];
+ 
+  const query = "SELECT * from ydm_criterio_eval";
 
-  const query = "SELECT * from ydm_criterio_evaluacion";
-
-  pool.query(query, values, (error, results) => {
+  pool.query(query, (error, results) => {
     if (error) {
       throw error;
     }
@@ -18,7 +17,47 @@ const getCriteriosEvaluacion = (request, response) => {
   });
 };
 
+const getEscala = (request, response) =>{
+  let values = [request.body.id_productor]
+
+  const query = "SELECT e.min_escala, e.max_escala FROM ydm_escala e WHERE e.id_productor_escala = $1\
+  AND e.fecha_expiracion_escala IS NULL"
+
+  pool.query(query,values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+
+}
+
+const getEvalCrits = (request,response) => {
+  
+  let values = [
+    request.body.id_productor, 
+    request.body.tipo
+  ]
+
+  const query = "SELECT ec.peso_prctj_eval_crit, ce.descripcion_criterio_eval, ce.tipo_criterio_eval\
+  FROM ydm_eval_crit ec INNER JOIN ydm_criterio_eval ce\
+  ON ce.id_criterio_eval = ec.id_criterio_eval_eval_crit\
+  WHERE id_productor_eval_crit = $1 AND fecha_final_eval_crit IS NULL AND tipo_eval_crit = $2"
+
+  pool.query(query,values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+}
+
+
+
 const postCrearEvalCrit = (request, response) => {
+
+  console.log('req.body', request.body)
+
   let valuesAntiguoEvalCrit = [
     request.body.id_productor,
     request.body.tipo_eval_crit,
@@ -128,4 +167,6 @@ module.exports = {
   getCriteriosEvaluacion,
   postCrearEvalCrit,
   postCrearEscala,
+  getEscala,
+  getEvalCrits
 };
