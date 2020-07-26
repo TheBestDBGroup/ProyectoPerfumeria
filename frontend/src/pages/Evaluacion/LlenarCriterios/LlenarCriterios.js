@@ -25,7 +25,7 @@ const LlenarCriterios = (props) => {
 	const history = useHistory();
 
 	const calificar = () => {		
-		let nota_aprobatoria = criterioExito.peso_prctj_eval_crit
+		let nota_aprobatoria = escala.max_escala * (criterioExito.peso_prctj_eval_crit/100)
 		let nota_acumulada =0
 		let copyEvaCrits = [...evaCrits]
 		
@@ -53,7 +53,7 @@ const LlenarCriterios = (props) => {
 		    console.log(error);
 		  });
 
-		history.replace(`/realizar-evaluacion/resultados-eval/${tipo_evaluacion}/${calificacion}/${status}/${id_proveedor}/${id_contrato}`)
+		history.push(`/realizar-evaluacion/resultados-eval/${tipo_evaluacion}/${calificacion}/${status}/${id_proveedor}/${id_contrato}`)
 	
 	}
 

@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from 'react';
-import './realizar-evaluacion-renovacion-styles.css';
+import './contratos-vigentes.css';
 import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
 import {Table, Button} from "tabler-react";
 import { useHistory } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
+import { Redirect } from 'react-router-dom'
 
 
 //Mostrar lista de proveedores 
@@ -34,11 +35,11 @@ const RealizarEvaluacionRenovacion = () => {
 	}
 
 	useEffect(() => {
-        axios.post('/read/proveedores-por-renovar', {
+        axios.post('/read/proveedores-con-contratos-vigentes', {
 		    id_productor: productorId,
 		  })
 		  .then((res) =>{
-		    console.log('response proveedores por renovar', res.data);
+		    console.log('response contratos vigentes', res.data);
             setProveedores(res.data);
 		  })
 		  .catch(function (error) {
@@ -50,17 +51,23 @@ const RealizarEvaluacionRenovacion = () => {
 
 
   	const handleSelect = (id, idcontrato) => {
-		history.push(`/realizar-evaluacion/llenar-criterios/${id}/renovacion/${idcontrato}`);
+		history.push(`/comprar/detalles-contrato/${idcontrato}/${id}`);
 	}
 
+	if(!productorId) {
+		return <Redirect to="/elegirProd/compras" />
+
+	}
 
 
 
 	if(proveedores){
 	return (
 		<>
-		<InfoProdSubheader redirectDir={'evaluacion'}/>
-		<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor sobre el que desea realizar renovar contrato </h1>
+		<InfoProdSubheader redirectDir={'compras'}/>
+		<div className="center">
+			<h1 className="evaluacion-inicial-titulo"> Seleccione el proveedor al cual desea comprar  </h1>
+		</div>
 
 		
 		<Table>
@@ -85,7 +92,7 @@ const RealizarEvaluacionRenovacion = () => {
 			     	<Table.Col>{proveedor.id_contrato} </Table.Col>
 			     	<Table.Col>{convertISODate(proveedor.fecha_emision_contrato)} </Table.Col>	
 			    	<Table.Col>
-			        	<Button onClick={() => handleSelect(proveedor.id_proveedor, proveedor.id_contrato)} color="primary" className="eval-ren-buttons"> Evaluar </Button>
+			        	<Button onClick={() => handleSelect(proveedor.id_proveedor, proveedor.id_contrato)} color="primary" className="eval-ren-buttons">Realizar Compra</Button>
 			      	</Table.Col>
 			    </Table.Row>
 			   ))}

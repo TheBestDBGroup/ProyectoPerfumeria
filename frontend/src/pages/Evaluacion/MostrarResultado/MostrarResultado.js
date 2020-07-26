@@ -20,7 +20,7 @@ const MostrarResultado = (props) => {
 
 
 	const handleSubmit = (redirectDir) => {
-		history.replace(redirectDir);
+		history.push(redirectDir);
 	}
 
 	const handleRenovarContrato = () => {

@@ -18,6 +18,12 @@ import MostrarResultado from './pages/Evaluacion/MostrarResultado/MostrarResulta
 import ProveedoresVigentes from './pages/Evaluacion/ProveedoresVigentes/ProveedoresVigentes'
 import CancelarContrato from './pages/Evaluacion/CancelarContrato/CancelarContrato'
 
+
+//Componentes de Compras
+import Compras from './pages/Compras/Compras/Compras'
+import ContratosVigentes from './pages/Compras/ContratosVigentes/ContratosVigentes'
+import MostrarDetallesContrato from './pages/Compras/MostrarDetallesContrato/MostrarDetallesContrato'
+
 const routes = [
     {//root
       path: '/',
@@ -64,14 +70,26 @@ const routes = [
       path: '/contrato/crear/:idproveedor',
       render: (props) => <NuevoContrato {...props} />
     },
-    { //WIP! listas de contratos vigentes
+    { //listas de contratos vigentes
       path: '/contrato/ver-vigentes',
       render: (props) => <ProveedoresVigentes {...props} />
     },
-    { //no implementado, pantalla para cancelar y poner motivos de cancelacion
+    { //pantalla para cancelar y poner motivos de cancelacion
       path: '/contrato/cancelar/:idContrato',
       render: (props) => <CancelarContrato {...props} />
     },
+    { // pantalla para cancelar y poner motivos de cancelacion
+      path: '/compras',
+      render: (props) => <Compras {...props} />
+    },
+    {
+      path: '/comprar/contratos-vigentes',
+      render: (props) => <ContratosVigentes {...props} />
+    }, 
+    {
+      path: '/comprar/detalles-contrato/:idcontrato/:idproveedor',
+      render: (props) => <MostrarDetallesContrato {...props} />
+    }, 
 ];
 
 function App() {
