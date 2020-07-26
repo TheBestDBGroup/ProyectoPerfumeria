@@ -86,15 +86,20 @@ router.post(
 
 //CREAR UN CRITERIO DE EVALUACION
 router.post("/create/eval-crit", evaluacionController.postCrearEvalCrit);
+//FINALIZAR CRITERIOS DE EVALUACION
+router.post(
+  "/create/finalizar-eval-crits",
+  evaluacionController.postFinalizarEvalCrits
+);
 
 //CREAR UNA ESCALA
 router.post("/create/escala", evaluacionController.postCrearEscala);
 
 //GET ESCALA
-router.post("/read/escala",evaluacionController.getEscala);
+router.post("/read/escala", evaluacionController.getEscala);
 
 //GET EVAL CRITS
-router.post("/read/eval-crits",evaluacionController.getEvalCrits);
+router.post("/read/eval-crits", evaluacionController.getEvalCrits);
 
 //CREAR EVALUACION
 router.post("/create/evaluacion", evaluacionController.postCrearEvaluacion);
@@ -105,8 +110,10 @@ router.post(
   evaluacionController.getValidarEvaluacion
 );
 
-
 //GET PRODUCTORES CON CONTRATOS VIGENTES
-router.post("/read/proveedores-con-contratos-vigentes", proveedorController.getProveedoresConContratosVigentes);
+router.post(
+  "/read/proveedores-con-contratos-vigentes",
+  proveedorController.getProveedoresConContratosVigentes
+);
 
 module.exports = router;
