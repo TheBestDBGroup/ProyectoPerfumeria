@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import {Divider, TextField, Button} from '@material-ui/core/';
-import './mostrarcondiciones.css'
+import './mostrar-detalles-contrato.css'
 import { useHistory } from "react-router-dom";
 
 
@@ -9,8 +9,9 @@ import { useHistory } from "react-router-dom";
 /*		
 */
 
-const MostrarCondiciones = (props) => {
+const MostrarDetallesContrato = (props) => {
 	const id_proveedor = props.match.params.idproveedor
+	const id_contrato = props.match.params.idcontrato
 	const [infoProveedor,setInfoProveedor] = useState(undefined)//
 	const [opcionesPago,setOpcionesPago] = useState(undefined)//
 	const [opcionesEnvio,setOpcionesEnvio] = useState(undefined)//
@@ -67,7 +68,7 @@ const MostrarCondiciones = (props) => {
 	}, []);
 
 	const handleSubmit = () => {
-		history.push(`/realizar-evaluacion/llenar-criterios/${id_proveedor}/inicial/inicial`);
+		history.push(`/realizar-pedido/encabezado/${id_proveedor}/${id_contrato}`);
 	}
 
 
@@ -78,7 +79,7 @@ const MostrarCondiciones = (props) => {
 		<div className="center">
 			<div className="mostrar-con-wrapper">
 				<div className="center">
-					<h2 className="m-c-title"> Mostrar Condiciones del Proveedor </h2>
+					<h2 className="m-c-title"> Mostrar Detalles del Contrato </h2>
 				</div>
 			<Divider/>
 			<div className="center">
@@ -257,7 +258,7 @@ const MostrarCondiciones = (props) => {
 					size="small" 
 					onClick={handleSubmit}
 				>
-					Realizar Evaluación Inicial
+					Realizar Pedido
 					
 				</Button>
 			</div>
@@ -269,4 +270,4 @@ const MostrarCondiciones = (props) => {
 	}
 }
 
-export default MostrarCondiciones
+export default MostrarDetallesContrato

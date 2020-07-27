@@ -58,6 +58,14 @@ const CrearEvaluacion = (props) => {
 
 	const handleSubmit=() => {
 		let promesas = []
+		
+		promesas.push(		
+			axios.post('/create/finalizar-eval-crits', {
+		    	id_productor: productorId, 
+		    	tipo_eval_crit: tipo,
+	  		})
+		)
+
 
 		//enviando criterios
 		criterios.forEach(crit => 
@@ -136,11 +144,12 @@ const CrearEvaluacion = (props) => {
   	if(opcionesCriterios && criterioExito){
 	return (
 		<>
-			<InfoProdSubheader redirectDir={`crear-evaluacion/${tipo}`}/>
+			<InfoProdSubheader redirectDir={`evaluacion`}/>
 			{console.log('est criterios',criterios)}
 			{console.log('est escala',escala)}
 			{console.log('est criterio exito', criterioExito)}
 			{console.log('est opcionesCriterios', opcionesCriterios)}
+			{console.log('tipo', tipo)}
 				
 			<div className="center-everything">
 				<div className="crear-evaluacion-wrapper">
@@ -148,7 +157,7 @@ const CrearEvaluacion = (props) => {
 						<h3> Crear Formula de Evaluación</h3>
 					</div>
 					<div className="center-title">
-						<h4> Tipo = {tipo=='inicial'?'Inicial':'Renovación'}</h4>
+						<h4> Tipo = {tipo}</h4>
 					</div>
 
 					<Divider />
@@ -171,7 +180,7 @@ const CrearEvaluacion = (props) => {
 					<div className="center-title">
 						<div className="criterio-exito">
 							<h4>Criterio de Éxito </h4>
-							<TextField label="Puntaje Mínimo Aprobatorio" variant="outlined" name="criterio_exito" value={criterioExito.peso_prctj_eval_crit} onChange={(e) => handleChangeCritExito(e)}/>
+							<TextField label="% Mínimo Aprobatorio" variant="outlined" name="criterio_exito" value={criterioExito.peso_prctj_eval_crit} onChange={(e) => handleChangeCritExito(e)}/>
 						</div>	
 					</div>
 
