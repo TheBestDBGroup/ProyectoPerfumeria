@@ -23,6 +23,11 @@ import CancelarContrato from './pages/Evaluacion/CancelarContrato/CancelarContra
 import Compras from './pages/Compras/Compras/Compras'
 import ContratosVigentes from './pages/Compras/ContratosVigentes/ContratosVigentes'
 import MostrarDetallesContrato from './pages/Compras/MostrarDetallesContrato/MostrarDetallesContrato'
+import EncabezadoPedido from './pages/Compras/EncabezadoPedido/EncabezadoPedido'
+import AgregarDetalles from './pages/Compras/AgregarDetalles/AgregarDetalles'
+import AgregarEnvio from './pages/Compras/AgregarEnvio/AgregarEnvio'
+import AgregarPago from './pages/Compras/AgregarPago/AgregarPago'
+import ListaPedidos from './pages/Compras/ListaPedidos/ListaPedidos'
 
 const routes = [
     {//root
@@ -90,6 +95,27 @@ const routes = [
       path: '/comprar/detalles-contrato/:idcontrato/:idproveedor',
       render: (props) => <MostrarDetallesContrato {...props} />
     }, 
+    {
+      path: '/realizar-pedido/encabezado/:idcontrato/:idproveedor',
+      render: (props) => <EncabezadoPedido {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-detalles/:idpedido',
+      render: (props) => <AgregarDetalles {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-envio/:idpedido',
+      render: (props) => <AgregarEnvio {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-forma-pago/:idpedido',
+      render: (props) => <AgregarPago {...props} />
+    },
+    {
+      path: '/comprar/lista-pedidos/productor',
+      render: (props) => <ListaPedidos {...props} />
+    },  
+
 ];
 
 function App() {

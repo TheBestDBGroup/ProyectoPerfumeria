@@ -68,7 +68,7 @@ const MostrarDetallesContrato = (props) => {
 	}, []);
 
 	const handleSubmit = () => {
-		history.push(`/realizar-pedido/encabezado/${id_proveedor}/`);
+		history.push(`/realizar-pedido/encabezado/${id_proveedor}/${id_contrato}`);
 	}
 
 
