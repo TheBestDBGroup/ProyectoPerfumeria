@@ -131,5 +131,8 @@ router.post(
   "/update/guardar-condicion-pago/cond-env-pago",
   pedidoController.postGuardarCondPagoCondEnvPago
 );
-
+//CREAR PAGO DE CONTADO
+router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
+//CREAR PAGO DE CRÉDITO
+router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
 module.exports = router;

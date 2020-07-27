@@ -1,4 +1,5 @@
 const pool = require("../connectiondb");
+const moment = require("moment");
 
 const postCrearPedido = (request, response) => {
   console.log(request.body);
@@ -94,9 +95,92 @@ const postGuardarCondPagoCondEnvPago = (request, response) => {
   );
 };
 
+const postCrearPagoContado = (request, response) => {
+  console.log(request.body);
+  let valuesCrearPagoContado = [
+    request.body.id_pedido,
+    request.body.monto_pedido,
+  ];
+  const queryCrearPagoContado =
+    "INSERT INTO ydm_pago VALUES(DEFAULT,$1, current_date, $2)";
+  pool.query(
+    queryCrearPagoContado,
+    valuesCrearPagoContado,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR PAGO CONTADO: " + error);
+        throw error;
+      }
+      let valuesConfirmarPedido = [
+        request.body.id_pedido,
+        request.body.monto_pedido,
+      ];
+      const queryConfirmarPedido =
+        "UPDATE ydm_pedido SET monto_pedido = $2,\
+        estatus_pedido = 'Confirmado', fecha_confirmacion_pedido = current_date\
+        WHERE id_pedido = $1";
+      pool.query(
+        queryConfirmarPedido,
+        valuesConfirmarPedido,
+        (error, results) => {
+          if (error) {
+            console.log("ERROR CONFIRMAR PEDIDO: " + error);
+            throw error;
+          }
+          response.status(201).send("ok");
+        }
+      );
+    }
+  );
+};
+
+const postCrearPagoCredito = (request, response) => {
+  console.log(request.body);
+  let suma_fecha = moment()
+    .add(request.body.num_cuota * request.body.meses_cantidad, "months")
+    .calendar();
+  suma_fecha = moment(suma_fecha);
+  let suma_monto =
+    (request.body.monto_pedido * request.body.porcentaje_cuotas) / 100;
+  let valuesCrearPagoCredito = [request.body.id_pedido, suma_fecha, suma_monto];
+  const queryCrearPagoCredito =
+    "INSERT INTO ydm_pago VALUES(DEFAULT,$1, $2, $3) RETURNING *";
+  pool.query(
+    queryCrearPagoCredito,
+    valuesCrearPagoCredito,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR PAGO CREDITO: " + error);
+        throw error;
+      }
+      let valuesConfirmarPedido = [
+        request.body.id_pedido,
+        request.body.monto_pedido,
+      ];
+      const queryConfirmarPedido =
+        "UPDATE ydm_pedido SET monto_pedido = $2,\
+        estatus_pedido = 'Confirmado', fecha_confirmacion_pedido = current_date\
+        WHERE id_pedido = $1";
+      pool.query(
+        queryConfirmarPedido,
+        valuesConfirmarPedido,
+        (error, results) => {
+          if (error) {
+            console.log("ERROR CONFIRMAR PEDIDO: " + error);
+            throw error;
+          }
+          response.status(201).send("ok");
+        }
+      );
+    }
+  );
+};
+
 module.exports = {
   postCrearPedido,
   postCrearDetallePedido,
   postGuardarAltEnvCondEnvPago,
   postGuardarCondPagoCondEnvPago,
+  postCrearPagoContado,
+  postCrearPagoCredito,
 };
