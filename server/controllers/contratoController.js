@@ -332,6 +332,27 @@ const getAlternativasEnviosContrato = (request, response) => {
   });
 };
 
+const getCondicionPagoContrato = (request, response) => {
+  let values = [request.body.id_contrato];
+
+  const query =
+  "SELECT cp.id_condicion_pago, cp.tipo_condicion_pago , cp.cuotas_condicion_pago, cp.prctj_cuotas_condicion_pago, cp.mesescantidad_condicion_pago, ce.id_cond_env_pago\
+  FROM ydm_contrato c, ydm_cond_env_pago ce, ydm_condicion_pago cp\
+  WHERE id_contrato = id_contrato_cond_env_pago\
+  AND	  id_condicion_pago_cond_env_pago = id_condicion_pago\
+  AND   id_proveedor_condicion_pago_cond_env_pago = id_proveedor_condicion_pago\
+  AND   id_contrato = $1"
+
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+
 module.exports = {
   getOpcionesPagoProveedor,
   getOpcionesEnvioProveedor,
@@ -339,6 +360,7 @@ module.exports = {
   getIngredientesEsenciaContrato,
   getIngredientesGeneralContrato,
   getAlternativasEnviosContrato,
+  getCondicionPagoContrato,
   postRenovarContrato,
   postCrearContrato,
   postCancelarContrato,

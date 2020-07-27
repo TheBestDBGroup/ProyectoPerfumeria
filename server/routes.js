@@ -51,6 +51,11 @@ router.post(
   contratoController.getAlternativasEnviosContrato
 );
 
+///OBTENER CONDICIONES DE PAGO DE UN CONTRATO
+router.post(
+  "/read/contrato/condiciones-pago-contrato",
+  contratoController.getCondicionPagoContrato
+);
 
 
 //OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
