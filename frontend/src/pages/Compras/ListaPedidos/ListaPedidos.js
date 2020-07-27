@@ -124,10 +124,14 @@ const ListaPedidos = () => {
 			    	<Table.Col>{pedido.nombre_proveedor}</Table.Col>
 			    	<Table.Col>{pedido.id_pedido} </Table.Col>
 			     	<Table.Col>{convertISODate(pedido.fecha_pedido)} </Table.Col>
-			     	<Table.Col>{pedido.monto_pedido} </Table.Col>
+			     	<Table.Col>{pedido.monto_pedido} $ </Table.Col>
 			     	<Table.Col>{pedido.estatus_pedido} </Table.Col>	
-			     	{pedido.estatus_pedido === 'Confirmado'?
-			     	(
+			     	{pedido.estatus_pedido === 'Por Confirmar'?
+			     	(<> 
+			      		<Table.Col> </Table.Col>
+			      		<Table.Col> </Table.Col>
+			      		<Table.Col> </Table.Col>
+			      	 </>):(
 			     		<>
 			     		<Table.Col>{convertISODate(pedido.fecha_confirmacion_pedido)} </Table.Col>	
 			     		<Table.Col>{pedido.num_factura_pedido} </Table.Col>	
@@ -141,11 +145,7 @@ const ListaPedidos = () => {
 			        		</Button>
 			      		</Table.Col>
 			      		</>
-			      	):(<> 
-			      		<Table.Col> </Table.Col>
-			      		<Table.Col> </Table.Col>
-			      		<Table.Col> </Table.Col>
-			      	 </>)}
+			      	)}
 			    </Table.Row>
 			   ))}
 

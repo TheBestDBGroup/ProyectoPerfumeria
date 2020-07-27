@@ -28,6 +28,9 @@ import AgregarDetalles from './pages/Compras/AgregarDetalles/AgregarDetalles'
 import AgregarEnvio from './pages/Compras/AgregarEnvio/AgregarEnvio'
 import AgregarPago from './pages/Compras/AgregarPago/AgregarPago'
 import ListaPedidos from './pages/Compras/ListaPedidos/ListaPedidos'
+import VerPagos from './pages/Compras/VerPagos/VerPagos'
+import ListaPorConfirmar from './pages/Compras/ListaPorConfirmar/ListaPorConfirmar'
+import FiltroProveedor from './components/FiltroProveedor/FiltroProveedor'
 
 const routes = [
     {//root
@@ -42,6 +45,10 @@ const routes = [
     {//redireccion para escoger el productor en el filtro de Prod
       path: '/elegirProd/:redirectDir',
       render: (props) => <FiltroProductor {...props} />
+    },
+    {//redireccion para escoger el proveedor en el filtro de Prod
+      path: '/elegirProv/:redirectDir',
+      render: (props) => <FiltroProveedor {...props} />
     },
     {//elegir tipo de crear evaluacion o realizar evaluacion tipo = crear-evaluacion o realizar-evaluacion
       path: '/evaluacion/evaluar/:tipo',
@@ -114,6 +121,14 @@ const routes = [
     {
       path: '/comprar/lista-pedidos/productor',
       render: (props) => <ListaPedidos {...props} />
+    },  
+    {
+      path: '/ver-pagos/:idpedido',
+      render: (props) => <VerPagos {...props} />
+    }, 
+    {
+      path: '/comprar/lista-pedidos/proveedor',
+      render: (props) => <ListaPorConfirmar {...props} />
     },  
 
 ];

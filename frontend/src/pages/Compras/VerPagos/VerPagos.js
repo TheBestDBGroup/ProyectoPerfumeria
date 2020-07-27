@@ -1,49 +1,38 @@
 import React, {useState,useEffect} from 'react';
-import './lista-pedidos.css';
-import InfoProdSubheader from '../../../components/InfoProdSubheader/InfoProdSubheader'
-import {Table, Button} from "tabler-react";
+import './ver-pagos.css';
+import {Table} from "tabler-react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import { Redirect } from 'react-router-dom'
 
-const DummyPedidos = [
+
+const DummyPagos = [
 {	
 
-	id_proveedor:1,
-	nombre_proveedor:'Mario',
-	id_pedido:1,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:234,
-	estatus_pedido:'Confirmado',
-	fecha_confirmacion_pedido:'2011-10-05T14:48:00.000Z',
-	num_factura_pedido:3,
+	id_pago:1,
+	id_pedido_pago:2,
+	fecha_pago:'2011-10-05T14:48:00.000Z',
+	monto_pago:123
 },
 {	
 
-	id_proveedor:2,
-	nombre_proveedor:'Javier',
-	id_pedido:5,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:567,
-	estatus_pedido:'Por Confirmar',
+	id_pago:3,
+	id_pedido_pago:4,
+	fecha_pago:'2011-10-05T14:48:00.000Z',
+	monto_pago:567
 },
-{
-	id_proveedor:3,
-	nombre_proveedor:'Maria',
-	id_pedido:9,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:890,
-	estatus_pedido:'Confirmado',
-	fecha_confirmacion_pedido:'2011-10-05T14:48:00.000Z',
-	num_factura_pedido:7,
+{	
+
+	id_pago:4,
+	id_pedido_pago:5,
+	fecha_pago:'2011-10-05T14:48:00.000Z',
+	monto_pago:789
 },
+
 ]
 //Mostrar lista de proveedores 
-const ListaPedidos = () => {
+const VerPagos= (props) => {
 
-	const productorId = localStorage.getItem('id_productor');
-	const history = useHistory();
-	const [pedidos,setPedidos] = useState(DummyPedidos)
+	const [pagos,setPagos] = useState(DummyPagos)
 
 
 	const convertISODate = (ISODate) => {
@@ -81,71 +70,28 @@ const ListaPedidos = () => {
 	}, []);
 
 
-
-  	const handleSelect = (idpedido) => {
-		history.push(`/ver-pagos/${idpedido}`);
-	}
-
-	if(!productorId) {
-		return <Redirect to="/elegirProd/compras" />
-
-	}
-
-
-
-	if(pedidos){
+	if(pagos){
 	return (
 		<>
-		<InfoProdSubheader redirectDir={'compras'}/>
 		<div className="center">
-			<h1 className="evaluacion-inicial-titulo"> Listado de Pedidos  </h1>
+			<h1 className="evaluacion-inicial-titulo"> Listado de Pagos </h1>
 		</div>
-
-		
 		<Table>
 
 			  <Table.Header>
-			  	<Table.ColHeader>ID Proveedor</Table.ColHeader>
-			  	<Table.ColHeader>Nombre Proveedor</Table.ColHeader>
+			  	<Table.ColHeader>ID Pago</Table.ColHeader>
 			    <Table.ColHeader>ID Pedido</Table.ColHeader>
-			    <Table.ColHeader>Fecha</Table.ColHeader>
+			    <Table.ColHeader>Fecha a Pagar </Table.ColHeader>
 			    <Table.ColHeader>Monto</Table.ColHeader>
-			    <Table.ColHeader>Estatus</Table.ColHeader>
-			    <Table.ColHeader>Fecha Confirmación</Table.ColHeader>
-			    <Table.ColHeader>Número de Factura</Table.ColHeader>
-			    <Table.ColHeader>Acciones</Table.ColHeader>
-			   
 			  </Table.Header>
 
 			  <Table.Body>
-			  { pedidos.map( pedido => (
+			  { pagos.map( pago => (
 			    <Table.Row>
-			     	<Table.Col>{pedido.id_proveedor} </Table.Col>
-			    	<Table.Col>{pedido.nombre_proveedor}</Table.Col>
-			    	<Table.Col>{pedido.id_pedido} </Table.Col>
-			     	<Table.Col>{convertISODate(pedido.fecha_pedido)} </Table.Col>
-			     	<Table.Col>{pedido.monto_pedido} </Table.Col>
-			     	<Table.Col>{pedido.estatus_pedido} </Table.Col>	
-			     	{pedido.estatus_pedido === 'Confirmado'?
-			     	(
-			     		<>
-			     		<Table.Col>{convertISODate(pedido.fecha_confirmacion_pedido)} </Table.Col>	
-			     		<Table.Col>{pedido.num_factura_pedido} </Table.Col>	
-			    		<Table.Col>
-			        		<Button 
-				        		onClick={() => handleSelect(pedido.id_pedido)} 
-				        		color="primary" 
-				        		className="eval-ren-buttons"
-			        		>
-			        			Ver pagos
-			        		</Button>
-			      		</Table.Col>
-			      		</>
-			      	):(<> 
-			      		<Table.Col> </Table.Col>
-			      		<Table.Col> </Table.Col>
-			      		<Table.Col> </Table.Col>
-			      	 </>)}
+			     	<Table.Col>{pago.id_pago} </Table.Col>
+			    	<Table.Col>{pago.id_pedido_pago}</Table.Col>
+			    	<Table.Col>{convertISODate(pago.fecha_pago)} </Table.Col>
+			     	<Table.Col>{pago.monto_pago} $ </Table.Col>  	
 			    </Table.Row>
 			   ))}
 
@@ -160,4 +106,4 @@ const ListaPedidos = () => {
 }
 
 
-export default ListaPedidos
+export default VerPagos

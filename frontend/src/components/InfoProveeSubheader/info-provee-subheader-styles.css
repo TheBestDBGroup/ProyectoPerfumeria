@@ -1,0 +1,22 @@
+.subheader-nav{
+	background-color: white !important;
+	max-width: 100vw;
+	padding-left:20px;
+	width:110%;
+}
+
+.subheader-nav-item {
+	margin-left:10px;
+}
+
+.subheader-info {
+	font-weight: bold;
+	margin-top:20px;
+	margin-left:22px;
+}
+
+.subheader-button {
+	margin-top: 10px;
+	margin-left:20px;
+	max-height: 35px;
+}
