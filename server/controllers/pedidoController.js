@@ -42,7 +42,34 @@ const postCrearDetallePedido = (request, response) => {
   );
 };
 
+const postGuardarCondEnvPago = (request, response) => {
+  console.log(request.body);
+  const valuesGuardarCondEnvPago = [
+    request.body.id_pedido,
+    request.body.id_cond_env_pago,
+  ];
+  const queryGuardarCondEnvPago =
+    "UPDATE ydm_pedido pd\
+    SET (id_alt_env_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) =\
+    (SELECT id_alt_envio_cond_env_pago , id_contrato_cond_env_pago\
+      FROM ydm_cond_env_pago WHERE id_cond_env_pago = $2)\
+      WHERE pd.id_pedido = $1 RETURNING *";
+
+  pool.query(
+    queryGuardarCondEnvPago,
+    valuesGuardarCondEnvPago,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR GUARDAR COND ENV PAGO: " + error);
+        throw error;
+      }
+      response.status(201).send(results.rows);
+    }
+  );
+};
+
 module.exports = {
   postCrearPedido,
   postCrearDetallePedido,
+  postGuardarCondEnvPago,
 };

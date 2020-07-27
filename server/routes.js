@@ -121,5 +121,9 @@ router.post(
 router.post("/create/pedido", pedidoController.postCrearPedido);
 //CREAR DETALLE PEDIDO
 router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
-
+//GUARDAR ALT ENVIO EN PEDIDO
+router.post(
+  "/update/guardar-alt-env/cond-env-pago",
+  pedidoController.postGuardarCondEnvPago
+);
 module.exports = router;
