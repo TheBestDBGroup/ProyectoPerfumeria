@@ -617,7 +617,7 @@ CREATE SEQUENCE ydm_secuencia_pedido
 ;
 
 CREATE TABLE ydm_pedido
-(
+( 
     id_pedido numeric NOT NULL DEFAULT nextval('ydm_secuencia_pedido'::regclass),
     fecha_pedido date NOT NULL,
     monto_pedido numeric,
@@ -625,9 +625,10 @@ CREATE TABLE ydm_pedido
     id_proveedor_pedido numeric NOT NULL,
     id_productor_pedido numeric NOT NULL,
     id_alt_env_cond_env_pago_pedido numeric,
-    id_contrato_cond_env_pago_pedido numeric,
+    id_contrato_alt_env_cond_env_pago_pedido numeric,
+    id_contrato_condicion_pago_cond_env_pago_pedido numeric,
     id_condicion_pago_cond_env_pago_pedido numeric,
-    fecha_confirmacion_pedido date,
+    fecha_confirmacion_pedido date, 
     num_factura_pedido numeric,
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
     CONSTRAINT chk_estatus_pedido CHECK(estatus_pedido in ('Por confirmar', 'Confirmado', 'Cancelado por productor', 'Cancelado por proveedor'))
@@ -825,8 +826,8 @@ ALTER TABLE ydm_presentacion
 ALTER TABLE ydm_pedido
     ADD CONSTRAINT fk_id_proveedor_pedido FOREIGN KEY (id_proveedor_pedido) REFERENCES ydm_proveedor(id_proveedor),
     ADD CONSTRAINT fk_id_productor_pedido FOREIGN KEY (id_productor_pedido) REFERENCES ydm_productor(id_productor),
-    ADD CONSTRAINT fk_id_condicion_pago_cond_env_pago_pedido FOREIGN KEY (id_condicion_pago_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
-    ADD CONSTRAINT fk_id_alt_env_cond_env_pago_pedido FOREIGN KEY (id_alt_env_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago)
+    ADD CONSTRAINT fk_id_condicion_pago_cond_env_pago_pedido FOREIGN KEY (id_condicion_pago_cond_env_pago_pedido, id_contrato_condicion_pago_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago),
+    ADD CONSTRAINT fk_id_alt_env_cond_env_pago_pedido FOREIGN KEY (id_alt_env_cond_env_pago_pedido, id_contrato_alt_env_cond_env_pago_pedido) REFERENCES ydm_cond_env_pago(id_cond_env_pago, id_contrato_cond_env_pago)
 ;
 
 ALTER TABLE ydm_pago
