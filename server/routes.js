@@ -57,23 +57,6 @@ router.post(
   "/read/contrato/condiciones-pago-contrato",
   contratoController.getCondicionPagoContrato
 );
-//OBTENER PEDIDOS CONDIRMADOS DE PRODUCTOR
-router.post(
-  "/read/contrato/pedidos-confirmado-productor",
-  contratoController.getPedidoConfirmadoProductor
-);
-
-//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR 
-router.post(
-  "/read/contrato/pedidos-por-confirmar-productor",
-  contratoController.getPedidoPorConfirmarProveedor
-);
-
-//OBTENER PAGOS DE UN PEDIDO
-router.post(
-  "/read/contrato/pago-pedido",
-  contratoController.getPagoPedido
-);
 
 //OBTENER  VIGENTES DE UN PROVEEDOR
 router.post(
@@ -163,6 +146,7 @@ router.post("/create/pedido", pedidoController.postCrearPedido);
 router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
 //CREAR RECHAZAR PEDIDO
 router.post("/update/rechazar-pedido", pedidoController.postRechazarPedido);
+
 //GUARDAR ALT ENVIO EN PEDIDO
 router.post(
   "/update/guardar-alt-env/cond-env-pago",
@@ -173,6 +157,23 @@ router.post(
   "/update/guardar-condicion-pago/cond-env-pago",
   pedidoController.postGuardarCondPagoCondEnvPago
 );
+
+//OBTENER PEDIDOS CONDIRMADOS DE PRODUCTOR
+router.post(
+  "/read/pedido/pedidos-confirmado-productor",
+  pedidoController.getPedidoConfirmadoProductor
+);
+//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR 
+router.post(
+  "/read/pedido/pedidos-por-confirmar-productor",
+  pedidoController.getPedidoPorConfirmarProveedor
+);
+//OBTENER PAGOS DE UN PEDIDO
+router.post(
+  "/read/pedido/pago-pedido",
+  pedidoController.getPedidoPago
+);
+
 //CREAR PAGO DE CONTADO
 router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
 //CREAR PAGO DE CRÉDITO
