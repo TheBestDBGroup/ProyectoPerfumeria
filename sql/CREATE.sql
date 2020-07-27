@@ -556,7 +556,7 @@ CREATE TABLE ydm_cond_env_pago
     id_contrato_cond_env_pago numeric NOT NULL,
     descripcion_cond_env_pago varchar,
     id_condicion_pago_cond_env_pago numeric,
-    id_proveedor_condicion_pago_cond_env_pago numeric,
+    id_proveedor_condicion_pago_cond_env_pago numeric,  
     id_alt_envio_cond_env_pago numeric,
     id_proveedor_alt_envio_cond_env_pago numeric,
     id_pais_alt_envio_cond_env_pago numeric,
@@ -617,7 +617,7 @@ CREATE SEQUENCE ydm_secuencia_pedido
 ;
 
 CREATE TABLE ydm_pedido
-(  numeric,
+( 
     id_pedido numeric NOT NULL DEFAULT nextval('ydm_secuencia_pedido'::regclass),
     fecha_pedido date NOT NULL,
     monto_pedido numeric,
@@ -628,7 +628,7 @@ CREATE TABLE ydm_pedido
     id_contrato_alt_env_cond_env_pago_pedido numeric,
     id_contrato_condicion_pago_cond_env_pago_pedido numeric,
     id_condicion_pago_cond_env_pago_pedido numeric,
-    fecha_confirmacion_pedido date,
+    fecha_confirmacion_pedido date, 
     num_factura_pedido numeric,
     CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
     CONSTRAINT chk_estatus_pedido CHECK(estatus_pedido in ('Por confirmar', 'Confirmado', 'Cancelado por productor', 'Cancelado por proveedor'))

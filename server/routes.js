@@ -45,6 +45,14 @@ router.post(
   contratoController.getIngredientesGeneralContrato
 );
 
+///OBTENER ALTERNATIVAS DE ENVIOS DE UN CONTRATO
+router.post(
+  "/read/contrato/alternatica-envios",
+  contratoController.getAlternativasEnviosContrato
+);
+
+
+
 //OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
 router.post(
   "/read/contratos-vigentes",
