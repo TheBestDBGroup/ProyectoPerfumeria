@@ -121,6 +121,8 @@ router.post(
 router.post("/create/pedido", pedidoController.postCrearPedido);
 //CREAR DETALLE PEDIDO
 router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
+//CREAR RECHAZAR PEDIDO
+router.post("/update/rechazar-pedido", pedidoController.postRechazarPedido);
 //GUARDAR ALT ENVIO EN PEDIDO
 router.post(
   "/update/guardar-alt-env/cond-env-pago",

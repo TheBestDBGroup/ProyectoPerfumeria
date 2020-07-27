@@ -176,6 +176,25 @@ const postCrearPagoCredito = (request, response) => {
   );
 };
 
+const postRechazarPedido = (request, response) => {
+  console.log(request.body);
+  let valuesRechazarPedido = [
+    request.body.id_pedido,
+    request.body.tipo_cancela,
+  ];
+  const queryRechazarPedido =
+    "UPDATE ydm_pedido SET estatus_pedido = $2\
+  WHERE id_pedido = $1 RETURNING *";
+
+  pool.query(queryRechazarPedido, valuesRechazarPedido, (error, results) => {
+    if (error) {
+      console.log("ERROR GUARDAR COND ENV PAGO: " + error);
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 module.exports = {
   postCrearPedido,
   postCrearDetallePedido,
@@ -183,4 +202,5 @@ module.exports = {
   postGuardarCondPagoCondEnvPago,
   postCrearPagoContado,
   postCrearPagoCredito,
+  postRechazarPedido,
 };
