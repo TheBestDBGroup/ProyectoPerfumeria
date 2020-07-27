@@ -178,12 +178,9 @@ const postCrearPagoCredito = (request, response) => {
 
 const postRechazarPedido = (request, response) => {
   console.log(request.body);
-  let valuesRechazarPedido = [
-    request.body.id_pedido,
-    request.body.tipo_cancela,
-  ];
+  let valuesRechazarPedido = [request.body.id_pedido];
   const queryRechazarPedido =
-    "UPDATE ydm_pedido SET estatus_pedido = $2\
+    "UPDATE ydm_pedido SET estatus_pedido = 'Cancelado por proveedor'\
   WHERE id_pedido = $1 RETURNING *";
 
   pool.query(queryRechazarPedido, valuesRechazarPedido, (error, results) => {
