@@ -1169,6 +1169,4 @@ INSERT INTO ydm_pfm_pfmt VALUES
   (16,6),
   (17,7),
   (18,8);
-
-
-
+  

@@ -4,6 +4,7 @@ const proveedorController = require("./controllers/proveedorController");
 const productorController = require("./controllers/productorController");
 const contratoController = require("./controllers/contratoController");
 const evaluacionController = require("./controllers/evaluacionController");
+const pedidoController = require("./controllers/pedidoController");
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
@@ -156,4 +157,24 @@ router.post(
   proveedorController.getProveedoresConContratosVigentes
 );
 
+//CREAR PEDIDO
+router.post("/create/pedido", pedidoController.postCrearPedido);
+//CREAR DETALLE PEDIDO
+router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
+//CREAR RECHAZAR PEDIDO
+router.post("/update/rechazar-pedido", pedidoController.postRechazarPedido);
+//GUARDAR ALT ENVIO EN PEDIDO
+router.post(
+  "/update/guardar-alt-env/cond-env-pago",
+  pedidoController.postGuardarAltEnvCondEnvPago
+);
+//GUARDAR COND PAGO EN PEDIDO
+router.post(
+  "/update/guardar-condicion-pago/cond-env-pago",
+  pedidoController.postGuardarCondPagoCondEnvPago
+);
+//CREAR PAGO DE CONTADO
+router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
+//CREAR PAGO DE CRÉDITO
+router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
 module.exports = router;
