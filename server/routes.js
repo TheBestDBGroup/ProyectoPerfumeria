@@ -39,26 +39,42 @@ router.post(
   "/read/contrato/ingrediente-esencia",
   contratoController.getIngredientesEsenciaContrato
 );
-///OBTENER LOS INGREDIENTE INGREDIENTE GENERAL DE UN CONTRATO
+//OBTENER LOS INGREDIENTE INGREDIENTE GENERAL DE UN CONTRATO
 router.post(
   "/read/contrato/ingrediente-general",
   contratoController.getIngredientesGeneralContrato
 );
 
-///OBTENER ALTERNATIVAS DE ENVIOS DE UN CONTRATO
+//OBTENER ALTERNATIVAS DE ENVIOS DE UN CONTRATO
 router.post(
   "/read/contrato/alternatica-envios",
   contratoController.getAlternativasEnviosContrato
 );
 
-///OBTENER CONDICIONES DE PAGO DE UN CONTRATO
+//OBTENER CONDICIONES DE PAGO DE UN CONTRATO
 router.post(
   "/read/contrato/condiciones-pago-contrato",
   contratoController.getCondicionPagoContrato
 );
+//OBTENER PEDIDOS CONDIRMADOS DE PRODUCTOR
+router.post(
+  "/read/contrato/pedidos-confirmado-productor",
+  contratoController.getPedidoConfirmadoProductor
+);
 
+//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR 
+router.post(
+  "/read/contrato/pedidos-por-confirmar-productor",
+  contratoController.getPedidoPorConfirmarProveedor
+);
 
-//OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
+//OBTENER PAGOS DE UN PEDIDO
+router.post(
+  "/read/contrato/pago-pedido",
+  contratoController.getPagoPedido
+);
+
+//OBTENER  VIGENTES DE UN PROVEEDOR
 router.post(
   "/read/contratos-vigentes",
   contratoController.getContratosVigentes

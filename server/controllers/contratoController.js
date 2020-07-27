@@ -343,6 +343,25 @@ const getCondicionPagoContrato = (request, response) => {
   AND   id_proveedor_condicion_pago_cond_env_pago = id_proveedor_condicion_pago\
   AND   id_contrato = $1"
 
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getPedidoConfirmadoProductor = (request, response) => {
+  let values = [request.body.id_productor];
+
+  const query =
+  "SELECT pe.id_pedido, pe.fecha_pedido, pe.monto_pedido, pe.estatus_pedido, pe.fecha_confirmacion_pedido, pe.num_factura_pedido, pvd.id_proveedor,pvd.nombre_proveedor\
+  FROM  ydm_proveedor pvd, ydm_pedido pe, ydm_productor pdt\
+  WHERE pvd.id_proveedor = pe.id_proveedor_pedido\
+  AND   pdt.id_productor = pe.id_productor_pedido\
+  AND   pe.estatus_pedido in ('Confirmado')\
+  AND   pdt.id_productor = $1"
+
 
   pool.query(query, values, (error, results) => {
     if (error) {
@@ -352,6 +371,44 @@ const getCondicionPagoContrato = (request, response) => {
   });
 };
 
+const getPedidoPorConfirmarProveedor = (request, response) => {
+  let values = [request.body.id_proveedor];
+
+  const query =
+  "SELECT pe.id_pedido, pe.fecha_pedido, pe.monto_pedido, pdt.id_productor, pdt.nombre_productor\
+  FROM  ydm_proveedor pvd, ydm_pedido pe, ydm_productor pdt\
+  WHERE pvd.id_proveedor = pe.id_proveedor_pedido\
+  AND   pdt.id_productor = pe.id_productor_pedido\
+  AND   pe.estatus_pedido in ('Por confirmar')\
+  AND   pvd.id_proveedor = $1"
+
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getPagoPedido = (request, response) => {
+  let values = [request.body.id_pedido];
+
+  const query =
+  "SELECT pg.id_pago, pg.fecha_pago, pg.monto_pago\
+  FROM ydm_productor pdt, ydm_pedido pdd, ydm_pago pg\
+  WHERE  	id_productor = id_productor_pedido\
+  AND		id_pedido = id_pedido_pago\
+  AND		id_pedido = $1"
+
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
 
 module.exports = {
   getOpcionesPagoProveedor,
@@ -360,7 +417,10 @@ module.exports = {
   getIngredientesEsenciaContrato,
   getIngredientesGeneralContrato,
   getAlternativasEnviosContrato,
+  getPedidoConfirmadoProductor,
+  getPedidoPorConfirmarProveedor,
   getCondicionPagoContrato,
+  getPagoPedido,
   postRenovarContrato,
   postCrearContrato,
   postCancelarContrato,
