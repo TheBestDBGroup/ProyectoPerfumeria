@@ -438,15 +438,15 @@ INSERT INTO ydm_cond_env_pago VALUES
   (DEFAULT, 9, NULL, NULL, NULL, 9, 3, 3);
 
 INSERT INTO ydm_pedido VALUES
-  (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 2, '2018/10/28', 1),
-  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 2, 3, 2, 4, '2019/07/15', 2),
-  (DEFAULT, '2020/07/12', 15000, 'Por confirmar', 3, 3, 5, 3, 6, NULL, NULL),
-  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 7, 4, 8, '2018/10/28', 1),
-  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 5, 9, 5, 10, '2019/07/15', 2),
-  (DEFAULT, '2020/07/12', 15000, 'Cancelado por productor', 3, 6, 11, 6, 12, NULL, NULL),
-  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 13, 7, 14, '2018/10/28', 1),
-  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 3, 15, 8, 16, '2019/07/15', 2),
-  (DEFAULT, '2020/07/12', 15000, 'Cancelado por proveedor', 3, 1, 17, 9, 18, NULL, NULL);
+  (DEFAULT, '2018/10/18', 20000, 'Confirmado', 1, 1, 1, 1, 1, 2, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 2, 3, 2, 2, 4, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Por confirmar', 3, 3, 5, 3, 3, 6, NULL, NULL),
+  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 7, 4, 4, 8, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 5, 9, 5, 5, 10, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Cancelado por productor', 3, 6, 11, 6, 6, 12, NULL, NULL),
+  (DEFAULT, '2018/10/18', 30000, 'Confirmado', 1, 4, 13, 7, 7, 14, '2018/10/28', 1),
+  (DEFAULT, '2019/07/10', 30000, 'Confirmado', 2, 3, 15, 8, 8, 16, '2019/07/15', 2),
+  (DEFAULT, '2020/07/12', 15000, 'Cancelado por proveedor', 3, 1, 17, 9, 9, 18, NULL, NULL);
 
 INSERT INTO ydm_pago VALUES
   (DEFAULT, 1, '2018/10/29', 20000),

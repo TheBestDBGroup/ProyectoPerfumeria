@@ -34,6 +34,17 @@ router.post(
   contratoController.getOpcionesEnvioProveedor
 );
 
+//OBTENER LOS INGREDIENTE ESENCIA  DE UN CONTRATO
+router.post(
+  "/read/contrato/ingrediente-esencia",
+  contratoController.getIngredientesEsenciaContrato
+);
+///OBTENER LOS INGREDIENTE INGREDIENTE GENERAL DE UN CONTRATO
+router.post(
+  "/read/contrato/ingrediente-general",
+  contratoController.getIngredientesEsenciaContrato
+);
+
 //OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
 router.post(
   "/read/contratos-vigentes",
