@@ -42,7 +42,7 @@ router.post(
 ///OBTENER LOS INGREDIENTE INGREDIENTE GENERAL DE UN CONTRATO
 router.post(
   "/read/contrato/ingrediente-general",
-  contratoController.getIngredientesEsenciaContrato
+  contratoController.getIngredientesGeneralContrato
 );
 
 //OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
