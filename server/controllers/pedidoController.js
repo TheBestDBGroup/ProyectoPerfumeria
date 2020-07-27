@@ -42,22 +42,48 @@ const postCrearDetallePedido = (request, response) => {
   );
 };
 
-const postGuardarCondEnvPago = (request, response) => {
+const postGuardarAltEnvCondEnvPago = (request, response) => {
   console.log(request.body);
-  const valuesGuardarCondEnvPago = [
+  const valuesGuardarAltEnvCondEnvPago = [
     request.body.id_pedido,
     request.body.id_cond_env_pago,
   ];
-  const queryGuardarCondEnvPago =
+  const queryGuardarAltEnvCondEnvPago =
     "UPDATE ydm_pedido pd\
-    SET (id_alt_env_cond_env_pago_pedido, id_contrato_cond_env_pago_pedido) =\
+    SET (id_alt_env_cond_env_pago_pedido, id_contrato_alt_env_cond_env_pago_pedido) =\
     (SELECT id_alt_envio_cond_env_pago , id_contrato_cond_env_pago\
       FROM ydm_cond_env_pago WHERE id_cond_env_pago = $2)\
       WHERE pd.id_pedido = $1 RETURNING *";
 
   pool.query(
-    queryGuardarCondEnvPago,
-    valuesGuardarCondEnvPago,
+    queryGuardarAltEnvCondEnvPago,
+    valuesGuardarAltEnvCondEnvPago,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR GUARDAR COND ENV PAGO: " + error);
+        throw error;
+      }
+      response.status(201).send(results.rows);
+    }
+  );
+};
+
+const postGuardarCondPagoCondEnvPago = (request, response) => {
+  console.log(request.body);
+  const valuesGuardarCondPagoCondEnvPago = [
+    request.body.id_pedido,
+    request.body.id_cond_env_pago,
+  ];
+  const queryGuardarCondPagoCondEnvPago =
+    "UPDATE ydm_pedido pd\
+    SET (id_condicion_pago_cond_env_pago_pedido, id_contrato_condicion_pago_cond_env_pago_pedido) =\
+    (SELECT id_condicion_pago_cond_env_pago , id_contrato_cond_env_pago\
+      FROM ydm_cond_env_pago WHERE id_cond_env_pago = $2)\
+      WHERE pd.id_pedido = $1 RETURNING *";
+
+  pool.query(
+    queryGuardarCondPagoCondEnvPago,
+    valuesGuardarCondPagoCondEnvPago,
     (error, results) => {
       if (error) {
         console.log("ERROR GUARDAR COND ENV PAGO: " + error);
@@ -71,5 +97,6 @@ const postGuardarCondEnvPago = (request, response) => {
 module.exports = {
   postCrearPedido,
   postCrearDetallePedido,
-  postGuardarCondEnvPago,
+  postGuardarAltEnvCondEnvPago,
+  postGuardarCondPagoCondEnvPago,
 };
