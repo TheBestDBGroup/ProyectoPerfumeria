@@ -102,6 +102,6 @@ const getOpPalabraClave = (request, response) => {
 };
 
 module.exports = {
-  getPerfumesFamiliaOlfativa,
-  getTipoPalabraAroma,
+  getPerfumesRecomendador,
+  getOpPalabraClave,
 };
