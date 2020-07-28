@@ -12,6 +12,7 @@ import {Radio,
 		FormHelperText
 		} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import './recomendador-styles.css'
 
 
 //Genero: Hombre/Mujer/Unisex
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   	display:'inline-block'
   },
   formGroup:{
-  	'flex-direction':'rows'
+  	flexDirection:'row'
   }
 }));
 
@@ -92,8 +93,11 @@ const Recomendador =() => {
 		  <CardPerfume/>
 		  <CardPerfume/>
 		</Carousel>
-		 
-		<FormControl component="fieldset">
+
+		<div className="merge">
+		<div className="position-wrapper">
+		<div className="radio-button-group-wrapper">
+		<FormControl component="fieldset" className="prueba">
 	      <FormLabel component="legend">Género</FormLabel>
 	      <RadioGroup aria-label="genero" name="genero" value={genero} onChange={handleChangeGenero}>
 	        <FormControlLabel value="Hombre" control={<Radio />} label="Hombre" />
@@ -119,10 +123,14 @@ const Recomendador =() => {
 	        <FormControlLabel value="Intenso" control={<Radio />} label="Intenso/Profundo"/>
 	      </RadioGroup>
 	    </FormControl>
+	    </div>
+	    </div>
+
+
 
 	    <FormControl component="fieldset" className={classes.formControl}>
 	        <FormLabel component="legend"> Familias Olfativas</FormLabel>
-	        <FormGroup className={classes.FormGroup}>
+	        <FormGroup style={{flexDirection:'row', maxWidth:'50%'}}>
 
 	          <FormControlLabel
 	            control={<Checkbox checked={familiasOlfativas.Verde} onChange={handleChangeFO} name="Verde" />}
@@ -167,6 +175,10 @@ const Recomendador =() => {
 	          />
 	        </FormGroup>
 	     </FormControl>
+	     </div>
+
+
+	     
 
 
 		</>
