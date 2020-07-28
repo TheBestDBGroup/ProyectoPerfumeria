@@ -261,7 +261,8 @@ const getPedidoPorConfirmarProveedor = (request, response) => {
   AND   pdt.id_productor = pe.id_productor_pedido\
   AND   pe.estatus_pedido in ('Por confirmar')\
   AND   pvd.id_proveedor = $1\
-  AND   cp.id_condicion_pago = pe.id_condicion_pago_cond_env_pago_pedido";
+  AND   cp.id_condicion_pago = (SELECT id_condicion_pago_cond_env_pago FROM ydm_cond_env_pago\
+								WHERE id_cond_env_pago = pe.id_condicion_pago_cond_env_pago_pedido)";
 
   pool.query(query, values, (error, results) => {
     if (error) {
