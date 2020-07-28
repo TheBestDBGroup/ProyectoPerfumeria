@@ -91,7 +91,7 @@ const getCat = (obj) => {
 }
 
 
-const optQueries = ['Aroma','Carácter','Personalidad','Preferencia Uso']
+const optQueries = ['Aroma','Carácter','Personalidad','Preferencia uso']
 
 
 
@@ -195,6 +195,63 @@ const Recomendador =() => {
 
 	}
 
+	const parsearPalabraClaveAroma = (palClave) =>{
+
+
+		let aromas = palClave.filter(pal =>{
+			if(pal.obj=='aroma'){
+				return pal.sel
+			}
+		})
+
+		aromas = aromas.map(caracter => caracter.sel)
+
+		aromas = aromas.join(',')
+
+		aromas ='{'+aromas+'}'
+
+		return aromas
+
+	}
+
+	const parsearPalabraClavePersonalidad = (palClave) =>{
+
+
+		let personalidad = palClave.filter(pal =>{
+			if(pal.obj=='personalidad'){
+				return pal.sel
+			}
+		})
+
+		personalidad = personalidad.map(caracter => caracter.sel)
+
+		personalidad = personalidad.join(',')
+
+		personalidad ='{'+personalidad+'}'
+
+		return personalidad
+
+	}
+
+	const parsearPalabraClavePrefUso = (palClave) =>{
+
+
+		let prefuso = palClave.filter(pal =>{
+			if(pal.obj=='prefuso'){
+				return pal.sel
+			}
+		})
+
+		prefuso = prefuso.map(caracter => caracter.sel)
+
+		prefuso = prefuso.join(',')
+
+		prefuso ='{'+prefuso+'}'
+
+		return prefuso
+
+	}
+
 	const handleChangePalabraClave = (indice,e) => {
 		console.log('e target value',e.target.value)
 		let palabrasClaveCopy = [...palabrasClave]
@@ -278,11 +335,32 @@ const Recomendador =() => {
 
 		let caracter = parsearPalabraClaveCaracter(palabrasClave)
 
-		if(caracter.length >0){
+		if(caracter.length >2){
 			query.caracter = caracter
 		}
 
-	
+		let aroma = parsearPalabraClaveAroma(palabrasClave)
+
+		if(aroma.length >2) {
+			query.aroma = aroma
+		}
+
+		let personalidad = parsearPalabraClavePersonalidad(palabrasClave)
+
+		if(personalidad.length>2){
+			query.personalidad = personalidad
+		}
+
+		let preferencia = parsearPalabraClavePrefUso(palabrasClave)
+
+		if(preferencia.length>2){
+			query.preferencia= preferencia
+		}
+
+		
+
+		console.log('query',query)
+
 		axios.post('/read/perfumes-recomendador', query)
 		  .then((res) =>{
 		    console.log('response recomendador', res.data);
