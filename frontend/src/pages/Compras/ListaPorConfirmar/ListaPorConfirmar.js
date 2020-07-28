@@ -49,9 +49,58 @@ const ListaPedidos = () => {
 
 	}
 
-	const handleAceptPedido = (id_pedido) => {
+	const handleAceptPedido = (pedido) => {
+
+
+
+		if(pedido.tipo_condicion_pago ==="Contado"){
+			 console.log('Contadoooo')
+
+			 axios.post('/create/pago-contado', {
+			    id_pedido: pedido.id_pedido,
+			  })
+			  .then((res) =>{
+			    console.log('pago contado', res.data);
+	           	history.push('/')
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+		} else {
+			
+			console.log('Creditoooooo')
+			let max = parseInt(pedido.cuotas_condicion_pago)
+			let counter = 1
+
+			let promesas = []
+
+			while(max>0) {
+
+				  promesas.push (
+			          axios.post('/create/pago-credito', {
+					    id_proveedor: proveedorId,
+					    num_cuota:counter,
+					    porcentaje_cuotas:parseInt(pedido.prctj_cuotas_condicion_pago),
+					    meses_cantidad:parseInt(pedido.mesescantidad_condicion_pago)
+					  })
+					)
+
+				max--
+				counter++
+			}
+
+			Promise.all(promesas)
+			 .then(function (res) {
+			    console.log('response promise all', res)
+			    alert('Ha aceptado su pedido')
+			    history.push('/')
+			});	
+
+		}
 		
 	}
+
+
 
 	useEffect(() => {
 		
@@ -115,7 +164,7 @@ const ListaPedidos = () => {
 			        			Rechazar
 			        		</Button>
 			        		<Button 
-				        		onClick={() => handleAceptPedido(pedido.id_pedido)} 
+				        		onClick={() => handleAceptPedido(pedido)} 
 				        		color="primary" 
 				        		className="eval-ren-buttons"
 			        		>

@@ -68,11 +68,11 @@ const MostrarDetallesContrato = (props) => {
 		    setIngreEsen(res[3].data)
 		    setIngreGen(res[4].data)
 		 });	
-			     
+			     //
 	}, []);
 
 	const handleSubmit = () => {
-		history.push(`/realizar-pedido/encabezado/${id_proveedor}/${id_contrato}`);
+		history.push(`/realizar-pedido/encabezado/${id_contrato}/${id_proveedor}`);
 	}
 
 

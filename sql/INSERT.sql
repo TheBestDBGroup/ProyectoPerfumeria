@@ -394,11 +394,11 @@ INSERT INTO ydm_renueva VALUES
 INSERT INTO ydm_condicion_pago VALUES
   (DEFAULT, 1, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 2, 'Crédito', 2, 50, 6),
-  (DEFAULT, 3, 'Crédito', 3, 33, 4),
+  (DEFAULT, 3, 'Crédito', 4, 20, 3),
   (DEFAULT, 1, 'Crédito', 2, 50, 6),
-  (DEFAULT, 2, 'Crédito', 3, 33, 4),
+  (DEFAULT, 2, 'Crédito', 10, 10, 1),
   (DEFAULT, 3, 'Crédito', 2, 50, 6),
-  (DEFAULT, 1, 'Crédito', 3, 33, 4),
+  (DEFAULT, 1, 'Crédito', 4, 20, 3),
   (DEFAULT, 2, 'Contado', NULL, NULL, NULL),
   (DEFAULT, 3, 'Contado', NULL, NULL, NULL);
 
@@ -600,7 +600,6 @@ INSERT INTO ydm_ingrediente_general VALUES
   (11,7),
   (12,1);
 
-
 INSERT INTO ydm_clausula_prod  VALUES  
   (DEFAULT, 1, 1, NULL),
   (DEFAULT, 1, 3, NULL),
@@ -658,6 +657,7 @@ INSERT INTO ydm_clausula_prod  VALUES
 
 
 
+  
 INSERT INTO ydm_presentacion VALUES  
   (DEFAULT, 100, 100, 1, NULL, 1, NULL),
   (DEFAULT, 500, 500, 1, NULL, 1, NULL),

@@ -5,3 +5,22 @@
 .recomendador-carousel-wrapper {
 	max-width: 500px
 }
+
+.prueba {
+	margin:5px;
+}
+
+.radio-button-group-wrapper {
+	min-width: 450px;
+	/*max-width:60%;*/
+}
+
+.position-wrapper {
+	margin-left:20px; 
+	max-width: max-content;
+	margin-top: 20px;
+}
+
+.merge {
+	display:flex;
+}

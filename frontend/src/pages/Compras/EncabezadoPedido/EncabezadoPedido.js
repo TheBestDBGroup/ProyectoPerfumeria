@@ -52,6 +52,8 @@ const EncabezadoPedido = (props) => {
 
 	useEffect(() => {
 
+		{console.log('proveedor Id', proveedorId)}
+
         axios.post('/read/productor', {id_productor: productorId})
 		  .then((res) =>{
 		    console.log('response read productor', res.data);
