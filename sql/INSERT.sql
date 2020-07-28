@@ -233,7 +233,10 @@ INSERT INTO ydm_productor VALUES
   (DEFAULT, 'Comimpar', 'www.comimpar.com.ar', 'ventas@comimpar.com.ar', 17),
   (DEFAULT, 'Issey Miyake', 'www.isseymiyakeparfums.com', 'isseymiyakeparfums@isseymiyake.com', 5),
   (DEFAULT, 'CLP Aromas', 'www.cplaromas.com', 'global.sales@cplaromas.com', 16),
-  (DEFAULT, 'DROM Fragance', 'www.drom.com', 'dromfragance@dromfragance.com', 22);
+  (DEFAULT, 'DROM Fragance', 'www.drom.com', 'dromfragance@dromfragance.com', 22),
+  (DEFAULT, 'ravetllat', 'www.ravetllat.com', 'info@ravetllat.com', 12),
+  (DEFAULT, 'gflabs', 'www.gflabs.com', 'info@gflabs.com', 14),
+  (DEFAULT, 'cropiberica', 'www.cropiberica.com', 'info@cropiberica.com', 12);
 
 INSERT INTO ydm_perfume VALUES 
   (DEFAULT, 'Ardent Rose', 'Por fases', 'Mujer', 'Adulto', 1),
@@ -270,7 +273,13 @@ INSERT INTO ydm_pi_pdt_env VALUES
 INSERT INTO ydm_proveedor VALUES
   (DEFAULT, 'Givaudan', 'www.givaudan.com', 'givaudan@givaudan.com', 8, 170),
   (DEFAULT, 'Imperial Fragrances &amp; Flavors Pvt Ltd', 'www.imperialfragrances.com', 'imperial@imperialfragrances.com', 8, 81),
-  (DEFAULT, 'Kurt Kitzing', 'www.cosmetic-business.com', 'kurtkitzing@gkurtkitzing.com', 9, 3);
+  (DEFAULT, 'Kurt Kitzing', 'www.cosmetic-business.com', 'kurtkitzing@gkurtkitzing.com', 9, 3),
+  (DEFAULT, 'global essence', 'www.globalessence.com', 'info@globalessence.com',1,6),
+  (DEFAULT, 'Pearlchem', 'www.pearlchemcorp.com', 'info@globalessence.com',2,90),
+  (DEFAULT, 'Intarome', 'www.intarome.com', 'info@intarome.com',1,60),
+  (DEFAULT, 'trufragrance.', 'www.trufragrance.com', 'info@globalessence.com',3,70),
+  (DEFAULT, 'mindustry', 'www.mindustry.com', 'info@gmindustry.com',4,79),
+  (DEFAULT, 'seluz', 'www.seluz.com', 'info@gseluz.com',5,99);
 
 INSERT INTO ydm_datos_pago  VALUES
   (DEFAULT, 'Bank of America', '0189-84987523-4843-7875', 'Transferencia', 1),
