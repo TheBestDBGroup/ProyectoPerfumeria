@@ -66,7 +66,7 @@ const postGuardarAltEnvCondEnvPago = (request, response) => {
   const queryGuardarAltEnvCondEnvPago =
     "UPDATE ydm_pedido pd\
     SET (id_alt_env_cond_env_pago_pedido, id_contrato_alt_env_cond_env_pago_pedido) =\
-    (SELECT id_alt_envio_cond_env_pago , id_contrato_cond_env_pago\
+    (SELECT id_cond_env_pago , id_contrato_cond_env_pago\
       FROM ydm_cond_env_pago WHERE id_cond_env_pago = $2)\
       WHERE pd.id_pedido = $1 RETURNING *";
 
@@ -92,7 +92,7 @@ const postGuardarCondPagoCondEnvPago = (request, response) => {
   const queryGuardarCondPagoCondEnvPago =
     "UPDATE ydm_pedido pd\
     SET (id_condicion_pago_cond_env_pago_pedido, id_contrato_condicion_pago_cond_env_pago_pedido) =\
-    (SELECT id_condicion_pago_cond_env_pago , id_contrato_cond_env_pago\
+    (SELECT id_cond_env_pago , id_contrato_cond_env_pago\
       FROM ydm_cond_env_pago WHERE id_cond_env_pago = $2)\
       WHERE pd.id_pedido = $1 RETURNING *";
 
