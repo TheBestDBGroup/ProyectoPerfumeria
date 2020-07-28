@@ -47,9 +47,9 @@ const AgregarPago = (props) => {
 
 	const handleSubmit = () => {
 		
-		axios.post('/update/guardar-alt-env/cond-env-pago', {
+		axios.post('/update/guardar-condicion-pago/cond-env-pago', {
 			    id_pedido: id_pedido,
-			    id_cond_env_pago:pago.id_cond_env_pagos
+			    id_cond_env_pago:pago.id_cond_env_pago
 			  })
 			  .then((res) =>{
 			    console.log('response guardar alt pago', res.data);

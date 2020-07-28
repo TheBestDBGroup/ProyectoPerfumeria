@@ -46,14 +46,12 @@ const AgregarEnvio = (props) => {
 	} 
 
 	const handleSubmit = () => {
-		//if no aplica no mandarlo a DB
-
 		if(envio.id_alt_envio ==='No aplica'){
 			history.push(`/realizar-pedido/agregar-forma-pago/${id_pedido}/${id_contrato}/${id_proveedor}`)
 		} else {		
 			axios.post('/update/guardar-alt-env/cond-env-pago', {
 			    id_pedido: id_pedido,
-			    id_cond_env_pago:envio.id_cond_env_pagos
+			    id_cond_env_pago:envio.id_cond_env_pago
 			  })
 			  .then((res) =>{
 			    console.log('response guardar alt env', res.data);
