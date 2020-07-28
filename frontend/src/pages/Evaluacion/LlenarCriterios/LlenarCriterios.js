@@ -134,7 +134,7 @@ const LlenarCriterios = (props) => {
 						</div>
 
 						<div className="llenar-criterios-escala-inner-wrapper">
-							<h6> Nota requerida para aprobar: </h6>
+							<h6> Criterio de Éxito: </h6>
 							<p> {criterioExito.peso_prctj_eval_crit} </p>
 						</div>
 					</div>
