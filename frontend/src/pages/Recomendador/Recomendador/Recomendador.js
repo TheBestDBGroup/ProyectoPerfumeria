@@ -18,12 +18,85 @@ import {Radio,
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './recomendador-styles.css'
+import PalabraClave from '../PalabraClave/PalabraClave'
 
-
+///BORRAR
 //Genero: Hombre/Mujer/Unisex
 //Edad: Adulto/Atemporal/Juvenil
 //Intensidad: Ligero/Intermedio/Intenso
+	
+	//,'Carácter','Personalidad','Preferencia Uso']
 
+const dummyOpPC = {aroma:[
+{
+	nombre_palabra_clave: 'Prueba op Aroma 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Aroma 4'
+}
+],caracter:[{
+	nombre_palabra_clave: 'Prueba op Caracter 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Caracter 4'
+}
+],personalidad:[
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Personalidad 4'
+}
+],
+prefuso:[
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Pref Uso 4'
+}
+],
+}
+
+
+
+////////////NO BORRAR////////////////////////////////////////////////////////////
 
 // Mandar familias Olfativas
 
@@ -39,6 +112,13 @@ const initFamiliasOlfativas = {
 	Orientales:false,
 	Otros:false,
 }
+
+const initOpcionesCategoriaPC =[
+{cat:'Aroma', obj:'aroma'}, 
+{cat:'Carácter',obj:'caracter'},
+{cat:'Personalidad', obj:'personalidad'},
+{cat:'Preferencia Uso', obj:'prefuso'},
+]
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,22 +137,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 const Recomendador =() => {
 
 	const [genero, setGenero] = useState('Hombre')
 	const [edad, setEdad] = useState('Adulto')
 	const [intensidad,setIntensidad] = useState('Ligero')
 	const [palabrasClave,setPalabrasClave] = useState([])
-	const opcionesCategoria = ['Aroma','Carácter','Personalidad','Preferencia Uso']
-
-	const [familiasOlfativas, setFamiliasOlfativas]= useState(initFamiliasOlfativas)
+	const [familiasOlfativas, setFamiliasOlfativas] = useState(initFamiliasOlfativas)
+	const opcionesCategoriaPC = initOpcionesCategoriaPC
+	const [opcionesPC,setOpcionesPC] = useState(dummyOpPC)
 	const classes = useStyles();
 
-	const [age, setAge] = React.useState('');
-
-	  const handleChange = (event) => {
-	    setAge(event.target.value);
-	  };
 
 	const handleChangeGenero = (event) => {
 	    setGenero(event.target.value);
@@ -88,11 +165,40 @@ const Recomendador =() => {
     	setFamiliasOlfativas({ ...familiasOlfativas, [event.target.name]: event.target.checked });
   	};
 
+
+	const agregarPalabraClave = () => {
+		let palabrasClaveCopy= [...palabrasClave]
+		palabrasClaveCopy.push({cat:'',obj:'',sel:''}) //cat: nombre cat como en la base, //obj como lo tengo en el obj opcion //sel:palabra que elegi
+		setPalabrasClave( palabrasClaveCopy)				
+	}
+
+	const borrarPalabraClave = (indice) => {
+		let palabrasClaveCopy= [...palabrasClave]
+		palabrasClaveCopy.splice(indice,1)
+		setPalabrasClave(palabrasClaveCopy) 
+	}
+
+
+	const handleChangePC = (indice,e) => {
+		let palabrasClaveCopy = [...palabrasClave]
+		//let cantidad = detalleCopy[indice].cantidad
+		palabrasClaveCopy[indice] = opcionesCategoriaPC[e.target.value]
+		//detalleCopy[indice].cantidad = cantidad
+		setPalabrasClave(palabrasClaveCopy) 
+	}
+
+	/*const handleCantidadDetalle =(indice, e) => {
+		let detalleCopy =[...detalles]
+		detalleCopy[indice].cantidad = e.target.value
+		setDetalles(detalleCopy)
+	}*/
+
 	
 	return (
 		<>
 		{console.log('Genero', genero)}
 		{console.log('familiasOlfativas', familiasOlfativas)}
+		{console.log('Palabras Clave',palabrasClave)}
 
 
 		<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
@@ -189,6 +295,26 @@ const Recomendador =() => {
 	        </FormGroup>
 	     </FormControl>
 	     </div>
+
+	     	<div>
+			<Button variant="outlined" size="small" onClick={agregarPalabraClave}>
+			  + Agregar 
+			</Button>
+			</div>
+
+
+			{palabrasClave.map((palabraClave,indice) => (
+				<PalabraClave 
+					opCategoriaPC={opcionesCategoriaPC}
+					handleChangeOpCatPc={handleChangePC}
+					opcionesPC={opcionesPC}
+					indice={indice}
+					palabraClave={palabraClave}
+					handleDelete={borrarPalabraClave}
+
+				/>
+				))
+			}
 
 		</>
 	)

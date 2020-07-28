@@ -1,31 +1,70 @@
 import React from 'react';
+import {
+		FormControl,
+		FormLabel,
+		Checkbox,
+		FormGroup,
+		FormHelperText,
+		Select,
+		MenuItem,
+		InputLabel,
+		IconButton,
+		Button,
+		} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const PalabraClave = (props) => {
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+   // display: 'flex',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+  },
+  formControlLabel:{
+  	display:'inline-block'
+  },
+  formGroup:{
+  	flexDirection:'row'
+  }
+}));
+
+const PalabraClave = ({opCategoriaPC, handleChangeOpCatPc,palabraClave,opcionesPC, indice, handleDelete}) => {
+	
+	const classes = useStyles();
+
+	const renderValueOpCategoriaPC = () => {
+    	return `${palabraClave.cat}`;
+	}
+
+
+
 	return (
+		<>
 		  <div>
-		    <div>
-			<Button variant="outlined" size="small">
-			  + Agregar 
-			</Button>
-			</div>
+		    
 		  	<FormControl className={classes.formControl}>
 
 		        <InputLabel id="demo-simple-select-label">Palabra Clave</InputLabel>
 		        <Select
 		          labelId="demo-simple-select-label"
 		          id="demo-simple-select"
-		          value={age}
+		          value={palabraClave}
 		          className="rec-select"
-		          onChange={handleChange}
+		          renderValue={()=>renderValueOpCategoriaPC()}
+		          onChange={e => handleChangeOpCatPc(indice,e)}
 		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
+
+		        {opCategoriaPC.map((opCat,indice) =>(
+		          <MenuItem value={indice}> {opCat.cat}</MenuItem>
+		        ))}
+		        
 		        </Select>
 		      </FormControl>
 
-		      <FormControl className={classes.formControl}>
+		      {/*<FormControl className={classes.formControl}>
 		        <InputLabel id="demo-simple-select-label"></InputLabel>
 		        <Select
 		          labelId="demo-simple-select-label"
@@ -38,14 +77,14 @@ const PalabraClave = (props) => {
 		          <MenuItem value={20}>Twenty</MenuItem>
 		          <MenuItem value={30}>Thirty</MenuItem>
 		        </Select>
-		      </FormControl>
+		      </FormControl>*/}
 
-		      <IconButton aria-label="delete" className="pc-delete-icon" >
+		      <IconButton aria-label="delete" className="pc-delete-icon" onClick={e => handleDelete(indice)}>
 	        	<DeleteIcon />
 	      	  </IconButton>
 
 	     </div>
-	 </div>
+	 </>
 	);
 }
 
