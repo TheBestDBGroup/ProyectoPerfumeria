@@ -43,6 +43,26 @@ const postCrearDetallePedido = (request, response) => {
   );
 };
 
+const guardarMontoPedido = (request, response) => {
+  console.log(request.body);
+  const values = [
+    request.body.monto_pedido,
+    request.body.id_pedido,
+  ];
+  const query =
+    "UPDATE ydm_pedido SET monto_pedido = $1 WHERE id_pedido = $2 ";
+
+  pool.query(query,values,
+    (error, results) => {
+      if (error) {
+        console.log("ERROR GUARDAR MONTO PEDIDO: " + error);
+        throw error;
+      }
+      response.status(200).send(results.rows);
+    }
+  );
+};
+
 const postGuardarAltEnvCondEnvPago = (request, response) => {
   console.log(request.body);
   const valuesGuardarAltEnvCondEnvPago = [
@@ -281,5 +301,6 @@ module.exports = {
   getPedidoConfirmadoProductor,
   getPedidoPorConfirmarProveedor,
   getPedidoPago,
-  getPedidosProductor
+  getPedidosProductor,
+  guardarMontoPedido
 };

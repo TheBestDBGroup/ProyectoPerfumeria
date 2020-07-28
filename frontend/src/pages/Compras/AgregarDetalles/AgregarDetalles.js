@@ -113,6 +113,14 @@ const AgregarDetalles = (props) => {
 		
 		);
 
+		promesas.push(		
+			axios.post('/update/monto-de-pedido', {
+		    	monto_pedido:monto_total, 
+		    	id_pedido: id_pedido
+	  		})
+		)
+
+
 	
 		Promise.all(promesas)
 		 .then(function (res) {

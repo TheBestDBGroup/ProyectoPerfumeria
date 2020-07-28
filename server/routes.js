@@ -147,7 +147,7 @@ router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
 //CREAR RECHAZAR PEDIDO
 router.post("/update/rechazar-pedido", pedidoController.postRechazarPedido);
 
-//GUARDAR ALT ENVIO EN PEDIDO
+//GUARDAR ALT ENVIO EN PEDIDO//
 router.post(
   "/update/guardar-alt-env/cond-env-pago",
   pedidoController.postGuardarAltEnvCondEnvPago
@@ -184,4 +184,7 @@ router.post(
 router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
 //CREAR PAGO DE CRÉDITO
 router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
+
+//UPDATE MONTO PEDIDO
+router.post("/update/monto-de-pedido", pedidoController.postCrearPagoContado);
 module.exports = router;
