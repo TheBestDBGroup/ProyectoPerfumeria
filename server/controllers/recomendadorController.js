@@ -86,11 +86,12 @@ const getPerfumesRecomendador = (request, response) => {
   );
 };
 
-const getTipoPalabraAroma = (request, response) => {
-  let values = [request.body.Aroma];
+const getOpPalabraClave = (request, response) => {
+  let values = [request.body.tipo];
+  console.log("req body aroma", request.body.tipo);
   const query =
     "SELECT DISTINCT pc.nombre_palabra_clave FROM ydm_palabra_clave pc, ydm_fo_pc fopc\
-    WHERE fopc.tipo_palabra_clave_fo_pc = '$1'\
+    WHERE fopc.tipo_palabra_clave_fo_pc = $1 \
     AND fopc.id_palabra_clave_fo_pc = pc.id_palabra_clave";
   pool.query(query, values, (error, results) => {
     if (error) {
