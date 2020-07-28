@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import Carousel from 'nice-react-carousel';
-import Sidebar from '../Sidebar/Sidebar'
 import CardPerfume from '../CardPerfume/CardPerfume'
 import {Radio,
 		RadioGroup,
@@ -19,12 +18,110 @@ import {Radio,
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './recomendador-styles.css'
+import PalabraClave from '../PalabraClave/PalabraClave'
+import axios from 'axios'
 
-
+///BORRAR
 //Genero: Hombre/Mujer/Unisex
 //Edad: Adulto/Atemporal/Juvenil
 //Intensidad: Ligero/Intermedio/Intenso
+	
+	//,'Carácter','Personalidad','Preferencia Uso']
 
+const dummyOpPC = {aroma:[
+{
+	nombre_palabra_clave: 'Prueba op Aroma 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Aroma 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Aroma 4'
+}
+],caracter:[{
+	nombre_palabra_clave: 'Prueba op Caracter 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Caracter 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Caracter 4'
+}
+],personalidad:[
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Personalidad 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Personalidad 4'
+}
+],
+prefuso:[
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 0'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 1'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 2'
+},
+{
+	nombre_palabra_clave: 'Prueba op Pref Uso 3'
+},
+{
+	nombre_palabra_clave:'Prueba op Pref Uso 4'
+}
+],
+}
+
+const DummyPerfumes = [
+    {
+		id_perfume:1,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	}, 
+	{
+		id_perfume:2,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	},
+	{
+		id_perfume:3,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	}, 
+
+]
+
+
+////////////NO BORRAR////////////////////////////////////////////////////////////
 
 // Mandar familias Olfativas
 
@@ -40,6 +137,13 @@ const initFamiliasOlfativas = {
 	Orientales:false,
 	Otros:false,
 }
+
+const initOpcionesCategoriaPC =[
+{cat:'Aroma', obj:'aroma'}, 
+{cat:'Carácter',obj:'caracter'},
+{cat:'Personalidad', obj:'personalidad'},
+{cat:'Preferencia Uso', obj:'prefuso'},
+]
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +161,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const catObj = {
+	aroma:'Aroma',
+	caracter:'Carácter',
+	personalidad:'Personalidad',
+	prefuso:'Preferencia Uso'
+}
+
+const getCat = (obj) => {
+	return catObj[obj]
+}
+
+
+const optQueries = ['Aroma','Carácter','Personalidad','Preferencia Uso']
+
+
 
 const Recomendador =() => {
 
@@ -64,14 +183,12 @@ const Recomendador =() => {
 	const [edad, setEdad] = useState('Adulto')
 	const [intensidad,setIntensidad] = useState('Ligero')
 	const [palabrasClave,setPalabrasClave] = useState([])
-	const [familiasOlfativas, setFamiliasOlfativas]= useState(initFamiliasOlfativas)
+	const [familiasOlfativas, setFamiliasOlfativas] = useState(initFamiliasOlfativas)
+	const opcionesCategoriaPC = initOpcionesCategoriaPC
+	const [opcionesPC,setOpcionesPC] = useState(undefined)
+	const [perfumes,setPerfumes] = useState(DummyPerfumes)
 	const classes = useStyles();
 
-	const [age, setAge] = React.useState('');
-
-	  const handleChange = (event) => {
-	    setAge(event.target.value);
-	  };
 
 	const handleChangeGenero = (event) => {
 	    setGenero(event.target.value);
@@ -87,24 +204,83 @@ const Recomendador =() => {
     	setFamiliasOlfativas({ ...familiasOlfativas, [event.target.name]: event.target.checked });
   	};
 
+
+	const agregarPalabraClave = () => {
+		let palabrasClaveCopy= [...palabrasClave]
+		palabrasClaveCopy.push({cat:'',obj:'',sel:''}) //cat: nombre cat como en la base, //obj como lo tengo en el obj opcion //sel:palabra que elegi
+		setPalabrasClave( palabrasClaveCopy)				
+	}
+
+	const borrarPalabraClave = (indice) => {
+		let palabrasClaveCopy= [...palabrasClave]
+		palabrasClaveCopy.splice(indice,1)
+		setPalabrasClave(palabrasClaveCopy) 
+	}
+
+
+	const handleChangePC = (indice,e) => {
+		let palabrasClaveCopy = [...palabrasClave]
+		palabrasClaveCopy[indice] = opcionesCategoriaPC[e.target.value]
+		palabrasClaveCopy[indice].sel =''
+		setPalabrasClave(palabrasClaveCopy) 
+	}
+
+	/*const handleCantidadDetalle =(indice, e) => {
+		let detalleCopy =[...detalles]
+		detalleCopy[indice].cantidad = e.target.value
+		setDetalles(detalleCopy)
+	}*/
+
+	const handleChangePalabraClave = (indice,e) => {
+		console.log('e target value',e.target.value)
+		let palabrasClaveCopy = [...palabrasClave]
+		let seleccion = opcionesPC[e.target.value.opCategoria][e.target.value.indiceOpPC].nombre_palabra_clave
+		let obj = e.target.value.opCategoria
+		let cat = getCat(e.target.value.opCategoria)
+		palabrasClaveCopy[indice] = {cat:cat,obj:obj,sel:seleccion}	
+		setPalabrasClave(palabrasClaveCopy)
+	}
+
+
+	useEffect(() => {
+
+		let promesas = []
+
+		optQueries.forEach(opt =>
+
+			promesas.push(
+			  axios.post('/read/recomendador/op-tipo-palabra-clave', {
+			    tipo: opt
+			  })
+			)
+		)     	
+
+		Promise.all(promesas)
+		 .then(function (res) {
+		    console.log('response promise all', res)
+		    setOpcionesPC({aroma: res[0].data,caracter:res[1].data,personalidad:res[2].data,prefuso:res[3].data})
+		  
+		 });	
+	     
+	}, []);
+
+
+	if(opcionesPC){
 	
 	return (
 		<>
 		{console.log('Genero', genero)}
 		{console.log('familiasOlfativas', familiasOlfativas)}
+		{console.log('Palabras Clave',palabrasClave)}
 
 
-		<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		</Carousel>
+		{ perfumes === undefined? (null): 
+		(<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
+			{perfumes.map(perfume =>(
+		  		<CardPerfume perfume={perfume}/>
+		  	))}
+		</Carousel>)
+		}
 
 		<div className="merge">
 		<div className="position-wrapper">
@@ -187,59 +363,36 @@ const Recomendador =() => {
 	          />
 	        </FormGroup>
 	     </FormControl>
+	     </div>
 
-
-		
-	    <div>
-		    <div>
-			<Button variant="outlined" size="small">
+	     	<div>
+			<Button variant="outlined" size="small" onClick={agregarPalabraClave}>
 			  + Agregar 
 			</Button>
+			
+
+
+			{palabrasClave.map((palabraClave,indice) => (
+				<PalabraClave 
+					opCategoriaPC={opcionesCategoriaPC}
+					handleChangeOpCatPc={handleChangePC}
+					opcionesPC={opcionesPC}
+					indice={indice}
+					palabraClave={palabraClave}
+					handleDelete={borrarPalabraClave}
+					handleChangePalabraClave={handleChangePalabraClave}
+
+				/>
+				))
+			}
+
 			</div>
-		  	<FormControl className={classes.formControl}>
-
-		        <InputLabel id="demo-simple-select-label">Palabra Clave</InputLabel>
-		        <Select
-		          labelId="demo-simple-select-label"
-		          id="demo-simple-select"
-		          value={age}
-		          className="rec-select"
-		          onChange={handleChange}
-		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
-		        </Select>
-		      </FormControl>
-
-		      <FormControl className={classes.formControl}>
-		        <InputLabel id="demo-simple-select-label"></InputLabel>
-		        <Select
-		          labelId="demo-simple-select-label"
-		          id="demo-simple-select"
-		          value={age}
-		          className="rec-select"
-		          onChange={handleChange}
-		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
-		        </Select>
-		      </FormControl>
-
-		      <IconButton aria-label="delete" className="pc-delete-icon" >
-	        	<DeleteIcon />
-	      	  </IconButton>
-
-	     </div>
-	 </div>
-
-
-	     
-
 
 		</>
 	)
+	} else {
+		return <p> Cargando... </p>
+	}
 }
 
 export default Recomendador

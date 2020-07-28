@@ -5,6 +5,7 @@ const productorController = require("./controllers/productorController");
 const contratoController = require("./controllers/contratoController");
 const evaluacionController = require("./controllers/evaluacionController");
 const pedidoController = require("./controllers/pedidoController");
+const recomendadorController = require("./controllers/recomendadorController");
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
@@ -184,4 +185,15 @@ router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
 
 //UPDATE MONTO PEDIDO
 router.post("/update/monto-de-pedido", pedidoController.guardarMontoPedido);
+
+//OBTENER PERFUMES POR FAMILIA OLFATIVA
+router.post(
+  "/read/perfumes-recomendador",
+  recomendadorController.getPerfumesRecomendador
+);
+router.post(
+  "/read/recomendador/op-tipo-palabra-clave",
+  recomendadorController.getOpPalabraClave
+);
+
 module.exports = router;
