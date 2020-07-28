@@ -168,6 +168,12 @@ const catObj = {
 	prefuso:'Preferencia Uso'
 }
 
+const intensidadOp = {
+	Ligero:['Splash perfume','Eau de cologne'],
+	Intermedio:['Eau de toilette']
+	Intenso:['Perfume','Eau de perfume']
+}
+
 const getCat = (obj) => {
 	return catObj[obj]
 }
