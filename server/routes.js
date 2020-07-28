@@ -188,8 +188,8 @@ router.post("/update/monto-de-pedido", pedidoController.guardarMontoPedido);
 
 //OBTENER PERFUMES POR FAMILIA OLFATIVA
 router.post(
-  "/read/perfumes-familia-olfativa",
-  recomendadorController.getPerfumesFamiliaOlfativa
+  "/read/perfumes-recomendador",
+  recomendadorController.getPerfumesRecomendador
 );
 router.post(
   "/read/recomendador/op-tipo-palabra-clave",
