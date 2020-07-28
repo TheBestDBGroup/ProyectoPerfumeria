@@ -169,16 +169,13 @@ router.post(
   "/read/pedido/pedidos-productor",
   pedidoController.getPedidosProductor
 );
-//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR 
+//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR
 router.post(
   "/read/pedido/pedidos-por-confirmar-proveedor",
   pedidoController.getPedidoPorConfirmarProveedor
 );
 //OBTENER PAGOS DE UN PEDIDO
-router.post(
-  "/read/pedido/pago-pedido",
-  pedidoController.getPedidoPago
-);
+router.post("/read/pedido/pago-pedido", pedidoController.getPedidoPago);
 
 //CREAR PAGO DE CONTADO
 router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
@@ -186,5 +183,5 @@ router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
 router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
 
 //UPDATE MONTO PEDIDO
-router.post("/update/monto-de-pedido", pedidoController.postCrearPagoContado);
+router.post("/update/monto-de-pedido", pedidoController.guardarMontoPedido);
 module.exports = router;
