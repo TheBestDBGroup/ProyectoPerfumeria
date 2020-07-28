@@ -191,5 +191,9 @@ router.post(
   "/read/perfumes-recomendador",
   recomendadorController.getPerfumesRecomendador
 );
+router.post(
+  "/read/tipo-palabra-aroma",
+  recomendadorController.getTipoPalabraAroma
+);
 
 module.exports = router;
