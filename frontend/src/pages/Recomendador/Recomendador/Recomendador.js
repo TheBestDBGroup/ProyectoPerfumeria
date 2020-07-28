@@ -126,16 +126,16 @@ const DummyPerfumes = [
 // Mandar familias Olfativas
 
 const initFamiliasOlfativas = {
-	Verde:false,
-	Citrico:false, //Cítrico
-	Flores:false,
-	Frutas:false,
-	Aromaticos:false, //Aromáticos
-	Helechos:false,
-	Chipre:false,
-	Maderas:false,
-	Orientales:false,
-	Otros:false,
+	verde:false,
+	citrico:false, //Cítrico
+	flores:false,
+	frutas:false,
+	aromaticos:false, //Aromáticos
+	helechos:false,
+	chipre:false,
+	maderas:false,
+	orientales:false,
+	otros:false,
 }
 
 const initOpcionesCategoriaPC =[
@@ -168,10 +168,19 @@ const catObj = {
 	prefuso:'Preferencia Uso'
 }
 
-const intensidadOp = {
-	Ligero:['Splash perfume','Eau de cologne'],
-	Intermedio:['Eau de toilette']
-	Intenso:['Perfume','Eau de perfume']
+
+
+const parseFamiliaOlfativa = {
+	verde:'Verde',
+	citrico:'Cítrico', //Cítrico
+	flores:'Flores',
+	frutas:'Frutas',
+	aromaticos:'Aromáticos', //Aromáticos
+	helechos:'Helechos',
+	chipre:'Chipre',
+	maderas:'Maderas',
+	orientales:'Orientales',
+	otros:'Otros',
 }
 
 const getCat = (obj) => {
@@ -180,6 +189,8 @@ const getCat = (obj) => {
 
 
 const optQueries = ['Aroma','Carácter','Personalidad','Preferencia Uso']
+
+
 
 
 
@@ -237,6 +248,50 @@ const Recomendador =() => {
 		setDetalles(detalleCopy)
 	}*/
 
+	const getQueryFamiliaOlfativa = (famOlf)=> {
+
+		let objQuery = {}
+
+		for (let [key, value] of Object.entries(famOlf)) {
+		  
+		  	if(value) {
+		  		objQuery[key] = parseFamiliaOlfativa[key]
+		  	}
+		}
+
+		return objQuery
+
+	}
+
+	const getQueryIntensidad = (inten) =>{
+		if(inten == 'Ligero'){
+			return '{Splash perfume,Eau de cologne}'
+		} else if (inten === 'Intermedio'){
+			return '{Eau de toilette}'
+		} else {
+			return '{Perfume,Eau de perfume}'
+		}
+	} 
+
+	const parsearPalabraClaveCaracter = (palClave) =>{
+
+
+		let caracteres = palClave.filter(pal =>{
+			if(pal.obj=='caracter'){
+				return pal.sel
+			}
+		})
+
+		caracteres = caracteres.map(caracter => caracter.sel)
+
+		caracteres = caracteres.join(',')
+
+		caracteres ='{'+caracteres+'}'
+
+		return caracteres
+
+	}
+
 	const handleChangePalabraClave = (indice,e) => {
 		console.log('e target value',e.target.value)
 		let palabrasClaveCopy = [...palabrasClave]
@@ -271,6 +326,40 @@ const Recomendador =() => {
 	}, []);
 
 
+	useEffect(() => {
+
+		setPerfumes(undefined)
+
+		let query = getQueryFamiliaOlfativa(familiasOlfativas)
+
+		query.genero = genero
+
+		query.edad = edad
+
+		query.intensidad = getQueryIntensidad(intensidad)
+
+		let caracter = parsearPalabraClaveCaracter(palabrasClave)
+
+		if(caracter.length >0){
+			query.caracter = caracter
+		}
+
+	
+		axios.post('/read/perfumes-recomendador', query)
+		  .then((res) =>{
+		    console.log('response recomendador', res.data);
+		    setPerfumes(DummyPerfumes)
+           
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+
+		  
+	     
+	}, [palabrasClave,edad,genero,intensidad,familiasOlfativas]);
+
+
 	if(opcionesPC){
 	
 	return (
@@ -278,9 +367,14 @@ const Recomendador =() => {
 		{console.log('Genero', genero)}
 		{console.log('familiasOlfativas', familiasOlfativas)}
 		{console.log('Palabras Clave',palabrasClave)}
+		{console.log('intensidad', intensidad)}
+		{console.log('edad', edad)}
+		{console.log('perfumes', perfumes)}
+	
+		
 
 
-		{ perfumes === undefined? (null): 
+		{ perfumes === undefined? (<p> "Cargando..."</p>): 
 		(<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
 			{perfumes.map(perfume =>(
 		  		<CardPerfume perfume={perfume}/>
@@ -311,7 +405,7 @@ const Recomendador =() => {
 
 	    <FormControl component="fieldset">
 	      <FormLabel component="legend">Intensidad</FormLabel>
-	      <RadioGroup aria-label="edad" name="edad" value={edad} onChange={handleChangeEdad}>
+	      <RadioGroup aria-label="edad" name="edad" value={intensidad} onChange={handleChangeIntensidad}>
 	        <FormControlLabel value="Ligero" control={<Radio />} label="Ligero/Medio" />
 	        <FormControlLabel value="Intermedio" control={<Radio />} label="Intermedio" />
 	        <FormControlLabel value="Intenso" control={<Radio />} label="Intenso/Profundo"/>
@@ -327,49 +421,51 @@ const Recomendador =() => {
 	        <FormGroup style={{flexDirection:'row'}}>
 
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Verde} onChange={handleChangeFO} name="Verde" />}
+	            control={<Checkbox checked={familiasOlfativas.verde} onChange={handleChangeFO} name="verde" />}
 	            label="Verde"
 	            className={classes.formControlLabel}
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Citrico} onChange={handleChangeFO} name="Citrico" />}
+	            control={<Checkbox checked={familiasOlfativas.citrico} onChange={handleChangeFO} name="citrico" />}
 	            label="Cítrico"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Flores} onChange={handleChangeFO} name="Flores" />}
+	            control={<Checkbox checked={familiasOlfativas.flores} onChange={handleChangeFO} name="flores" />}
 	            label="Flores"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Frutas} onChange={handleChangeFO} name="Frutas" />}
+	            control={<Checkbox checked={familiasOlfativas.frutas} onChange={handleChangeFO} name="frutas" />}
 	            label="Frutas"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Aromaticos} onChange={handleChangeFO} name="Aromaticos" />}
+	            control={<Checkbox checked={familiasOlfativas.aromaticos} onChange={handleChangeFO} name="aromaticos" />}
 	            label="Aromáticos"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Helechos} onChange={handleChangeFO} name="Helechos" />}
+	            control={<Checkbox checked={familiasOlfativas.helechos} onChange={handleChangeFO} name="helechos" />}
 	            label="Helechos"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Chipre} onChange={handleChangeFO} name="Chipre" />}
+	            control={<Checkbox checked={familiasOlfativas.chipre} onChange={handleChangeFO} name="chipre" />}
 	            label="Chipre"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Maderas} onChange={handleChangeFO} name="Maderas" />}
+	            control={<Checkbox checked={familiasOlfativas.maderas} onChange={handleChangeFO} name="maderas" />}
 	            label="Maderas"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Orientales} onChange={handleChangeFO} name="Orientales" />}
+	            control={<Checkbox checked={familiasOlfativas.orientales} onChange={handleChangeFO} name="orientales" />}
 	            label="Orientales"
 	          />
 	          <FormControlLabel
-	            control={<Checkbox checked={familiasOlfativas.Otros} onChange={handleChangeFO} name="Otros" />}
+	            control={<Checkbox checked={familiasOlfativas.otros} onChange={handleChangeFO} name="otros" />}
 	            label="Otros"
 	          />
 	        </FormGroup>
 	     </FormControl>
 	     </div>
+
+
 
 	     	<div>
 			<Button variant="outlined" size="small" onClick={agregarPalabraClave}>
