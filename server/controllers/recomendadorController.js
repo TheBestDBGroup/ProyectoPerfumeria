@@ -30,4 +30,22 @@ const getPerfumesFamiliaOlfativa = (request, response) => {
   );
 };
 
-module.exports = { getPerfumesFamiliaOlfativa };
+const getTipoPalabraAroma = (request, response) => {
+  let values = [request.body.Aroma];
+  const query =
+    "SELECT DISTINCT pc.nombre_palabra_clave FROM ydm_palabra_clave pc, ydm_fo_pc fopc\
+    WHERE fopc.tipo_palabra_clave_fo_pc = '$1'\
+    AND fopc.id_palabra_clave_fo_pc = pc.id_palabra_clave";
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+module.exports = { 
+  getPerfumesFamiliaOlfativa,
+  getTipoPalabraAroma,
+
+};
