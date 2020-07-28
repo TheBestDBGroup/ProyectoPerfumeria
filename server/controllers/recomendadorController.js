@@ -22,7 +22,7 @@ const getPerfumesRecomendador = (request, response) => {
     request.body.personalidad,
   ];
   const queryPerfumesRecomendador =
-    "SELECT pe.id_perfume, pe.nombre_perfume, 'Familia olfativa' as tipo_palabra,\
+    "SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Familia olfativa' as tipo_palabra,\
   fo.nombre_familia_olfativa as palabra_clave, cuenta.ocurrencia\
   FROM ydm_perfume pe ,ydm_familia_olfativa fo, ydm_principal pr,\
     (SELECT pe.id_perfume, count(*) as ocurrencia\
@@ -41,7 +41,7 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Genero' as tipo_palabra, pe.genero_perfume as palabra_clave, cuenta.ocurrencia\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Genero' as tipo_palabra, pe.genero_perfume as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, (SELECT pe.id_perfume, count(*) as ocurrencia\
       FROM ydm_perfume pe WHERE genero_perfume = $11\
       GROUP BY pe.id_perfume) cuenta\
@@ -49,14 +49,14 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Edad' as tipo_palabra, pe.edad_perfume as palabra_clave, cuenta.ocurrencia\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Edad' as tipo_palabra, pe.edad_perfume as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, (SELECT pe.id_perfume, count(*) as ocurrencia\
       FROM ydm_perfume pe WHERE edad_perfume=$12 GROUP BY pe.id_perfume) cuenta\
     WHERE pe.edad_perfume = $12\
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Intensidad' as tipo_palabra, i.tipo_intensidad as palabra_clave, cuenta.ocurrencia\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Intensidad' as tipo_palabra, i.tipo_intensidad as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, ydm_intensidad i, (SELECT id_perfume, count(*) as ocurrencia\
     FROM ydm_perfume, ydm_intensidad WHERE id_perfume = id_perfume_intensidad\
     AND tipo_intensidad = ANY ($13) GROUP BY id_perfume) cuenta\
@@ -64,7 +64,7 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Carácter' as tipo_palabra, pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Carácter' as tipo_palabra, pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, ydm_palabra_clave pc, ydm_fo_pc fp, ydm_principal pr, ydm_familia_olfativa fo,\
       (SELECT id_perfume, count (*) as ocurrencia\
       FROM ydm_perfume, ydm_palabra_clave, ydm_fo_pc, ydm_principal, ydm_familia_olfativa\
@@ -79,7 +79,7 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Aroma' as tipo_palabra, pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Aroma' as tipo_palabra, pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, ydm_palabra_clave pc, ydm_fo_pc fp, ydm_principal pr, ydm_familia_olfativa fo,\
       (SELECT id_perfume, count (*) as ocurrencia\
       FROM ydm_perfume, ydm_palabra_clave, ydm_fo_pc, ydm_principal, ydm_familia_olfativa\
@@ -94,7 +94,7 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Preferencia uso' as tipo_palabra,\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Preferencia uso' as tipo_palabra,\
     pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, ydm_palabra_clave pc, ydm_fo_pc fp, ydm_principal pr, ydm_familia_olfativa fo,\
       (SELECT id_perfume, count (*) as ocurrencia\
@@ -110,7 +110,7 @@ const getPerfumesRecomendador = (request, response) => {
     \
     UNION\
     \
-    SELECT pe.id_perfume, pe.nombre_perfume, 'Personalidad' as tipo_palabra,\
+    SELECT pe.id_perfume, pe.nombre_perfume, pe.tipo_perfume, pe.genero_perfume, pe.edad_perfume, 'Personalidad' as tipo_palabra,\
     pc.nombre_palabra_clave as palabra_clave, cuenta.ocurrencia\
     FROM ydm_perfume pe, ydm_palabra_clave pc, ydm_fo_pc fp, ydm_principal pr, ydm_familia_olfativa fo,\
       (SELECT id_perfume, count (*) as ocurrencia\
@@ -131,7 +131,7 @@ const getPerfumesRecomendador = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(200).json(results);
+      response.status(200).json(results.rows);
     }
   );
 };
