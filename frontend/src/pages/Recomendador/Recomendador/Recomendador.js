@@ -20,105 +20,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import './recomendador-styles.css'
 import PalabraClave from '../PalabraClave/PalabraClave'
 import axios from 'axios'
+import _ from 'lodash';
 
-///BORRAR
-//Genero: Hombre/Mujer/Unisex
-//Edad: Adulto/Atemporal/Juvenil
-//Intensidad: Ligero/Intermedio/Intenso
-	
-	//,'Carácter','Personalidad','Preferencia Uso']
-
-const dummyOpPC = {aroma:[
-{
-	nombre_palabra_clave: 'Prueba op Aroma 0'
-},
-{
-	nombre_palabra_clave: 'Prueba op Aroma 1'
-},
-{
-	nombre_palabra_clave: 'Prueba op Aroma 2'
-},
-{
-	nombre_palabra_clave: 'Prueba op Aroma 3'
-},
-{
-	nombre_palabra_clave:'Prueba op Aroma 4'
-}
-],caracter:[{
-	nombre_palabra_clave: 'Prueba op Caracter 0'
-},
-{
-	nombre_palabra_clave: 'Prueba op Caracter 1'
-},
-{
-	nombre_palabra_clave: 'Prueba op Caracter 2'
-},
-{
-	nombre_palabra_clave: 'Prueba op Caracter 3'
-},
-{
-	nombre_palabra_clave:'Prueba op Caracter 4'
-}
-],personalidad:[
-{
-	nombre_palabra_clave: 'Prueba op Personalidad 0'
-},
-{
-	nombre_palabra_clave: 'Prueba op Personalidad 1'
-},
-{
-	nombre_palabra_clave: 'Prueba op Personalidad 2'
-},
-{
-	nombre_palabra_clave: 'Prueba op Personalidad 3'
-},
-{
-	nombre_palabra_clave:'Prueba op Personalidad 4'
-}
-],
-prefuso:[
-{
-	nombre_palabra_clave: 'Prueba op Pref Uso 0'
-},
-{
-	nombre_palabra_clave: 'Prueba op Pref Uso 1'
-},
-{
-	nombre_palabra_clave: 'Prueba op Pref Uso 2'
-},
-{
-	nombre_palabra_clave: 'Prueba op Pref Uso 3'
-},
-{
-	nombre_palabra_clave:'Prueba op Pref Uso 4'
-}
-],
-}
-
-const DummyPerfumes = [
-    {
-		id_perfume:1,
-		nombre_perfume:'Perfume Floral Fo',
-		tipo_perfume:'Eau de Perfume',
-		genero_perfume:'Hombre',
-		edad_perfume:'Atemporal'
-	}, 
-	{
-		id_perfume:2,
-		nombre_perfume:'Perfume Floral Fo',
-		tipo_perfume:'Eau de Perfume',
-		genero_perfume:'Hombre',
-		edad_perfume:'Atemporal'
-	},
-	{
-		id_perfume:3,
-		nombre_perfume:'Perfume Floral Fo',
-		tipo_perfume:'Eau de Perfume',
-		genero_perfume:'Hombre',
-		edad_perfume:'Atemporal'
-	}, 
-
-]
 
 
 ////////////NO BORRAR////////////////////////////////////////////////////////////
@@ -203,7 +106,7 @@ const Recomendador =() => {
 	const [familiasOlfativas, setFamiliasOlfativas] = useState(initFamiliasOlfativas)
 	const opcionesCategoriaPC = initOpcionesCategoriaPC
 	const [opcionesPC,setOpcionesPC] = useState(undefined)
-	const [perfumes,setPerfumes] = useState(DummyPerfumes)
+	const [perfumes,setPerfumes] = useState(undefined)
 	const classes = useStyles();
 
 
@@ -303,6 +206,41 @@ const Recomendador =() => {
 	}
 
 
+	const deleteRepetidos= (arrayProv)=>{
+
+
+		let uniqueIDs = {};
+		let uniquePerfumes =[]
+
+		arrayProv.map(perfume => {
+			
+			if(uniqueIDs.hasOwnProperty(perfume.id_perfume)){
+
+				uniquePerfumes.forEach(per => {
+					if(per.id_perfume === perfume.id_perfume){
+						per.ocurrencia = parseInt(per.ocurrencia) + parseInt(perfume.ocurrencia)
+					}
+
+				})
+			}
+
+			else {
+				uniqueIDs[perfume.id_perfume] = perfume.id_perfume
+				uniquePerfumes.push(perfume)
+			}
+		})
+
+		let sortedObjs = _.reverse(_.sortBy(uniquePerfumes, ['ocurrencia']));
+
+		sortedObjs = sortedObjs.splice(0,9)
+		
+		return sortedObjs
+
+	}
+
+
+
+
 	useEffect(() => {
 
 		let promesas = []
@@ -347,8 +285,8 @@ const Recomendador =() => {
 	
 		axios.post('/read/perfumes-recomendador', query)
 		  .then((res) =>{
-		    console.log('response recomendador', res.data);
-		    setPerfumes(DummyPerfumes)
+		    console.log('response recomendador', res.data.rows);
+		    setPerfumes(deleteRepetidos(res.data.rows))
            
 		  })
 		  .catch(function (error) {

@@ -4,7 +4,7 @@ import './card-perfume.css';
 import { Link as DomLink } from 'react-router-dom'
 
 
-const noCumple = ['Edad', 'Género','Tipo','Personalidad','Hola', 'Hola','Holaaa','Holaa','Holaaaaaaaaaaaa', 'Holaaaa']
+//const noCumple = ['Edad', 'Género','Tipo','Personalidad','Hola', 'Hola','Holaaa','Holaa','Holaaaaaaaaaaaa', 'Holaaaa']
 const CardPerfume = ({perfume}) => {
 	return (
 		<div className="sidebar-wrapper">
@@ -21,12 +21,14 @@ const CardPerfume = ({perfume}) => {
 				<p> Edad: {perfume.edad_perfume} </p>
 			</div>
 
+			{/*
 			<div className="center">
 			<h6> No Cumple: </h6>
 			</div>
 			<div>
 				<p className="id-perfume">{noCumple.map(crit => `${crit}, `)}</p>
 			</div>
+			*/}
 
 
 		</div>
