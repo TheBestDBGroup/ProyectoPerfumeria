@@ -81,7 +81,9 @@ const ListaPedidos = () => {
 					    id_proveedor: proveedorId,
 					    num_cuota:counter,
 					    porcentaje_cuotas:parseInt(pedido.prctj_cuotas_condicion_pago),
-					    meses_cantidad:parseInt(pedido.mesescantidad_condicion_pago)
+					    meses_cantidad:parseInt(pedido.mesescantidad_condicion_pago),
+					    monto_pedido:parseInt(pedido.monto_pedido),
+					    id_pedido: pedido.id_pedido
 					  })
 					)
 

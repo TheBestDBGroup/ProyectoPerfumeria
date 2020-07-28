@@ -7,7 +7,7 @@ import { Link as DomLink } from 'react-router-dom'
 const CardPerfume = (props) => {
 	return (
 		<div className="sidebar-wrapper">
-			<h6> Perfume Floral Floral Floral </h6>
+			<h6> Perfume Floral Floral Flo </h6>
 		
 		</div>
 	);

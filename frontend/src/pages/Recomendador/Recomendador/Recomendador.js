@@ -9,9 +9,15 @@ import {Radio,
 		FormLabel,
 		Checkbox,
 		FormGroup,
-		FormHelperText
+		FormHelperText,
+		Select,
+		MenuItem,
+		InputLabel,
+		IconButton,
+		Button,
 		} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import './recomendador-styles.css'
 
 
@@ -41,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
    // display: 'flex',
   },
   formControl: {
-    margin: theme.spacing(3),
+    margin: theme.spacing(1),
   },
   formControlLabel:{
   	display:'inline-block'
@@ -60,6 +66,12 @@ const Recomendador =() => {
 	const [palabrasClave,setPalabrasClave] = useState([])
 	const [familiasOlfativas, setFamiliasOlfativas]= useState(initFamiliasOlfativas)
 	const classes = useStyles();
+
+	const [age, setAge] = React.useState('');
+
+	  const handleChange = (event) => {
+	    setAge(event.target.value);
+	  };
 
 	const handleChangeGenero = (event) => {
 	    setGenero(event.target.value);
@@ -128,9 +140,9 @@ const Recomendador =() => {
 
 
 
-	    <FormControl component="fieldset" className={classes.formControl}>
+	    <FormControl component="fieldset" className={classes.formControl} style={{marginTop:'20px',maxWidth:'400px'}}>
 	        <FormLabel component="legend"> Familias Olfativas</FormLabel>
-	        <FormGroup style={{flexDirection:'row', maxWidth:'50%'}}>
+	        <FormGroup style={{flexDirection:'row'}}>
 
 	          <FormControlLabel
 	            control={<Checkbox checked={familiasOlfativas.Verde} onChange={handleChangeFO} name="Verde" />}
@@ -175,7 +187,52 @@ const Recomendador =() => {
 	          />
 	        </FormGroup>
 	     </FormControl>
+
+
+		
+	    <div>
+		    <div>
+			<Button variant="outlined" size="small">
+			  + Agregar 
+			</Button>
+			</div>
+		  	<FormControl className={classes.formControl}>
+
+		        <InputLabel id="demo-simple-select-label">Palabra Clave</InputLabel>
+		        <Select
+		          labelId="demo-simple-select-label"
+		          id="demo-simple-select"
+		          value={age}
+		          className="rec-select"
+		          onChange={handleChange}
+		        >
+		          <MenuItem value={10}>Ten</MenuItem>
+		          <MenuItem value={20}>Twenty</MenuItem>
+		          <MenuItem value={30}>Thirty</MenuItem>
+		        </Select>
+		      </FormControl>
+
+		      <FormControl className={classes.formControl}>
+		        <InputLabel id="demo-simple-select-label"></InputLabel>
+		        <Select
+		          labelId="demo-simple-select-label"
+		          id="demo-simple-select"
+		          value={age}
+		          className="rec-select"
+		          onChange={handleChange}
+		        >
+		          <MenuItem value={10}>Ten</MenuItem>
+		          <MenuItem value={20}>Twenty</MenuItem>
+		          <MenuItem value={30}>Thirty</MenuItem>
+		        </Select>
+		      </FormControl>
+
+		      <IconButton aria-label="delete" className="pc-delete-icon" >
+	        	<DeleteIcon />
+	      	  </IconButton>
+
 	     </div>
+	 </div>
 
 
 	     

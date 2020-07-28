@@ -24,3 +24,7 @@
 .merge {
 	display:flex;
 }
+
+.rec-select{
+	width:150px;
+}
