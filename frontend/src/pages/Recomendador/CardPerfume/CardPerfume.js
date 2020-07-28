@@ -3,16 +3,9 @@ import {List} from "tabler-react";
 import './card-perfume.css';
 import { Link as DomLink } from 'react-router-dom'
 
-const perfume = {
-	id_perfume:1,
-	nombre_perfume:'Perfume Floral Fo',
-	tipo_perfume:'Eau de Perfume',
-	genero_perfume:'Hombre',
-	edad_perfume:'Atemporal'
-}
 
 const noCumple = ['Edad', 'Género','Tipo','Personalidad','Hola', 'Hola','Holaaa','Holaa','Holaaaaaaaaaaaa', 'Holaaaa']
-const CardPerfume = (props) => {
+const CardPerfume = ({perfume}) => {
 	return (
 		<div className="sidebar-wrapper">
 

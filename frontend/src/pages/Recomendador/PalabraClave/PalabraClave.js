@@ -31,12 +31,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PalabraClave = ({opCategoriaPC, handleChangeOpCatPc,palabraClave,opcionesPC, indice, handleDelete}) => {
+const PalabraClave = ({opCategoriaPC, handleChangeOpCatPc,palabraClave,opcionesPC, indice, handleDelete,handleChangePalabraClave}) => {
 	
 	const classes = useStyles();
 
 	const renderValueOpCategoriaPC = () => {
     	return `${palabraClave.cat}`;
+	}
+
+	const renderValueOpPC = () => {
+    	return `${palabraClave.sel}`;
 	}
 
 
@@ -47,7 +51,7 @@ const PalabraClave = ({opCategoriaPC, handleChangeOpCatPc,palabraClave,opcionesP
 		    
 		  	<FormControl className={classes.formControl}>
 
-		        <InputLabel id="demo-simple-select-label">Palabra Clave</InputLabel>
+		        <InputLabel id="demo-simple-select-label">Categoría</InputLabel>
 		        <Select
 		          labelId="demo-simple-select-label"
 		          id="demo-simple-select"
@@ -64,20 +68,25 @@ const PalabraClave = ({opCategoriaPC, handleChangeOpCatPc,palabraClave,opcionesP
 		        </Select>
 		      </FormControl>
 
-		      {/*<FormControl className={classes.formControl}>
-		        <InputLabel id="demo-simple-select-label"></InputLabel>
+		      {palabraClave.obj === ""?(null):
+
+		      (<FormControl className={classes.formControl}>
+		        <InputLabel id="demo-simple-select-label">Palabra Clave </InputLabel>
 		        <Select
 		          labelId="demo-simple-select-label"
 		          id="demo-simple-select"
-		          value={age}
+		          value={palabraClave.sel}
 		          className="rec-select"
-		          onChange={handleChange}
+		          onChange={(e) => handleChangePalabraClave(indice,e)}
+		           renderValue={()=>renderValueOpPC()}
 		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
+		        {opcionesPC[palabraClave.obj].map((opPC,indice) => (
+		          <MenuItem value={{indiceOpPC:indice, opCategoria:palabraClave.obj}}>{opPC.nombre_palabra_clave}</MenuItem>
+		        ))}
+		          
 		        </Select>
-		      </FormControl>*/}
+		      </FormControl>)
+		     }
 
 		      <IconButton aria-label="delete" className="pc-delete-icon" onClick={e => handleDelete(indice)}>
 	        	<DeleteIcon />

@@ -94,6 +94,30 @@ prefuso:[
 ],
 }
 
+const DummyPerfumes = [
+    {
+		id_perfume:1,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	}, 
+	{
+		id_perfume:2,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	},
+	{
+		id_perfume:3,
+		nombre_perfume:'Perfume Floral Fo',
+		tipo_perfume:'Eau de Perfume',
+		genero_perfume:'Hombre',
+		edad_perfume:'Atemporal'
+	}, 
+
+]
 
 
 ////////////NO BORRAR////////////////////////////////////////////////////////////
@@ -136,6 +160,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const catObj = {
+	aroma:'Aroma',
+	caracter:'Carácter',
+	personalidad:'Personalidad',
+	prefuso:'Preferencia Uso'
+}
+
+const getCat = (obj) => {
+	return catObj[obj]
+}
+
+
 
 
 
@@ -148,6 +184,7 @@ const Recomendador =() => {
 	const [familiasOlfativas, setFamiliasOlfativas] = useState(initFamiliasOlfativas)
 	const opcionesCategoriaPC = initOpcionesCategoriaPC
 	const [opcionesPC,setOpcionesPC] = useState(dummyOpPC)
+	const [perfumes,setPerfumes] = useState(DummyPerfumes)
 	const classes = useStyles();
 
 
@@ -181,9 +218,8 @@ const Recomendador =() => {
 
 	const handleChangePC = (indice,e) => {
 		let palabrasClaveCopy = [...palabrasClave]
-		//let cantidad = detalleCopy[indice].cantidad
 		palabrasClaveCopy[indice] = opcionesCategoriaPC[e.target.value]
-		//detalleCopy[indice].cantidad = cantidad
+		palabrasClaveCopy[indice].sel =''
 		setPalabrasClave(palabrasClaveCopy) 
 	}
 
@@ -193,6 +229,17 @@ const Recomendador =() => {
 		setDetalles(detalleCopy)
 	}*/
 
+	const handleChangePalabraClave = (indice,e) => {
+		console.log('e target value',e.target.value)
+		let palabrasClaveCopy = [...palabrasClave]
+		let seleccion = opcionesPC[e.target.value.opCategoria][e.target.value.indiceOpPC].nombre_palabra_clave
+		let obj = e.target.value.opCategoria
+		let cat = getCat(e.target.value.opCategoria)
+		palabrasClaveCopy[indice] = {cat:cat,obj:obj,sel:seleccion}	
+		setPalabrasClave(palabrasClaveCopy)
+	}
+
+
 	
 	return (
 		<>
@@ -201,17 +248,13 @@ const Recomendador =() => {
 		{console.log('Palabras Clave',palabrasClave)}
 
 
-		<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		  <CardPerfume/>
-		</Carousel>
+		{ perfumes === undefined? (null): 
+		(<Carousel mode="normal" itemsBySlide={3} itemsToShow={3} dots>
+			{perfumes.map(perfume =>(
+		  		<CardPerfume perfume={perfume}/>
+		  	))}
+		</Carousel>)
+		}
 
 		<div className="merge">
 		<div className="position-wrapper">
@@ -300,7 +343,7 @@ const Recomendador =() => {
 			<Button variant="outlined" size="small" onClick={agregarPalabraClave}>
 			  + Agregar 
 			</Button>
-			</div>
+			
 
 
 			{palabrasClave.map((palabraClave,indice) => (
@@ -311,10 +354,13 @@ const Recomendador =() => {
 					indice={indice}
 					palabraClave={palabraClave}
 					handleDelete={borrarPalabraClave}
+					handleChangePalabraClave={handleChangePalabraClave}
 
 				/>
 				))
 			}
+
+			</div>
 
 		</>
 	)
