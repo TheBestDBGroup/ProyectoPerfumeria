@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import Carousel from 'nice-react-carousel';
 import CardPerfume from '../CardPerfume/CardPerfume'
 import {Radio,
@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './recomendador-styles.css'
 import PalabraClave from '../PalabraClave/PalabraClave'
+import axios from 'axios'
 
 ///BORRAR
 //Genero: Hombre/Mujer/Unisex
@@ -172,6 +173,7 @@ const getCat = (obj) => {
 }
 
 
+const optQueries = ['Aroma','Carácter','Personalidad','Preferencia Uso']
 
 
 
@@ -183,7 +185,7 @@ const Recomendador =() => {
 	const [palabrasClave,setPalabrasClave] = useState([])
 	const [familiasOlfativas, setFamiliasOlfativas] = useState(initFamiliasOlfativas)
 	const opcionesCategoriaPC = initOpcionesCategoriaPC
-	const [opcionesPC,setOpcionesPC] = useState(dummyOpPC)
+	const [opcionesPC,setOpcionesPC] = useState(undefined)
 	const [perfumes,setPerfumes] = useState(DummyPerfumes)
 	const classes = useStyles();
 
@@ -240,6 +242,30 @@ const Recomendador =() => {
 	}
 
 
+	useEffect(() => {
+
+		let promesas = []
+
+		optQueries.forEach(opt =>
+
+			promesas.push(
+			  axios.post('/read/recomendador/op-tipo-palabra-clave', {
+			    tipo: opt
+			  })
+			)
+		)     	
+
+		Promise.all(promesas)
+		 .then(function (res) {
+		    console.log('response promise all', res)
+		    setOpcionesPC({aroma: res[0].data,caracter:res[1].data,personalidad:res[2].data,prefuso:res[3].data})
+		  
+		 });	
+	     
+	}, []);
+
+
+	if(opcionesPC){
 	
 	return (
 		<>
@@ -364,6 +390,9 @@ const Recomendador =() => {
 
 		</>
 	)
+	} else {
+		return <p> Cargando... </p>
+	}
 }
 
 export default Recomendador

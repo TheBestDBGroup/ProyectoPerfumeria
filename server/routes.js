@@ -192,8 +192,8 @@ router.post(
   recomendadorController.getPerfumesFamiliaOlfativa
 );
 router.post(
-  "/read/tipo-palabra-aroma",
-  recomendadorController.getTipoPalabraAroma
+  "/read/recomendador/op-tipo-palabra-clave",
+  recomendadorController.getOpPalabraClave
 );
 
 module.exports = router;
