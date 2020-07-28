@@ -285,8 +285,8 @@ const Recomendador =() => {
 	
 		axios.post('/read/perfumes-recomendador', query)
 		  .then((res) =>{
-		    console.log('response recomendador', res.data.rows);
-		    setPerfumes(deleteRepetidos(res.data.rows))
+		    console.log('response recomendador', res.data);
+		    setPerfumes(deleteRepetidos(res.data))
            
 		  })
 		  .catch(function (error) {
