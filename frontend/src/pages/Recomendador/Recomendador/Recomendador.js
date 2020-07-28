@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import Carousel from 'nice-react-carousel';
-import Sidebar from '../Sidebar/Sidebar'
 import CardPerfume from '../CardPerfume/CardPerfume'
 import {Radio,
 		RadioGroup,
@@ -64,6 +63,8 @@ const Recomendador =() => {
 	const [edad, setEdad] = useState('Adulto')
 	const [intensidad,setIntensidad] = useState('Ligero')
 	const [palabrasClave,setPalabrasClave] = useState([])
+	const opcionesCategoria = ['Aroma','Carácter','Personalidad','Preferencia Uso']
+
 	const [familiasOlfativas, setFamiliasOlfativas]= useState(initFamiliasOlfativas)
 	const classes = useStyles();
 
@@ -187,56 +188,7 @@ const Recomendador =() => {
 	          />
 	        </FormGroup>
 	     </FormControl>
-
-
-		
-	    <div>
-		    <div>
-			<Button variant="outlined" size="small">
-			  + Agregar 
-			</Button>
-			</div>
-		  	<FormControl className={classes.formControl}>
-
-		        <InputLabel id="demo-simple-select-label">Palabra Clave</InputLabel>
-		        <Select
-		          labelId="demo-simple-select-label"
-		          id="demo-simple-select"
-		          value={age}
-		          className="rec-select"
-		          onChange={handleChange}
-		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
-		        </Select>
-		      </FormControl>
-
-		      <FormControl className={classes.formControl}>
-		        <InputLabel id="demo-simple-select-label"></InputLabel>
-		        <Select
-		          labelId="demo-simple-select-label"
-		          id="demo-simple-select"
-		          value={age}
-		          className="rec-select"
-		          onChange={handleChange}
-		        >
-		          <MenuItem value={10}>Ten</MenuItem>
-		          <MenuItem value={20}>Twenty</MenuItem>
-		          <MenuItem value={30}>Thirty</MenuItem>
-		        </Select>
-		      </FormControl>
-
-		      <IconButton aria-label="delete" className="pc-delete-icon" >
-	        	<DeleteIcon />
-	      	  </IconButton>
-
 	     </div>
-	 </div>
-
-
-	     
-
 
 		</>
 	)
