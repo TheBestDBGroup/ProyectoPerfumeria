@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
 
-const DummyPedidos = [
+/*const DummyPedidos = [
 {	
 
 	id_proveedor:1,
@@ -37,13 +37,13 @@ const DummyPedidos = [
 	fecha_confirmacion_pedido:'2011-10-05T14:48:00.000Z',
 	num_factura_pedido:7,
 },
-]
+]*/
 //Mostrar lista de proveedores 
 const ListaPedidos = () => {
 
 	const productorId = localStorage.getItem('id_productor');
 	const history = useHistory();
-	const [pedidos,setPedidos] = useState(DummyPedidos)
+	const [pedidos,setPedidos] = useState(undefined)
 
 
 	const convertISODate = (ISODate) => {
@@ -66,17 +66,17 @@ const ListaPedidos = () => {
 	}
 
 	useEffect(() => {
-		/*
-        axios.post('/read/proveedores-con-contratos-vigentes', {
+
+        axios.post('/read/pedido/pedidos-productor', {
 		    id_productor: productorId,
 		  })
 		  .then((res) =>{
-		    console.log('response contratos vigentes', res.data);
-            setProveedores(res.data);
+		    console.log('response pedidos productor', res.data);
+            setPedidos(res.data);
 		  })
 		  .catch(function (error) {
 		    console.log(error);
-		  });*/
+		  });
 	     
 	}, []);
 
@@ -126,7 +126,7 @@ const ListaPedidos = () => {
 			     	<Table.Col>{convertISODate(pedido.fecha_pedido)} </Table.Col>
 			     	<Table.Col>{pedido.monto_pedido} $ </Table.Col>
 			     	<Table.Col>{pedido.estatus_pedido} </Table.Col>	
-			     	{pedido.estatus_pedido === 'Por Confirmar'?
+			     	{pedido.estatus_pedido === 'Por confirmar' || pedido.estatus_pedido === 'Cancelado por proveedor'?
 			     	(<> 
 			      		<Table.Col> </Table.Col>
 			      		<Table.Col> </Table.Col>

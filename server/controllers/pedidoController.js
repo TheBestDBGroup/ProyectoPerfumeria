@@ -212,6 +212,25 @@ const getPedidoConfirmadoProductor = (request, response) => {
   });
 };
 
+const getPedidosProductor = (request, response) => {
+  let values = [request.body.id_productor];
+
+  const query =
+  "SELECT pe.id_pedido, pe.fecha_pedido, pe.monto_pedido, pe.estatus_pedido, pe.fecha_confirmacion_pedido, pe.num_factura_pedido, pvd.id_proveedor,pvd.nombre_proveedor\
+  FROM  ydm_proveedor pvd, ydm_pedido pe, ydm_productor pdt\
+  WHERE pvd.id_proveedor = pe.id_proveedor_pedido\
+  AND   pdt.id_productor = pe.id_productor_pedido\
+  AND   pdt.id_productor = $1"
+
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getPedidoPorConfirmarProveedor = (request, response) => {
   let values = [request.body.id_proveedor];
 
@@ -261,5 +280,6 @@ module.exports = {
   postRechazarPedido,
   getPedidoConfirmadoProductor,
   getPedidoPorConfirmarProveedor,
-  getPedidoPago
+  getPedidoPago,
+  getPedidosProductor
 };

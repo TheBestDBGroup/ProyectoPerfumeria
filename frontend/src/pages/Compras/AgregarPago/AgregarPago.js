@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import{FormControl,Select,MenuItem,InputLabel,Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
 
 
@@ -15,33 +16,16 @@ const useStyles = makeStyles((theme) => ({
 	  },
 }));
 
-const DummyOpciones = [
-  {
-    id_condicion_pago:1,
-    tipo_condicion_pago:'Contado',
-    cuotas_condicion_pago:2,
-    prctj_cuotas_condicion_pago:20,
-    meses_cantidad_condicion_pago:2,
-    id_cond_env_pago:1,
-   },
-   {  	
-    id_condicion_pago:2,
-    tipo_condicion_pago:'Crédito',
-    cuotas_condicion_pago:3,
-    prctj_cuotas_condicion_pago:30,
-    mesescantidad_condicion_pago:2,
-    id_cond_env_pago:1,
-   },
 
- 
-]
 
 
 const AgregarPago = (props) => {
 
 	const id_pedido = props.match.params.idpedido
+	const id_proveedor = props.match.params.idproveedor
+	const id_contrato = props.match.params.idcontrato
 	const [pago,setPago] = useState([])
-	const [opciones, setOpciones] = useState(DummyOpciones)
+	const [opciones, setOpciones] = useState(undefined)
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -62,9 +46,38 @@ const AgregarPago = (props) => {
 	} 
 
 	const handleSubmit = () => {
-		alert('Ha creado su pedido con éxito')
-		history.push(`/`)
+		
+		axios.post('/update/guardar-alt-env/cond-env-pago', {
+			    id_pedido: id_pedido,
+			    id_cond_env_pago:pago.id_cond_env_pagos
+			  })
+			  .then((res) =>{
+			    console.log('response guardar alt pago', res.data);
+			    alert('Ha creado su pedido con éxito')
+	            history.push(`/compras`)
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
 	}
+
+	useEffect(() => {
+
+		axios.post('/read/contrato/condiciones-pago-contrato', {
+		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
+		  })
+		  .then((res) =>{
+		    console.log('response alt pagos', res.data);
+            setOpciones(res.data);
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	     
+	}, []);
+
+	if(opciones) {
 
 	return(
 		<>
@@ -98,6 +111,10 @@ const AgregarPago = (props) => {
 		</div>
       	</>
     )
+
+	} else {
+		return <p> Cargando ... </p>
+	}
 
 }
 

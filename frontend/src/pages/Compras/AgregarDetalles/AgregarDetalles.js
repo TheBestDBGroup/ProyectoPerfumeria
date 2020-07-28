@@ -7,47 +7,6 @@ import { useHistory } from "react-router-dom";
 
 
 
-const DummyIngGeneral = [
-    {
-	    id_ingrediente_general:1,
-	    cas_ingrediente_general:'1',
-	    nombre_ingrediente_general:'Alcohol',
-	    id_presentacion:1,
-	    precio_presentacion:123,
-	    volumen_presentacion:70,
-   },
-   {
-	    id_ingrediente_general:2,
-	    cas_ingrediente_general:'789',
-	    nombre_ingrediente_general:'Jabon',
-	    id_presentacion:2,
-	    precio_presentacion:456,
-	    volumen_presentacion:70,
-   }
-]
-
-
-const DummyIngEsencia=[
-  {
-    id_ingrediente_esencia:1,
-    cas_ingrediente_esencia:'101112',
-    nombre_ingrediente_esencia:'Alcohol Hisopropilico',
-    id_presentacion:3,
-    precio_presentacion:789,
-    volumen_presentacion:12,
-  },
-  {
-    id_ingrediente_esencia:2,
-    cas_ingrediente_esencia:'123',
-    nombre_ingrediente_esencia:'Alcohol Propano',
-    id_presentacion:4,
-    precio_presentacion:1011,
-    volumen_presentacion:12,
-  },
-]
-
-
-//NO BORRAR
 const filterIng = (IngGeneral,IngEsencia) => {
 	let ingredientes = []
 
@@ -86,8 +45,10 @@ const filterIng = (IngGeneral,IngEsencia) => {
 const AgregarDetalles = (props) => {
 
 	const id_pedido = props.match.params.idpedido
+	const id_proveedor = props.match.params.idproveedor
+	const id_contrato = props.match.params.idcontrato
 	const [detalles,setDetalles] = useState([])
-	const [opcionesIng,setOpcionesIng] = useState(filterIng(DummyIngGeneral,DummyIngEsencia))
+	const [opcionesIng,setOpcionesIng] = useState(undefined)
 	const history = useHistory();
 
 	//MANEJAR DETALLES
@@ -134,18 +95,19 @@ const AgregarDetalles = (props) => {
 		console.log('detalles',detalles)
 		let monto_total = calcularMonto(detalles)
 		console.log('monto total', monto_total)
-		history.push(`/realizar-pedido/agregar-envio/${id_pedido}`)
-	/*let promesas = []
+
+
 		
-		//enviando criterios
-		criterios.forEach(crit => 
+		let promesas = []
+		
+		//enviando detalles
+		detalles.forEach(det => 
 
 		promesas.push(		
-				axios.post('/create/eval-crit', {
-			    	id_productor: productorId, 
-			    	peso: crit.peso_prctj_eval_crit,
-			    	tipo_eval_crit: tipo,
-			    	id_criterio_eval:crit.id_criterio_eval,
+				axios.post('/create/detalle-pedido', {
+			    	id_presentacion: det.id_presentacion, 
+			    	id_pedido: id_pedido,
+			    	cantidad: det.cantidad
 		  		})
 			)
 		
@@ -155,11 +117,38 @@ const AgregarDetalles = (props) => {
 		Promise.all(promesas)
 		 .then(function (res) {
 		    console.log('response promise all', res)
-		    alert('Evaluación creada con exito')
-		    history.push(`/`);
-		  });*/
+		    history.push(`/realizar-pedido/agregar-envio/${id_pedido}/${id_contrato}/${id_proveedor}`)
+		  });
 
 	}
+
+
+	useEffect(() => {
+
+		let promesas = []
+       	
+       	promesas.push(
+		  axios.post('/read/contrato/ingrediente-esencia', {
+		    id_proveedor: id_proveedor,
+		    id_contrato: id_contrato
+		  })
+		)
+
+		promesas.push(
+		  axios.post('/read/contrato/ingrediente-general', {
+		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
+		  })
+		)
+
+		Promise.all(promesas)
+		 .then(function (res) {
+		    console.log('response promise all', res)
+		    setOpcionesIng(filterIng(res[1].data, res[0].data))
+		  
+		 });	
+	     
+	}, []);
 
 
 

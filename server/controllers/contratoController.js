@@ -316,9 +316,10 @@ const getAlternativasEnviosContrato = (request, response) => {
   let values = [request.body.id_contrato];
 
   const query =
-  "SELECT at.id_alt_envio, at.transporte_alt_envio ,at.costo_alt_envio, at.tiempo_estimado_alt_envio, ce.id_cond_env_pago\
-  FROM ydm_contrato c, ydm_cond_env_pago ce, ydm_alt_envio at\
+  "SELECT at.id_alt_envio, at.transporte_alt_envio , p.nombre_pais, at.costo_alt_envio, at.tiempo_estimado_alt_envio, ce.id_cond_env_pago\
+  FROM ydm_contrato c, ydm_cond_env_pago ce, ydm_alt_envio at, ydm_pais p\
   WHERE id_contrato = id_contrato_cond_env_pago\
+  AND   at.id_pais_alt_envio = p.id_pais\
   AND	  id_alt_envio_cond_env_pago = id_alt_envio\
   AND   id_proveedor_alt_envio_cond_env_pago = id_proveedor_alt_envio\
   AND   id_pais_alt_envio_cond_env_pago = id_pais_alt_envio\

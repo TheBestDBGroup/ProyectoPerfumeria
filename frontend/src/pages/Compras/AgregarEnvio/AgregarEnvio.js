@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import{FormControl,Select,MenuItem,InputLabel,Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 
 
 
@@ -15,32 +16,6 @@ const useStyles = makeStyles((theme) => ({
 	  },
 }));
 
-const DummyOpciones = [
-  { 
-    id_alt_envio: 1,
-    transporte_alt_envio:'Barco', 
-    costo_alt_envio: 23,
-    tiempo_estimado_alt_envio:20,
-    id_cond_env_pago:2
-  },
-  { 
-    id_alt_envio: 3,
-    transporte_alt_envio:'Avion', 
-    costo_alt_envio: 33,
-    tiempo_estimado_alt_envio:20,
-    id_cond_env_pago:4
-  },
-  { 
-    id_alt_envio: 5,
-    transporte_alt_envio:'Yate', 
-    costo_alt_envio: 77,
-    tiempo_estimado_alt_envio:240,
-    id_cond_env_pago:6
-  }, 
-  {
-  	id_alt_envio:'No aplica'
-  }
-]
 
 
 const addNoAplica = (array) => {
@@ -52,8 +27,10 @@ const addNoAplica = (array) => {
 const AgregarEnvio = (props) => {
 
 	const id_pedido = props.match.params.idpedido
+	const id_proveedor = props.match.params.idproveedor
+	const id_contrato = props.match.params.idcontrato
 	const [envio,setEnvio] = useState([])
-	const [opciones, setOpciones] = useState(DummyOpciones)
+	const [opciones, setOpciones] = useState(undefined)
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -61,7 +38,7 @@ const AgregarEnvio = (props) => {
 
 	const renderValue = () => {
 		if(envio.id_alt_envio ==='No aplica') {return 'No aplica'}
-    	return `ID: ${envio.id_alt_envio}  -  TRANSPORTE: ${envio.transporte_alt_envio}  -  PRECIO: ${envio.costo_alt_envio}    ${envio.tiempo_estimado_alt_envio? (`-  TIEMPO ESTIMADO: ${envio.tiempo_estimado_alt_envio} días`):''}`;
+    	return `ID: ${envio.id_alt_envio}  -  TRANSPORTE: ${envio.transporte_alt_envio}  -  PRECIO: ${envio.costo_alt_envio} - PAIS ${envio.nombre_pais}  ${envio.tiempo_estimado_alt_envio? (`-  TIEMPO ESTIMADO: ${envio.tiempo_estimado_alt_envio} días`):''}`;
 	}
 
 	const handleChange = (event) => {
@@ -70,8 +47,43 @@ const AgregarEnvio = (props) => {
 
 	const handleSubmit = () => {
 		//if no aplica no mandarlo a DB
-		history.push(`/realizar-pedido/agregar-forma-pago/${id_pedido}`)
+
+		if(envio.id_alt_envio ==='No aplica'){
+			history.push(`/realizar-pedido/agregar-forma-pago/${id_pedido}/${id_contrato}/${id_proveedor}`)
+		} else {		
+			axios.post('/update/guardar-alt-env/cond-env-pago', {
+			    id_pedido: id_pedido,
+			    id_cond_env_pago:envio.id_cond_env_pagos
+			  })
+			  .then((res) =>{
+			    console.log('response guardar alt env', res.data);
+	            history.push(`/realizar-pedido/agregar-forma-pago/${id_pedido}/${id_contrato}/${id_proveedor}`)
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+		}
+
 	}
+
+	useEffect(() => {
+
+		axios.post('/read/contrato/alternativa-envios', {
+		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
+		  })
+		  .then((res) =>{
+		    console.log('response alt envios', res.data);
+            setOpciones(addNoAplica(res.data));
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	     
+	}, []);
+
+	if(opciones){
 
 	return(
 		<>
@@ -90,7 +102,7 @@ const AgregarEnvio = (props) => {
 			        >
 
 			        {opciones.map((val,indiceOp) =>(
-			        	<MenuItem value={val}> {val.id_alt_envio==='No aplica'?'No aplica':(`ID: ${val.id_alt_envio} - TRANSPORTE: ${val.transporte_alt_envio} - PRECIO: ${val.costo_alt_envio} ${val.tiempo_estimado_alt_envio?(`-  TIEMPO ESTIMADO: ${val.tiempo_estimado_alt_envio} días`):''}`)}</MenuItem>
+			        	<MenuItem value={val}> {val.id_alt_envio==='No aplica'?'No aplica':(`ID: ${val.id_alt_envio} - TRANSPORTE: ${val.transporte_alt_envio} - PRECIO: ${val.costo_alt_envio} - PAIS ${val.nombre_pais}  ${val.tiempo_estimado_alt_envio?(`-  TIEMPO ESTIMADO: ${val.tiempo_estimado_alt_envio} días`):''}`)}</MenuItem>
 			        ))}
 
 		        	</Select>
@@ -105,6 +117,10 @@ const AgregarEnvio = (props) => {
 		</div>
       	</>
     )
+
+	} else {
+		return <p> Cargando </p>
+	}
 
 }
 

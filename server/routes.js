@@ -48,7 +48,7 @@ router.post(
 
 //OBTENER ALTERNATIVAS DE ENVIOS DE UN CONTRATO
 router.post(
-  "/read/contrato/alternatica-envios",
+  "/read/contrato/alternativa-envios",
   contratoController.getAlternativasEnviosContrato
 );
 
@@ -163,9 +163,15 @@ router.post(
   "/read/pedido/pedidos-confirmado-productor",
   pedidoController.getPedidoConfirmadoProductor
 );
+
+//OBTENER PEDIDOS  DE PRODUCTOR
+router.post(
+  "/read/pedido/pedidos-productor",
+  pedidoController.getPedidosProductor
+);
 //OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR 
 router.post(
-  "/read/pedido/pedidos-por-confirmar-productor",
+  "/read/pedido/pedidos-por-confirmar-proveedor",
   pedidoController.getPedidoPorConfirmarProveedor
 );
 //OBTENER PAGOS DE UN PEDIDO

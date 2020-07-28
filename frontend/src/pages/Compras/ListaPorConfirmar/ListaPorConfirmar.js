@@ -6,38 +6,13 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
 
-const DummyPedidos = [
-{	
 
-	id_productor:1,
-	nombre_productor:'Mario',
-	id_pedido:1,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:234,
-},
-{	
-
-	id_productor:2,
-	nombre_productor:'Yorfrank',
-	id_pedido:2,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:234,
-},
-{	
-
-	id_productor:2,
-	nombre_productor:'Yorfrank',
-	id_pedido:2,
-	fecha_pedido:'2011-10-05T14:48:00.000Z',
-	monto_pedido:234,
-},
-]
 //Mostrar lista de proveedores 
 const ListaPedidos = () => {
 
 	const proveedorId = localStorage.getItem('id_proveedor');
 	const history = useHistory();
-	const [pedidos,setPedidos] = useState(DummyPedidos)
+	const [pedidos,setPedidos] = useState(undefined)
 
 
 	const convertISODate = (ISODate) => {
@@ -61,6 +36,17 @@ const ListaPedidos = () => {
 
 	const handleRejectPedido = (id_pedido) => {
 
+		 axios.post('/update/rechazar-pedido', {
+		    id_pedido:id_pedido,
+		  })
+		  .then((res) =>{
+		    console.log('response pedido rechazar', res.data);
+            history.push('/')
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+
 	}
 
 	const handleAceptPedido = (id_pedido) => {
@@ -68,17 +54,17 @@ const ListaPedidos = () => {
 	}
 
 	useEffect(() => {
-		/*
-        axios.post('/read/proveedores-con-contratos-vigentes', {
-		    id_productor: productorId,
+		
+        axios.post('/read/pedido/pedidos-por-confirmar-proveedor', {
+		    id_proveedor: proveedorId,
 		  })
 		  .then((res) =>{
-		    console.log('response contratos vigentes', res.data);
-            setProveedores(res.data);
+		    console.log('response pedidos por confirmar proveedor', res.data);
+            setPedidos(res.data);
 		  })
 		  .catch(function (error) {
 		    console.log(error);
-		  });*/
+		  });
 	     
 	}, []);
 

@@ -5,9 +5,6 @@ import axios from 'axios'
 import { useHistory } from "react-router-dom";
 
 
-//delete later
-let idpedido = 1
-
 const EncabezadoPedido = (props) => {
 
 	const productorId = localStorage.getItem('id_productor');
@@ -23,7 +20,17 @@ const EncabezadoPedido = (props) => {
 	}
 
 	const handleSubmit = () => {
-		history.push(`/realizar-pedido/agregar-detalles/${idpedido}`)
+
+		 axios.post('/create/pedido', {id_productor: productorId, id_proveedor:proveedorId})
+		  .then((res) =>{
+		    console.log('response create pedido', res.data);
+		    history.push(`/realizar-pedido/agregar-detalles/${res.data}/${contratoId}/${proveedorId}`)
+		   
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+		
 	}
 
 	const formatDate=(date) => {

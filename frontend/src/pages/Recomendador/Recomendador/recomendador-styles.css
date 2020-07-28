@@ -1,0 +1,7 @@
+.recomendador-wrapper {
+	display:flex;
+}
+
+.recomendador-carousel-wrapper {
+	max-width: 500px
+}

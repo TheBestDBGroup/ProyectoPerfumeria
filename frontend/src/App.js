@@ -32,6 +32,9 @@ import VerPagos from './pages/Compras/VerPagos/VerPagos'
 import ListaPorConfirmar from './pages/Compras/ListaPorConfirmar/ListaPorConfirmar'
 import FiltroProveedor from './components/FiltroProveedor/FiltroProveedor'
 
+//Recomendador
+import Recomendador from './pages/Recomendador/Recomendador/Recomendador'
+
 const routes = [
     {//root
       path: '/',
@@ -107,15 +110,15 @@ const routes = [
       render: (props) => <EncabezadoPedido {...props} />
     }, 
     {
-      path: '/realizar-pedido/agregar-detalles/:idpedido',
+      path: '/realizar-pedido/agregar-detalles/:idpedido/:idcontrato/:idproveedor',
       render: (props) => <AgregarDetalles {...props} />
     }, 
     {
-      path: '/realizar-pedido/agregar-envio/:idpedido',
+      path: '/realizar-pedido/agregar-envio/:idpedido/:idcontrato/:idproveedor',
       render: (props) => <AgregarEnvio {...props} />
     }, 
     {
-      path: '/realizar-pedido/agregar-forma-pago/:idpedido',
+      path: '/realizar-pedido/agregar-forma-pago/:idpedido/:idcontrato/:idproveedor',
       render: (props) => <AgregarPago {...props} />
     },
     {
@@ -129,7 +132,11 @@ const routes = [
     {
       path: '/comprar/lista-pedidos/proveedor',
       render: (props) => <ListaPorConfirmar {...props} />
-    },  
+    },
+    {
+      path: '/recomendador',
+      render: (props) => <Recomendador {...props} />
+    },    
 
 ];
 

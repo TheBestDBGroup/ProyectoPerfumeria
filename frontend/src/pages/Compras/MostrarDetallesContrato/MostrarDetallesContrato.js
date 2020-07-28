@@ -32,26 +32,30 @@ const MostrarDetallesContrato = (props) => {
 		)
 	
         promesas.push(
-		 axios.post('/read/contrato/opciones-proveedor/pago', {
+		 axios.post('/read/contrato/condiciones-pago-contrato', {
 		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
 		  })
 		)
 	
         promesas.push(
-		 axios.post('/read/contrato/opciones-proveedor/envio', {
+		 axios.post('/read/contrato/alternativa-envios', {
 		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
 		  })
 		)
 	
 		promesas.push(
-		  axios.post('/read/opciones-proveedor/ing-esen-sin-exc', {
+		  axios.post('/read/contrato/ingrediente-esencia', {
 		    id_proveedor: id_proveedor,
+		    id_contrato: id_contrato
 		  })
 		)
 
 		promesas.push(
-		  axios.post('/read/opciones-proveedor/ing-gen-sin-exc', {
+		  axios.post('/read/contrato/ingrediente-general', {
 		    id_proveedor: id_proveedor,
+		    id_contrato:id_contrato
 		  })
 		)
 
@@ -221,6 +225,20 @@ const MostrarDetallesContrato = (props) => {
 						<p>{opcion.cas_ingrediente_general}</p>
 					</div>
 				</div>
+
+				<div className="center">
+					<div className="m-c-label-title">
+						<p className="m-c-label"> Presentacion </p> 
+						<p>{opcion.volumen_presentacion} ml</p>
+					</div>
+				</div>
+
+				<div className="center">
+					<div className="m-c-label-title">
+						<p className="m-c-label"> Precio </p> 
+						<p>{opcion.precio_presentacion} $</p>
+					</div>
+				</div>
 				
 				</>
 			))}		
@@ -245,6 +263,20 @@ const MostrarDetallesContrato = (props) => {
 					<div className="m-c-label-title">
 						<p className="m-c-label"> CAS </p> 
 						<p>{opcion.cas_ingrediente_esencia}</p>
+					</div>
+				</div>
+
+				<div className="center">
+					<div className="m-c-label-title">
+						<p className="m-c-label"> Presentacion </p> 
+						<p>{opcion.volumen_presentacion} ml</p>
+					</div>
+				</div>
+
+				<div className="center">
+					<div className="m-c-label-title">
+						<p className="m-c-label"> Precio </p> 
+						<p>{opcion.precio_presentacion} $</p>
 					</div>
 				</div>
 				

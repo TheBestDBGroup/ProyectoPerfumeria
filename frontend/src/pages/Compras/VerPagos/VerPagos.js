@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
-const DummyPagos = [
+/*const DummyPagos = [
 {	
 
 	id_pago:1,
@@ -28,11 +28,12 @@ const DummyPagos = [
 	monto_pago:789
 },
 
-]
+]*/
 //Mostrar lista de proveedores 
 const VerPagos= (props) => {
 
-	const [pagos,setPagos] = useState(DummyPagos)
+	const [pagos,setPagos] = useState(undefined)
+	const id_pedido = props.match.params.idpedido
 
 
 	const convertISODate = (ISODate) => {
@@ -55,17 +56,17 @@ const VerPagos= (props) => {
 	}
 
 	useEffect(() => {
-		/*
-        axios.post('/read/proveedores-con-contratos-vigentes', {
-		    id_productor: productorId,
+		
+        axios.post('/read/pedido/pago-pedido', {
+		    id_pedido: id_pedido,
 		  })
 		  .then((res) =>{
-		    console.log('response contratos vigentes', res.data);
-            setProveedores(res.data);
+		    console.log('response pagos pedido', res.data);
+            setPagos(res.data);
 		  })
 		  .catch(function (error) {
 		    console.log(error);
-		  });*/
+		  });
 	     
 	}, []);
 
@@ -89,7 +90,7 @@ const VerPagos= (props) => {
 			  { pagos.map( pago => (
 			    <Table.Row>
 			     	<Table.Col>{pago.id_pago} </Table.Col>
-			    	<Table.Col>{pago.id_pedido_pago}</Table.Col>
+			    	<Table.Col>{id_pedido}</Table.Col>
 			    	<Table.Col>{convertISODate(pago.fecha_pago)} </Table.Col>
 			     	<Table.Col>{pago.monto_pago} $ </Table.Col>  	
 			    </Table.Row>
