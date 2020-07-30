@@ -4,6 +4,8 @@ const proveedorController = require("./controllers/proveedorController");
 const productorController = require("./controllers/productorController");
 const contratoController = require("./controllers/contratoController");
 const evaluacionController = require("./controllers/evaluacionController");
+const pedidoController = require("./controllers/pedidoController");
+const recomendadorController = require("./controllers/recomendadorController");
 
 router.get("/ping", (req, res) => {
   return res.send("pong");
@@ -34,7 +36,30 @@ router.post(
   contratoController.getOpcionesEnvioProveedor
 );
 
-//OBTENER CONTRATOS VIGENTES DE UN PROVEEDOR
+//OBTENER LOS INGREDIENTE ESENCIA  DE UN CONTRATO
+router.post(
+  "/read/contrato/ingrediente-esencia",
+  contratoController.getIngredientesEsenciaContrato
+);
+//OBTENER LOS INGREDIENTE INGREDIENTE GENERAL DE UN CONTRATO
+router.post(
+  "/read/contrato/ingrediente-general",
+  contratoController.getIngredientesGeneralContrato
+);
+
+//OBTENER ALTERNATIVAS DE ENVIOS DE UN CONTRATO
+router.post(
+  "/read/contrato/alternativa-envios",
+  contratoController.getAlternativasEnviosContrato
+);
+
+//OBTENER CONDICIONES DE PAGO DE UN CONTRATO
+router.post(
+  "/read/contrato/condiciones-pago-contrato",
+  contratoController.getCondicionPagoContrato
+);
+
+//OBTENER  VIGENTES DE UN PROVEEDOR
 router.post(
   "/read/contratos-vigentes",
   contratoController.getContratosVigentes
@@ -114,6 +139,61 @@ router.post(
 router.post(
   "/read/proveedores-con-contratos-vigentes",
   proveedorController.getProveedoresConContratosVigentes
+);
+
+//CREAR PEDIDO
+router.post("/create/pedido", pedidoController.postCrearPedido);
+//CREAR DETALLE PEDIDO
+router.post("/create/detalle-pedido", pedidoController.postCrearDetallePedido);
+//CREAR RECHAZAR PEDIDO
+router.post("/update/rechazar-pedido", pedidoController.postRechazarPedido);
+
+//GUARDAR ALT ENVIO EN PEDIDO//
+router.post(
+  "/update/guardar-alt-env/cond-env-pago",
+  pedidoController.postGuardarAltEnvCondEnvPago
+);
+//GUARDAR COND PAGO EN PEDIDO
+router.post(
+  "/update/guardar-condicion-pago/cond-env-pago",
+  pedidoController.postGuardarCondPagoCondEnvPago
+);
+
+//OBTENER PEDIDOS CONDIRMADOS DE PRODUCTOR
+router.post(
+  "/read/pedido/pedidos-confirmado-productor",
+  pedidoController.getPedidoConfirmadoProductor
+);
+
+//OBTENER PEDIDOS  DE PRODUCTOR
+router.post(
+  "/read/pedido/pedidos-productor",
+  pedidoController.getPedidosProductor
+);
+//OBTENER PEDIDOS POR CONFIRMAR DE PORVEEDOR
+router.post(
+  "/read/pedido/pedidos-por-confirmar-proveedor",
+  pedidoController.getPedidoPorConfirmarProveedor
+);
+//OBTENER PAGOS DE UN PEDIDO
+router.post("/read/pedido/pago-pedido", pedidoController.getPedidoPago);
+
+//CREAR PAGO DE CONTADO
+router.post("/create/pago-contado", pedidoController.postCrearPagoContado);
+//CREAR PAGO DE CRÉDITO
+router.post("/create/pago-credito", pedidoController.postCrearPagoCredito);
+
+//UPDATE MONTO PEDIDO
+router.post("/update/monto-de-pedido", pedidoController.guardarMontoPedido);
+
+//OBTENER PERFUMES POR FAMILIA OLFATIVA
+router.post(
+  "/read/perfumes-recomendador",
+  recomendadorController.getPerfumesRecomendador
+);
+router.post(
+  "/read/recomendador/op-tipo-palabra-clave",
+  recomendadorController.getOpPalabraClave
 );
 
 module.exports = router;

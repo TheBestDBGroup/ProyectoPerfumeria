@@ -10,6 +10,7 @@ const getProveedores = (request, response) => {
 };
 
 const getProveedor = (request, response) => {
+  console.log('req body', request.body)
   let values = [request.body.id_proveedor];
   pool.query(
     "SELECT * FROM ydm_proveedor WHERE id_proveedor = $1",

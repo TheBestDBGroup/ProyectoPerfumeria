@@ -17,7 +17,7 @@ const RealizarEvaluacionInicial = () => {
 
   	//funcion para manejar proveedor
   	const handleSelect = (id) => {
-		history.replace(`/evaluacion/mostrar-condiciones-eval-inicial/${id}`);
+		history.push(`/evaluacion/mostrar-condiciones-eval-inicial/${id}`);
 	}
 
 

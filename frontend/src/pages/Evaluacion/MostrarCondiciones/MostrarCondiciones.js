@@ -67,7 +67,7 @@ const MostrarCondiciones = (props) => {
 	}, []);
 
 	const handleSubmit = () => {
-		history.replace(`/realizar-evaluacion/llenar-criterios/${id_proveedor}/inicial/inicial`);
+		history.push(`/realizar-evaluacion/llenar-criterios/${id_proveedor}/inicial/inicial`);
 	}
 
 

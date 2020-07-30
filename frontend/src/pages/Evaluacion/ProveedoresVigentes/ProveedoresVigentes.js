@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 //Mostrar lista de proveedores 
-const RealizarEvaluacionRenovacion = () => {
+const ProveedoresVigentes = () => {
 
 	const productorId = localStorage.getItem('id_productor');
 	const history = useHistory();
@@ -50,7 +50,7 @@ const RealizarEvaluacionRenovacion = () => {
 
 
   	const handleSelect = (id, idcontrato) => {
-		history.replace(`/contrato/cancelar/${idcontrato}`);
+		history.push(`/contrato/cancelar/${idcontrato}`);
 	}
 
 
@@ -101,4 +101,4 @@ const RealizarEvaluacionRenovacion = () => {
 }
 
 
-export default RealizarEvaluacionRenovacion
+export default ProveedoresVigentes

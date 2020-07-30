@@ -14,7 +14,7 @@ const FiltroProductor = (props) => {
 
 	const handleSelect = (id) => {
 		localStorage.setItem('id_productor', id);
-		history.replace(`/${redirectDir}`);
+		history.push(`/${redirectDir}`);
 	}
 
 	useEffect(() => {

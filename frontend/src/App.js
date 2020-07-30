@@ -18,6 +18,23 @@ import MostrarResultado from './pages/Evaluacion/MostrarResultado/MostrarResulta
 import ProveedoresVigentes from './pages/Evaluacion/ProveedoresVigentes/ProveedoresVigentes'
 import CancelarContrato from './pages/Evaluacion/CancelarContrato/CancelarContrato'
 
+
+//Componentes de Compras
+import Compras from './pages/Compras/Compras/Compras'
+import ContratosVigentes from './pages/Compras/ContratosVigentes/ContratosVigentes'
+import MostrarDetallesContrato from './pages/Compras/MostrarDetallesContrato/MostrarDetallesContrato'
+import EncabezadoPedido from './pages/Compras/EncabezadoPedido/EncabezadoPedido'
+import AgregarDetalles from './pages/Compras/AgregarDetalles/AgregarDetalles'
+import AgregarEnvio from './pages/Compras/AgregarEnvio/AgregarEnvio'
+import AgregarPago from './pages/Compras/AgregarPago/AgregarPago'
+import ListaPedidos from './pages/Compras/ListaPedidos/ListaPedidos'
+import VerPagos from './pages/Compras/VerPagos/VerPagos'
+import ListaPorConfirmar from './pages/Compras/ListaPorConfirmar/ListaPorConfirmar'
+import FiltroProveedor from './components/FiltroProveedor/FiltroProveedor'
+
+//Recomendador
+import Recomendador from './pages/Recomendador/Recomendador/Recomendador'
+
 const routes = [
     {//root
       path: '/',
@@ -31,6 +48,10 @@ const routes = [
     {//redireccion para escoger el productor en el filtro de Prod
       path: '/elegirProd/:redirectDir',
       render: (props) => <FiltroProductor {...props} />
+    },
+    {//redireccion para escoger el proveedor en el filtro de Prod
+      path: '/elegirProv/:redirectDir',
+      render: (props) => <FiltroProveedor {...props} />
     },
     {//elegir tipo de crear evaluacion o realizar evaluacion tipo = crear-evaluacion o realizar-evaluacion
       path: '/evaluacion/evaluar/:tipo',
@@ -64,14 +85,59 @@ const routes = [
       path: '/contrato/crear/:idproveedor',
       render: (props) => <NuevoContrato {...props} />
     },
-    { //WIP! listas de contratos vigentes
+    { //listas de contratos vigentes
       path: '/contrato/ver-vigentes',
       render: (props) => <ProveedoresVigentes {...props} />
     },
-    { //no implementado, pantalla para cancelar y poner motivos de cancelacion
+    { //pantalla para cancelar y poner motivos de cancelacion
       path: '/contrato/cancelar/:idContrato',
       render: (props) => <CancelarContrato {...props} />
     },
+    { // pantalla para cancelar y poner motivos de cancelacion
+      path: '/compras',
+      render: (props) => <Compras {...props} />
+    },
+    {
+      path: '/comprar/contratos-vigentes',
+      render: (props) => <ContratosVigentes {...props} />
+    }, 
+    {
+      path: '/comprar/detalles-contrato/:idcontrato/:idproveedor',
+      render: (props) => <MostrarDetallesContrato {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/encabezado/:idcontrato/:idproveedor',
+      render: (props) => <EncabezadoPedido {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-detalles/:idpedido/:idcontrato/:idproveedor',
+      render: (props) => <AgregarDetalles {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-envio/:idpedido/:idcontrato/:idproveedor',
+      render: (props) => <AgregarEnvio {...props} />
+    }, 
+    {
+      path: '/realizar-pedido/agregar-forma-pago/:idpedido/:idcontrato/:idproveedor',
+      render: (props) => <AgregarPago {...props} />
+    },
+    {
+      path: '/comprar/lista-pedidos/productor',
+      render: (props) => <ListaPedidos {...props} />
+    },  
+    {
+      path: '/ver-pagos/:idpedido',
+      render: (props) => <VerPagos {...props} />
+    }, 
+    {
+      path: '/comprar/lista-pedidos/proveedor',
+      render: (props) => <ListaPorConfirmar {...props} />
+    },
+    {
+      path: '/recomendador',
+      render: (props) => <Recomendador {...props} />
+    },    
+
 ];
 
 function App() {

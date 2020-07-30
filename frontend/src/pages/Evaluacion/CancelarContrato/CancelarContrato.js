@@ -24,7 +24,7 @@ const CancelarContrato = (props) => {
 		  })
 		  .then((res) =>{
 		  	alert('Contrato cancelado con éxito')
-		    history.replace(`/`);
+		    history.push(`/`);
             
 		  })
 		  .catch(function (error) {

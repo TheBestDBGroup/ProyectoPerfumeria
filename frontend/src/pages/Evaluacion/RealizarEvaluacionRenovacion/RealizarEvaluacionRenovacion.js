@@ -50,7 +50,7 @@ const RealizarEvaluacionRenovacion = () => {
 
 
   	const handleSelect = (id, idcontrato) => {
-		history.replace(`/realizar-evaluacion/llenar-criterios/${id}/renovacion/${idcontrato}`);
+		history.push(`/realizar-evaluacion/llenar-criterios/${id}/renovacion/${idcontrato}`);
 	}
 
 

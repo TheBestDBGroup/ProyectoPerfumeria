@@ -1,0 +1,16 @@
+.criterio-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.criterio-peso-input {
+	margin-top: 16px;
+}
+
+.criterio-delete-icon {
+	margin-top: 16px;
+}
+
+.peso-label {
+	display: inline-block;
+}

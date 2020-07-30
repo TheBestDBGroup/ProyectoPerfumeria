@@ -15,7 +15,7 @@ const ChooseEvalType = (props) => {
 	const history = useHistory();
 
 	const handleRedirect = (tipoRedirect) => {
-		history.replace(`/${tipo}/${tipoRedirect}`)
+		history.push(`/${tipo}/${tipoRedirect}`)
 	}
 
 

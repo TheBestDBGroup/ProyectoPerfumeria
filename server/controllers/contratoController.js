@@ -15,6 +15,7 @@ const getOpcionesPagoProveedor = (request, response) => {
     response.status(200).json(results.rows);
   });
 };
+
 const getOpcionesEnvioProveedor = (request, response) => {
   let values = [request.body.id_proveedor];
 
@@ -208,7 +209,7 @@ const postGetOpcionesIngredienteGeneral = (request, response) => {
   console.log(request.body);
 
   let text =
-    "SELECT ig.id_ingrediente_general, ig.nombre_ingrediente_general,\
+  "SELECT ig.id_ingrediente_general, ig.nombre_ingrediente_general,\
   ig.cas_ingrediente_general\
   from ydm_ingrediente_general ig\
   WHERE ig.id_ingrediente_general NOT IN (SELECT DISTINCT cp.id_ingr_general_clausula_prod FROM ydm_clausula_prod cp)\
@@ -271,10 +272,96 @@ const postGetOpcionesIngredienteEsenciaExc = (request, response) => {
   });
 };
 
+const getIngredientesEsenciaContrato = (request, response) => {
+  let values = [request.body.id_contrato];
+
+  const query =
+    "SELECT ig.id_ingrediente_esencia, ig.cas_ingrediente_esencia, ig.nombre_ingrediente_esencia, p.id_presentacion, p.precio_presentacion, p.volumen_presentacion\
+    FROM ydm_contrato c, ydm_clausula_prod cp, ydm_ingrediente_esencia ig, ydm_presentacion p\
+    WHERE 	c.id_contrato = cp.id_contrato_clausula_prod\
+    AND	  	cp.id_ingr_esencia_clausula_prod = ig.id_ingrediente_esencia\
+    AND		  ig.id_ingrediente_esencia = p.id_ingr_esencia_presentacion\
+    AND 	  p.id_productor_presentacion is NULL\
+    AND 	  c.id_contrato = $1";
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getIngredientesGeneralContrato = (request, response) => {
+  let values = [request.body.id_contrato];
+
+  const query =
+  "Select ig.id_ingrediente_general, ig.cas_ingrediente_general, ig.nombre_ingrediente_general, p.id_presentacion, p.precio_presentacion, p.volumen_presentacion\
+  FROM ydm_contrato c, ydm_clausula_prod cp, ydm_ingrediente_general ig, ydm_presentacion p\
+  WHERE 	c.id_contrato = cp.id_contrato_clausula_prod\
+  AND	  	cp.id_ingr_general_clausula_prod = ig.id_ingrediente_general\
+  AND		ig.id_ingrediente_general = p.id_ingr_esencia_presentacion\
+  AND 	p.id_productor_presentacion is NULL\
+  AND 	c.id_contrato = $1"
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getAlternativasEnviosContrato = (request, response) => {
+  let values = [request.body.id_contrato];
+
+  const query =
+  "SELECT at.id_alt_envio, at.transporte_alt_envio , p.nombre_pais, at.costo_alt_envio, at.tiempo_estimado_alt_envio, ce.id_cond_env_pago\
+  FROM ydm_contrato c, ydm_cond_env_pago ce, ydm_alt_envio at, ydm_pais p\
+  WHERE id_contrato = id_contrato_cond_env_pago\
+  AND   at.id_pais_alt_envio = p.id_pais\
+  AND	  id_alt_envio_cond_env_pago = id_alt_envio\
+  AND   id_proveedor_alt_envio_cond_env_pago = id_proveedor_alt_envio\
+  AND   id_pais_alt_envio_cond_env_pago = id_pais_alt_envio\
+  AND	  id_contrato = $1"
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getCondicionPagoContrato = (request, response) => {
+  let values = [request.body.id_contrato];
+
+  const query =
+  "SELECT cp.id_condicion_pago, cp.tipo_condicion_pago , cp.cuotas_condicion_pago, cp.prctj_cuotas_condicion_pago, cp.mesescantidad_condicion_pago, ce.id_cond_env_pago\
+  FROM ydm_contrato c, ydm_cond_env_pago ce, ydm_condicion_pago cp\
+  WHERE id_contrato = id_contrato_cond_env_pago\
+  AND	  id_condicion_pago_cond_env_pago = id_condicion_pago\
+  AND   id_proveedor_condicion_pago_cond_env_pago = id_proveedor_condicion_pago\
+  AND   id_contrato = $1"
+
+  pool.query(query, values, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+
+
 module.exports = {
   getOpcionesPagoProveedor,
   getOpcionesEnvioProveedor,
   getContratosVigentes,
+  getIngredientesEsenciaContrato,
+  getIngredientesGeneralContrato,
+  getAlternativasEnviosContrato,
+  getCondicionPagoContrato,
   postRenovarContrato,
   postCrearContrato,
   postCancelarContrato,

@@ -1,0 +1,30 @@
+.sidebar-wrapper {
+	background-color: white;
+	margin:0;
+	height:40vh;
+	width:100%;
+	border-right: 1px gray;
+}
+
+.sidebar-nav {
+	margin:0;
+	width:100%;
+	padding:0;
+	color:#9aa0ac;
+}
+
+.sidebar-nav-listgroup {
+	width:100%;
+}
+
+.sidebar-wrapper {
+	background-color: #efefef;
+}
+
+.titulo-perfume {
+	margin:10px;
+}
+
+.id-perfume {
+	margin-right: 10px;
+}
